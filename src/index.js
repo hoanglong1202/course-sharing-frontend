@@ -7,18 +7,21 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from 'store';
 import { SnackbarProvider } from 'notistack';
+import { StyledEngineProvider } from '@mui/material/styles';
 
 ReactDOM.render(
   <React.StrictMode>
     {/* <Provider store={store}> */}
-      <BrowserRouter>
+    <BrowserRouter>
+      <StyledEngineProvider injectFirst>
         <SnackbarProvider
           anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
           maxSnack={3}
         >
           <App />
         </SnackbarProvider>
-      </BrowserRouter>
+      </StyledEngineProvider>
+    </BrowserRouter>
     {/* </Provider> */}
   </React.StrictMode>,
   document.getElementById('root')
