@@ -9,17 +9,22 @@ import store from 'store';
 import { SnackbarProvider } from 'notistack';
 import { StyledEngineProvider } from '@mui/material/styles';
 
+import { ThemeProvider } from '@mui/material/styles';
+import theme from 'utils/theme';
+
 ReactDOM.render(
   <React.StrictMode>
     {/* <Provider store={store}> */}
     <BrowserRouter>
       <StyledEngineProvider injectFirst>
-        <SnackbarProvider
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          maxSnack={3}
-        >
-          <App />
-        </SnackbarProvider>
+        <ThemeProvider theme={theme}>
+          <SnackbarProvider
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            maxSnack={3}
+          >
+            <App />
+          </SnackbarProvider>
+        </ThemeProvider>
       </StyledEngineProvider>
     </BrowserRouter>
     {/* </Provider> */}

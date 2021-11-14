@@ -21,8 +21,10 @@ import CodeIcon from '@mui/icons-material/Code';
 // import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Close } from '@mui/icons-material';
+import Register from 'features/Auth/components/Register';
+import Login from 'features/Auth/components/Login';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
     flexGrow: 1,
@@ -36,11 +38,11 @@ const useStyles = makeStyles({
   },
   closeButton: {
     position: 'absolute',
-    top: `8px`,
-    right: `8px`,
+    top: theme.spacing(1),
+    right: theme.spacing(1),
     zIndex: 1,
   },
-});
+}));
 
 const MODE = {
   REGISTER: 'register',
@@ -169,7 +171,7 @@ export default function Header() {
         <DialogContent>
           {mode === MODE.REGISTER && (
             <>
-              {/* <Register closeDialog={handleClose} /> */}
+              <Register closeDialog={handleClose} />
 
               <Box textAlign="center">
                 <Button color="primary" onClick={() => setMode(MODE.LOGIN)}>
@@ -181,7 +183,7 @@ export default function Header() {
 
           {mode === MODE.LOGIN && (
             <>
-              {/* <Login closeDialog={handleClose} /> */}
+              <Login closeDialog={handleClose} />
 
               <Box textAlign="center">
                 <Button color="primary" onClick={() => setMode(MODE.REGISTER)}>
