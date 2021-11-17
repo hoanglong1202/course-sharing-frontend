@@ -14,7 +14,7 @@ import theme from 'utils/theme';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <Provider store={store}> */}
+    <Provider store={store}>
     <BrowserRouter>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
@@ -27,7 +27,7 @@ ReactDOM.render(
         </ThemeProvider>
       </StyledEngineProvider>
     </BrowserRouter>
-    {/* </Provider> */}
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
