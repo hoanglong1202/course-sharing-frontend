@@ -2,11 +2,11 @@ import { createTheme } from '@mui/material/styles';
 
 const pink = '#FFC0CB';
 const lightblue = '#ADD8E6';
-const purple = '#800080';
+const purple = '#6415FF';
 const black = '#000000';
 
 const theme = createTheme({
-  spacing: 4,
+  spacing: 8,
   palette: {
     common: {
       pink: pink,
@@ -15,7 +15,7 @@ const theme = createTheme({
       black: black,
     },
     primary: {
-      main: pink,
+      main: purple,
       mainGradient: 'linear-gradient(to left, purple, pink)',
     },
     secondary: {
