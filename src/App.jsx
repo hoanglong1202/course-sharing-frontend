@@ -2,6 +2,7 @@ import Header from 'components/Header';
 import { Box } from '@mui/system';
 import { makeStyles } from '@mui/styles';
 import { Container } from '@mui/material';
+import MainPage from 'features/MainPage';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +19,8 @@ function App() {
     <Box className={classes.root}>
       <Container maxWidth="false" className={classes.container}>
         <Header />
+
+        <MainPage />
       </Container>
     </Box>
   );

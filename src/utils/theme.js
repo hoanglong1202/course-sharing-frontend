@@ -16,6 +16,7 @@ const theme = createTheme({
     },
     primary: {
       main: purple,
+      hover: '#390e8f',
       mainGradient: 'linear-gradient(to left, purple, pink)',
     },
     secondary: {

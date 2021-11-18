@@ -70,15 +70,21 @@ const useStyles = makeStyles((theme) => ({
 
   appCover: {
     fontWeight: 900,
+    transitionDuration: `300ms`,
     fontSize: `1.5rem !important`,
+    letterSpacing: `0.1em`,
+
+    '&:hover': {
+      color: theme.palette.primary.main,
+    },
   },
 
   appBarTitle: {
     fontSize: `0.875rem`,
     margin: `0px 1.5rem`,
     fontWeight: 600,
-    letterSpacing: `0.025em`,
     transitionDuration: `300ms`,
+    letterSpacing: `0.1em`,
     paddingBottom: `0 25rem`,
     border: '0 solid',
     borderBottomWidth: '2px',
@@ -97,9 +103,25 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: `100px`,
     borderBottomWidth: `0px`,
     padding: `0.75rem 2rem`,
+
+    '&:hover': {
+      backgroundColor: theme.palette.primary.hover,
+    },
   },
 
   signUp: {
+    fontSize: `0.875rem`,
+    margin: `0px 1.5rem`,
+    fontWeight: 600,
+    transitionDuration: `300ms`,
+    letterSpacing: `0.1em`,
+    paddingBottom: `0 25rem`,
+    border: '0 solid',
+    borderBottomWidth: '2px',
+    borderColor: `transparent`,
+    textTransform: `none`,
+    cursor: 'pointer',
+  
     color: '#fff',
     margin: theme.spacing(0, 0.5),
   },
@@ -220,7 +242,7 @@ export default function Header() {
                   className={classes.signUpContainer}
                 >
                   <Typography
-                    className={clsx(classes.appBarTitle, classes.signUp)}
+                    className={classes.signUp}
                     variant="h6"
                     component="div"
                     sx={{ flexGrow: 1 }}
