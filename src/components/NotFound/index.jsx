@@ -7,7 +7,7 @@ NotFound.propTypes = {
 function NotFound(props) {
   return (
     <div>
-      404 - NOT FOUND
+      404 - NOT FOUNDD
     </div>
   );
 }
