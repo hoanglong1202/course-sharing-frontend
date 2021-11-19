@@ -111,7 +111,6 @@ const useStyles = makeStyles((theme) => ({
 
   signUp: {
     fontSize: `0.875rem`,
-    margin: `0px 1.5rem`,
     fontWeight: 600,
     transitionDuration: `300ms`,
     letterSpacing: `0.1em`,
@@ -287,6 +286,7 @@ export default function Header() {
             )}
           </Box>
         </Toolbar>
+  
         <FormGroup>
           <FormControlLabel
             control={
