@@ -64,11 +64,28 @@ const useStyles = makeStyles((theme) => ({
 
   courseLearn: {
     maxWidth: 300,
+    border: '1px solid #fff',
   },
 
   buttonContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+
     backgroundColor: '#fff',
-    minHeight: 100,
+    minHeight: 80,
+  },
+
+  learnButton: {
+    width: '100%',
+    padding: theme.spacing(1),
+    margin: theme.spacing(0, 1),
+    backgroundColor: theme.palette.primary.main,
+    color: '#fff',
+
+    '&:hover': {
+      backgroundColor: theme.palette.primary.hover,
+    },
   },
 }));
 
@@ -108,7 +125,7 @@ function TestPage(props) {
             <Box className={classes.courseLearn}>
               <img className={classes.courseCover} src={phongcanh3} alt="tét" />
               <Box className={classes.buttonContainer}>
-                <Button>Học ngay</Button>
+                <Button className={classes.learnButton}>Học ngay</Button>
               </Box>
             </Box>
           </Grid>
