@@ -18,6 +18,8 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import Test from 'assets/images/test.jpg';
 import CheckIcon from '@mui/icons-material/Check';
 import useStyles from './styles';
+import clsx from 'clsx';
+import Comments from './components/Comments';
 
 CourseDetail.propTypes = {};
 
@@ -42,16 +44,13 @@ function CourseDetail(props) {
                 </Link>
                 <Typography className={classes.breadcumb}>Khóa học</Typography>
               </Breadcrumbs>
-
               <Typography className={classes.courseTitle} variant="h1">
                 Machine Learning A-Z™: Hands-On Python & R In Data Science
               </Typography>
-
               <Typography className={classes.courseDecription} variant="body2">
                 Learn to create Machine Learning Algorithms in Python and R from
                 two Data Science experts. Code templates included.
               </Typography>
-
               <Box className={classes.iconContainer}>
                 <Box className={classes.iconHolder}>
                   <FavoriteIcon style={{ color: 'rgb(255 76 106)' }} />
@@ -76,15 +75,25 @@ function CourseDetail(props) {
                   <span className={classes.score}>4.5</span>
                 </Box>
               </Box>
-
               <Typography mt={1}>Created by:</Typography>
               <Box className={classes.authorContainer}>
-                <Avatar alt="Remy Sharp" src={Test} />
+                <Avatar
+                  className={classes.authorAvatar}
+                  alt="Remy Sharp"
+                  src={Test}
+                />
                 <Box className={classes.authorHolder}>
-                  <Typography className={classes.breadcumb}>
+                  <Typography
+                    className={clsx(
+                      classes.authorDescription,
+                      classes.authorTitle
+                    )}
+                  >
                     Easy Frontend
                   </Typography>
-                  <Typography>Senior tại NCC Soft</Typography>
+                  <Typography className={classes.authorDescription}>
+                    Senior tại NCC Soft
+                  </Typography>
                 </Box>
               </Box>
             </Box>
@@ -156,6 +165,8 @@ function CourseDetail(props) {
           </Typography>
         </Box>
       </Box>
+
+      <Comments />
     </Box>
   );
 }

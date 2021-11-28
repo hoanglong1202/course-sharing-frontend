@@ -112,6 +112,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
+
+    padding: theme.spacing(1),
   },
 
   authorHolder: {
@@ -120,6 +122,20 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     flexDirection: 'column',
     marginLeft: theme.spacing(1),
+  },
+
+  authorTitle: {
+    color: '#fff',
+    fontWeight: 600,
+    fontSize: 18,
+  },
+
+  authorDescription: {
+    display: '-webkit-box',
+    boxOrient: 'vertical',
+    lineClamp: 2,
+    textOverflow: `ellipsis`,
+    overflow: 'hidden',
   },
 
   content: {
