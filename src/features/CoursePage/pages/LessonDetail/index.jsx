@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { Box } from '@mui/system';
 import useStyles from './styles';
 import {
@@ -21,6 +21,11 @@ function LessonDetail(props) {
   const classes = useStyles();
   let { courseId, lessonId } = useParams();
   const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);

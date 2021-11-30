@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Box } from '@mui/system';
 import {
   Avatar,
@@ -27,10 +27,16 @@ function CourseDetail(props) {
   const classes = useStyles();
   let { courseId } = useParams();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleNavigate = () => {
     navigate(`/course/123ab/abcd`);
   };
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <Box className={classes.root}>
