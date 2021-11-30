@@ -15,7 +15,6 @@ import {
   Dialog,
   DialogContent,
 } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import CodeIcon from '@mui/icons-material/Code';
 // import { useDispatch, useSelector } from 'react-redux';
@@ -24,120 +23,8 @@ import { Close } from '@mui/icons-material';
 import Register from 'features/Auth/components/Register';
 import Login from 'features/Auth/components/Login';
 import clsx from 'clsx';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    position: 'relative',
-  },
-
-  title: {
-    flexGrow: 1,
-  },
-
-  link: {
-    textDecoration: 'none',
-    color: '#fff',
-  },
-
-  closeButton: {
-    position: 'absolute',
-    top: theme.spacing(1),
-    right: theme.spacing(1),
-    zIndex: 1,
-  },
-
-  appBarContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 0,
-  },
-
-  appBarTitleContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  appCoverContainer: {
-    display: `flex`,
-    flexDirection: 'row',
-    alignItems: `center`,
-
-    borderBottomWidth: `0px`,
-    marginLeft: `0px !important`,
-  },
-
-  appCover: {
-    fontWeight: 900,
-    transitionDuration: `300ms`,
-    fontSize: `1.5rem !important`,
-    letterSpacing: `0.1em`,
-
-    '&:hover': {
-      color: theme.palette.primary.main,
-    },
-  },
-
-  appBarTitle: {
-    fontSize: `0.875rem`,
-    margin: `0px 1.5rem`,
-    fontWeight: 600,
-    transitionDuration: `300ms`,
-    letterSpacing: `0.1em`,
-    paddingBottom: `0 25rem`,
-    border: '0 solid',
-    borderBottomWidth: '2px',
-    borderColor: `transparent`,
-    textTransform: `none`,
-    cursor: 'pointer',
-
-    '&:hover': {
-      color: theme.palette.primary.main,
-      borderColor: `${theme.palette.primary.main} !important`,
-    },
-  },
-
-  signUpContainer: {
-    backgroundColor: theme.palette.primary.main,
-    borderRadius: `100px`,
-    borderBottomWidth: `0px`,
-    padding: `0.75rem 2rem`,
-
-    '&:hover': {
-      backgroundColor: theme.palette.primary.hover,
-    },
-  },
-
-  signUp: {
-    fontSize: `0.875rem`,
-    fontWeight: 600,
-    transitionDuration: `300ms`,
-    letterSpacing: `0.1em`,
-    paddingBottom: `0 25rem`,
-    border: '0 solid',
-    borderBottomWidth: '2px',
-    borderColor: `transparent`,
-    textTransform: `none`,
-    cursor: 'pointer',
-  
-    color: '#fff',
-    margin: theme.spacing(0, 0.5),
-  },
-
-  login: {
-    marginLeft: `44px !important`,
-  },
-
-  codeIcon: {
-    display: 'flex',
-    padding: theme.spacing(1),
-    marginRight: theme.spacing(1.5),
-
-    backgroundColor: theme.palette.primary.main,
-    borderRadius: 5,
-  },
-}));
+import SearchAppBar from './components/SearchAppBar';
+import useStyles from './styles';
 
 const MODE = {
   REGISTER: 'register',
@@ -147,7 +34,11 @@ const MODE = {
 export default function Header() {
   const classes = useStyles();
   // const dispatch = useDispatch();
-  const history = useNavigate();
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate(`/`);
+  };
 
   const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -193,19 +84,21 @@ export default function Header() {
               variant="h6"
               component="div"
               sx={{ flexGrow: 1 }}
+              onClick={handleNavigate}
             >
-              Photos
+              Courses Sharing
             </Typography>
           </Box>
 
           <Box className={classes.appBarTitleContainer}>
+            <SearchAppBar />
             <Typography
               className={classes.appBarTitle}
               variant="h6"
               component="div"
               sx={{ flexGrow: 1 }}
             >
-              Photos
+              Quản lý
             </Typography>
             <Typography
               className={classes.appBarTitle}
@@ -213,7 +106,7 @@ export default function Header() {
               component="div"
               sx={{ flexGrow: 1 }}
             >
-              Photos
+              Khóa học
             </Typography>
             <Typography
               className={classes.appBarTitle}
@@ -221,7 +114,7 @@ export default function Header() {
               component="div"
               sx={{ flexGrow: 1 }}
             >
-              Photos
+              Thảo luận
             </Typography>
 
             {!auth && (
@@ -232,7 +125,7 @@ export default function Header() {
                     variant="h6"
                     component="div"
                   >
-                    Login
+                    Đăng nhập
                   </Typography>
                 </div>
                 <Button
@@ -246,7 +139,7 @@ export default function Header() {
                     component="div"
                     sx={{ flexGrow: 1 }}
                   >
-                    Sign up
+                    Đăng ký
                   </Typography>
                 </Button>
               </>
@@ -279,8 +172,9 @@ export default function Header() {
                   open={Boolean(anchorEl)}
                   onClose={handleMenuClose}
                 >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>My account</MenuItem>
+                  <MenuItem onClick={handleClose}>Cá nhân</MenuItem>
+                  <MenuItem onClick={handleClose}>Tài khoản</MenuItem>
+                  <MenuItem onClick={handleClose}>Đăng xuất</MenuItem>
                 </Menu>
               </div>
             )}
@@ -321,7 +215,8 @@ export default function Header() {
 
               <Box textAlign="center">
                 <Button color="primary" onClick={() => setMode(MODE.LOGIN)}>
-                  Already have an account? Login here.
+                  Bạn đã có tài khoản? &nbsp;
+                  <b>Đăng nhập ngay!</b>
                 </Button>
               </Box>
             </>
@@ -333,7 +228,8 @@ export default function Header() {
 
               <Box textAlign="center">
                 <Button color="primary" onClick={() => setMode(MODE.REGISTER)}>
-                  Don't have an account? Register here.
+                  Bạn không có tài khoản? &nbsp;
+                  <b>Đăng ký ngay!</b>
                 </Button>
               </Box>
             </>

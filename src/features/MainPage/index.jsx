@@ -3,110 +3,10 @@ import DesignIllustration from 'assets/images/design-illustration-2.svg';
 import UDN from 'assets/images/UDN.jpg';
 import UTE from 'assets/images/UTE.png';
 import { Box } from '@mui/system';
-import { Card, Grid, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Card, Grid, Pagination, Typography } from '@mui/material';
 import clsx from 'clsx';
 import CourseCard from './components/CourseCard';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    paddingTop: theme.spacing(12),
-  },
-
-  titleBox: {
-    paddingRight: theme.spacing(1),
-
-    [theme.breakpoints.down('md')]: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  },
-
-  image: {
-    width: '100%',
-  },
-
-  title: {
-    fontSize: theme.spacing(6),
-    fontWeight: 600,
-    color: theme.palette.tertiary.main,
-
-    [theme.breakpoints.down('md')]: {
-      textAlign: 'center',
-    },
-  },
-
-  strong: {
-    color: theme.palette.primary.main,
-  },
-
-  description: {
-    fontSize: theme.spacing(2.2),
-    margin: theme.spacing(4, 0),
-    color: theme.palette.tertiary.second,
-
-    [theme.breakpoints.down('md')]: {
-      textAlign: 'center',
-    },
-  },
-
-  logo: {
-    maxWidth: 50,
-    maxHeight: 50,
-    marginRight: theme.spacing(1),
-    opacity: 0.5,
-  },
-
-  customerContainer: {
-    [theme.breakpoints.up('md')]: {
-      marginTop: '5rem',
-    },
-
-    [theme.breakpoints.down('md')]: {
-      marginTop: `0 !important`,
-    },
-  },
-
-  customerTitle: {
-    color: theme.palette.tertiary.third,
-    fontWeight: 600,
-    textTransform: 'uppercase',
-    fontSize: theme.spacing(1.5),
-  },
-
-  logoContainer: {
-    marginTop: theme.spacing(2),
-  },
-
-  sectionContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  features: {
-    color: theme.palette.primary.main,
-    fontWeight: 600,
-    textTransform: 'uppercase',
-    letterSpacing: `0.2em`,
-    marginBottom: theme.spacing(2),
-  },
-
-  sectionDescription: {
-    maxWidth: '576px',
-    marginTop: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.tertiary.third,
-  },
-
-  courseContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-}));
+import useStyles from './styles';
 
 function MainPage(props) {
   const classes = useStyles();
@@ -116,9 +16,9 @@ function MainPage(props) {
         <Grid item xs={12} md={5}>
           <Box className={classes.titleBox}>
             <Typography className={classes.title}>
-              Lorem, ipsum dolor sit amet {` `}
+              Nơi chia sẻ khóa học lập trình {` `}
               <span className={clsx(classes.title, classes.strong)}>
-                MEO MEO
+                miễn phí
               </span>
             </Typography>
             <Typography className={classes.description}>
@@ -147,6 +47,46 @@ function MainPage(props) {
       </Grid>
 
       <Box className={classes.sectionContainer}>
+        <span className={classes.features}>Most Viewed</span>
+        <Typography variant="h2" className={classes.title}>
+          Khóa học{' '}
+          <span className={clsx(classes.title, classes.strong)}>
+            xem nhiều nhất
+          </span>
+        </Typography>
+      </Box>
+
+      <Box mt={5} mb={10}>
+        <Grid container spacing={3} className={classes.courseContainer}>
+          {[...Array(3)].map((x) => (
+            <Grid item>
+              <CourseCard />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+
+      <Box className={classes.sectionContainer}>
+        <span className={classes.features}>Most Favourited</span>
+        <Typography variant="h2" className={classes.title}>
+          Khóa học{' '}
+          <span className={clsx(classes.title, classes.strong)}>
+            yêu thích nhất
+          </span>
+        </Typography>
+      </Box>
+
+      <Box mt={5} mb={10}>
+        <Grid container spacing={3} className={classes.courseContainer}>
+          {[...Array(3)].map((x) => (
+            <Grid item>
+              <CourseCard />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+
+      {/* <Box className={classes.sectionContainer}>
         <span className={classes.features}>features</span>
         <Typography variant="h2" className={classes.title}>
           We have Amazing{' '}
@@ -157,16 +97,26 @@ function MainPage(props) {
           ex nesciunt eveniet ipsam beatae quidem ratione quaerat aperiam
           voluptatem
         </p>
+      </Box> */}
+
+      <Box className={classes.sectionContainer}>
+        <span className={classes.features}>All courses</span>
       </Box>
 
-      <Box mt={5}>
-        <Grid container spacing={3} className={classes.courseContainer}>
-          {[...Array(6)].map((x) => (
-            <Grid item>
-              <CourseCard />
-            </Grid>
-          ))}
-        </Grid>
+      <Box mt={3} mb={2}>
+        <Box mt={3}>
+          <Grid container spacing={3} className={classes.courseContainer}>
+            {[...Array(6)].map((x) => (
+              <Grid item>
+                <CourseCard />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+
+        <Box mt={3} className={classes.pagination}>
+          <Pagination count={10} color="primary" />
+        </Box>
       </Box>
     </Box>
   );

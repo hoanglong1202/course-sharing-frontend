@@ -16,6 +16,7 @@ import { makeStyles } from '@mui/styles';
 import StarIcon from '@mui/icons-material/Star';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -84,6 +85,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CourseCard() {
   const classes = useStyles();
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate(`/course/123ab`);
+  };
+
   return (
     <Card className={classes.root}>
       <CardMedia
@@ -122,17 +129,13 @@ export default function CourseCard() {
           </Grid>
         </Grid>
 
-        <Typography
-          variant="body2"
-          component="div"
-          mt={1}
-        >
+        <Typography variant="body2" component="div" mt={1}>
           Lizards are a widespread group of squamate reptiles, with over 6,000
           species, ranging across all continents except Antarctica
         </Typography>
       </CardContent>
-      <CardActions className={classes.buttonContainer}>
-        <div className={classes.buttonTitle}>Learn More</div>
+      <CardActions className={classes.buttonContainer} onClick={handleNavigate}>
+        <div className={classes.buttonTitle}>Học ngay</div>
       </CardActions>
     </Card>
   );

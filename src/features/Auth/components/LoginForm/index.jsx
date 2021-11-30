@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: "0 auto",
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   title: {
     margin: theme.spacing(2, 0, 4, 0),
@@ -80,7 +80,7 @@ function LoginForm(props) {
         </Avatar>
 
         <Typography component="h3" variant="h5" className={classes.title}>
-          Sign in
+          Đăng nhập
         </Typography>
 
         <InputField form={form} name="identifier" label="Email" />
@@ -95,7 +95,7 @@ function LoginForm(props) {
           color="primary"
           size="large"
         >
-          Sign in
+          Đăng nhập
         </Button>
       </form>
     </div>

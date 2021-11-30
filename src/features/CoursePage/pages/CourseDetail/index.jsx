@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Box } from '@mui/system';
 import {
   Avatar,
@@ -26,6 +26,12 @@ CourseDetail.propTypes = {};
 function CourseDetail(props) {
   const classes = useStyles();
   let { courseId } = useParams();
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate(`/course/123ab/abcd`);
+  };
+
   return (
     <Box className={classes.root}>
       <Box className={classes.titleBackground} />
@@ -103,7 +109,7 @@ function CourseDetail(props) {
             <Box className={classes.courseLearn}>
               <img className={classes.courseCover} src={phongcanh3} alt="tét" />
               <Box className={classes.buttonContainer}>
-                <Button className={classes.learnButton}>Học ngay</Button>
+                <Button onClick={handleNavigate} className={classes.learnButton}>Học ngay</Button>
                 <Button className={classes.loveButton}>
                   {' '}
                   <FavoriteIcon style={{ color: 'rgb(255 76 106)' }} />
