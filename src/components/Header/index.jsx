@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import CodeIcon from '@mui/icons-material/Code';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Close } from '@mui/icons-material';
 import Register from 'features/Auth/components/Register';
@@ -25,6 +25,7 @@ import Login from 'features/Auth/components/Login';
 import clsx from 'clsx';
 import SearchAppBar from './components/SearchAppBar';
 import useStyles from './styles';
+import { logOut } from 'features/Auth/authSlice';
 
 const MODE = {
   REGISTER: 'register',
@@ -33,20 +34,29 @@ const MODE = {
 
 export default function Header() {
   const classes = useStyles();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.auth.current);
+  const auth = currentUser.id ? true : false;
+  // const auth = true;
 
   const handleNavigate = () => {
     navigate(`/`);
   };
 
-  const [auth, setAuth] = useState(true);
+  // const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
 
-  const handleClickOpen = () => {
+  const handleClickOpenLogin = () => {
+    setMode(MODE.LOGIN);
+    setOpen(true);
+  };
+
+  const handleClickOpenRegister = () => {
+    setMode(MODE.REGISTER);
     setOpen(true);
   };
 
@@ -54,9 +64,9 @@ export default function Header() {
     setOpen(false);
   };
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
+  // const handleChange = (event) => {
+  //   setAuth(event.target.checked);
+  // };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -67,8 +77,8 @@ export default function Header() {
   };
 
   const handleUserLogOut = () => {
-    // dispatch(logOut());
-    handleClose();
+    dispatch(logOut());
+    handleMenuClose();
   };
 
   return (
@@ -119,7 +129,7 @@ export default function Header() {
 
             {!auth && (
               <>
-                <div color="inherit" onClick={handleClickOpen}>
+                <div color="inherit" onClick={handleClickOpenLogin}>
                   <Typography
                     className={clsx(classes.appBarTitle, classes.login)}
                     variant="h6"
@@ -130,7 +140,7 @@ export default function Header() {
                 </div>
                 <Button
                   color="inherit"
-                  onClick={handleClickOpen}
+                  onClick={handleClickOpenRegister}
                   className={classes.signUpContainer}
                 >
                   <Typography
@@ -161,7 +171,7 @@ export default function Header() {
                   id="menu-appbar"
                   anchorEl={anchorEl}
                   anchorOrigin={{
-                    vertical: 'top',
+                    vertical: 'bottom',
                     horizontal: 'right',
                   }}
                   keepMounted
@@ -172,16 +182,16 @@ export default function Header() {
                   open={Boolean(anchorEl)}
                   onClose={handleMenuClose}
                 >
-                  <MenuItem onClick={handleClose}>Cá nhân</MenuItem>
-                  <MenuItem onClick={handleClose}>Tài khoản</MenuItem>
-                  <MenuItem onClick={handleClose}>Đăng xuất</MenuItem>
+                  <MenuItem onClick={handleMenuClose}>Cá nhân</MenuItem>
+                  <MenuItem onClick={handleMenuClose}>Tài khoản</MenuItem>
+                  <MenuItem onClick={handleUserLogOut}>Đăng xuất</MenuItem>
                 </Menu>
               </div>
             )}
           </Box>
         </Toolbar>
   
-        <FormGroup>
+        {/* <FormGroup>
           <FormControlLabel
             control={
               <Switch
@@ -192,7 +202,7 @@ export default function Header() {
             }
             label={auth ? 'Logout' : 'Login'}
           />
-        </FormGroup>
+        </FormGroup> */}
       </AppBar>
 
       <Dialog

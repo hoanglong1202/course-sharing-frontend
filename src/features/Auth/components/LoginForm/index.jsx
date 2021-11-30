@@ -46,7 +46,7 @@ function LoginForm(props) {
   const classes = useStyles();
 
   const schema = yup.object().shape({
-    identifier: yup
+    email: yup
       .string()
       .required("Please enter your email address.")
       .email("Please enter valid email address."),
@@ -55,7 +55,7 @@ function LoginForm(props) {
 
   const form = useForm({
     defaultValues: {
-      identifier: "",
+      email: "",
       password: "",
     },
     resolver: yupResolver(schema),
@@ -83,7 +83,7 @@ function LoginForm(props) {
           Đăng nhập
         </Typography>
 
-        <InputField form={form} name="identifier" label="Email" />
+        <InputField form={form} name="email" label="Email" />
         <PasswordField form={form} name="password" label="Password" />
 
         <Button
