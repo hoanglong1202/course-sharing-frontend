@@ -46,11 +46,11 @@ function RegisterForm(props) {
   const classes = useStyles();
 
   const schema = yup.object().shape({
-    fullname: yup
+    username: yup
       .string()
       .required("Please enter your name!")
       .test(
-        "fullnameValidate",
+        "usernameValidate",
         "Your name should have at least two words.",
         (value) => {
           return value.split(" ").length >= 2;
@@ -72,7 +72,7 @@ function RegisterForm(props) {
 
   const form = useForm({
     defaultValues: {
-      fullname: "",
+      username: "",
       email: "",
       password: "",
       retypePassword: "",
@@ -103,7 +103,7 @@ function RegisterForm(props) {
           Đăng ký tài khoản
         </Typography>
 
-        <InputField form={form} name="fullname" label="Full Name" />
+        <InputField form={form} name="username" label="Full Name" />
         <InputField form={form} name="email" label="Email" />
         <PasswordField form={form} name="password" label="Password" />
         <PasswordField
