@@ -35,7 +35,7 @@ function CourseDetail(props) {
   const [course, setCourse] = useState({});
 
   const handleNavigate = () => {
-    navigate(`/course/123ab/abcd`);
+    navigate(`/course/${course.id}/${course.firstLesson.id}`);
   };
 
   useEffect(() => {
@@ -170,14 +170,14 @@ function CourseDetail(props) {
         <Box className={classes.contentInfor}>
           <CheckIcon />
           <Typography className={classes.infor}>
-            20 Bài học được chia sẻ từ lập trình viên hàng đầu
+            Hơn {course?.total} bài học được chia sẻ từ lập trình viên hàng đầu
           </Typography>
         </Box>
 
         <Box className={classes.contentInfor}>
           <CheckIcon />
           <Typography className={classes.infor}>
-            Hơn 55 học viên đã tham gia và hơn 30 người yêu thích khóa học này
+            Hơn {course?.viewed} học viên đã tham gia và hơn {course?.favourited} người yêu thích khóa học này
           </Typography>
         </Box>
 

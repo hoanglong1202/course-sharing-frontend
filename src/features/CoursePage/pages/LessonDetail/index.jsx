@@ -40,7 +40,7 @@ function LessonDetail(props) {
             <iframe
               className={classes.mediaContainer}
               // src="https://drive.google.com/file/d/0BxxqCeuD1il5T2tmRF9ST19aRG8/preview?resourcekey=0-TTFP8JW_feWeGiAyEb3nRw"
-              src="https://www.youtube.com/embed/w-_sOmdyI_I"
+              src="https://www.youtube.com/embed/gGzDcUjZGmI"
               title="YouTube video player"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen;"
