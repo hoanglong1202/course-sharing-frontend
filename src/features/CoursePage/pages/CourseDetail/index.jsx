@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Box } from '@mui/system';
@@ -20,6 +20,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import useStyles from './styles';
 import clsx from 'clsx';
 import Comments from './components/Comments';
+import courseApi from 'api/courseApi';
 
 CourseDetail.propTypes = {};
 
@@ -29,10 +30,25 @@ function CourseDetail(props) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  const [course, setCourse] = useState({});
+
   const handleNavigate = () => {
     navigate(`/course/123ab/abcd`);
   };
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const { dataObj } = await courseApi.getCourse(courseId);
+
+        setCourse(dataObj);
+      } catch (error) {
+        console.log('Some error occur: ', error);
+      }
+    })();
+  }, []);
+
+  console.log(course);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -115,7 +131,12 @@ function CourseDetail(props) {
             <Box className={classes.courseLearn}>
               <img className={classes.courseCover} src={phongcanh3} alt="tét" />
               <Box className={classes.buttonContainer}>
-                <Button onClick={handleNavigate} className={classes.learnButton}>Học ngay</Button>
+                <Button
+                  onClick={handleNavigate}
+                  className={classes.learnButton}
+                >
+                  Học ngay
+                </Button>
                 <Button className={classes.loveButton}>
                   {' '}
                   <FavoriteIcon style={{ color: 'rgb(255 76 106)' }} />

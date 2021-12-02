@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DesignIllustration from 'assets/images/design-illustration-2.svg';
 import UDN from 'assets/images/UDN.jpg';
 import UTE from 'assets/images/UTE.png';
@@ -7,8 +7,30 @@ import { Card, Grid, Pagination, Typography } from '@mui/material';
 import clsx from 'clsx';
 import CourseCard from './components/CourseCard';
 import useStyles from './styles';
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
+import courseApi from 'api/courseApi';
 
 function MainPage(props) {
+  const location = useLocation();
+  const queryParams = queryString.parse(location.search);
+
+  const [course, setCourse] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { dataObj } = await courseApi.getAllCourse(queryParams);
+
+        setCourse(dataObj);
+      } catch (error) {
+        console.log('Some error occur: ', error);
+      }
+    })();
+  }, [queryParams]);
+
+  console.log('course', course);
+
   const classes = useStyles();
   return (
     <Box className={classes.root}>
