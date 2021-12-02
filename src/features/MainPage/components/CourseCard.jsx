@@ -17,6 +17,7 @@ import StarIcon from '@mui/icons-material/Star';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
   cardContent: {
     padding: theme.spacing(3, 5),
-    height: '150px',
+    height: 120,
 
     overflow: `hidden`,
     textOverflow: `ellipsis`,
@@ -73,22 +74,39 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: theme.palette.primary.hover,
     },
+  },
 
-    buttonTitle: {
-      fontSize: '125rem',
-      letterSpacing: `0.1em`,
-      color: '#fff',
-      fontWeight: 600,
-    },
+  buttonTitle: {},
+
+  title: {
+    display: '-webkit-box',
+    boxOrient: 'vertical',
+    lineClamp: 1,
+    textOverflow: `ellipsis`,
+    overflow: 'hidden',
+
+  },
+
+  description: {
+    display: '-webkit-box',
+    boxOrient: 'vertical',
+    lineClamp: 3,
+    textOverflow: `ellipsis`,
+    overflow: 'hidden',
+
   },
 }));
 
-export default function CourseCard() {
+CourseCard.propTypes = {
+  item: PropTypes.object.isRequired,
+};
+
+export default function CourseCard({ item }) {
   const classes = useStyles();
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate(`/course/123ab`);
+    navigate(`/course/${item.id}`);
   };
 
   return (
@@ -101,8 +119,14 @@ export default function CourseCard() {
       />
       <CardContent className={classes.cardContent}>
         <Box className={classes.titleContainer}>
-          <Typography mb={0} gutterBottom variant="h5" component="div">
-            Lizard
+          <Typography
+            mb={0}
+            className={classes.title}
+            gutterBottom
+            variant="h5"
+            component="div"
+          >
+            {item?.course_name}
           </Typography>
         </Box>
 
@@ -117,21 +141,20 @@ export default function CourseCard() {
           <Grid item xs={4}>
             <Box className={classes.iconHolder}>
               <FavoriteIcon style={{ color: 'rgb(255 76 106)' }} />
-              <span className={classes.score}>45</span>
+              <span className={classes.score}>{item?.favourited}</span>
             </Box>
           </Grid>
 
           <Grid item xs={4}>
             <Box className={classes.iconHolder}>
               <RemoveRedEyeIcon style={{ color: '#4A5568' }} />
-              <span className={classes.score}>55</span>
+              <span className={classes.score}>{item?.viewed}</span>
             </Box>
           </Grid>
         </Grid>
 
-        <Typography variant="body2" component="div" mt={1}>
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+        <Typography variant="body2" component="div" mt={1} className={classes.description}>
+          {item?.description}
         </Typography>
       </CardContent>
       <CardActions className={classes.buttonContainer} onClick={handleNavigate}>

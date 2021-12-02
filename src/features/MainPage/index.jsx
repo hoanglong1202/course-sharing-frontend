@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import DesignIllustration from 'assets/images/design-illustration-2.svg';
 import UDN from 'assets/images/UDN.jpg';
 import UTE from 'assets/images/UTE.png';
@@ -7,29 +7,61 @@ import { Card, Grid, Pagination, Typography } from '@mui/material';
 import clsx from 'clsx';
 import CourseCard from './components/CourseCard';
 import useStyles from './styles';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
 import courseApi from 'api/courseApi';
 
 function MainPage(props) {
   const location = useLocation();
-  const queryParams = queryString.parse(location.search);
+  const navigate = useNavigate();
+  const [course, setCourse] = useState({
+    favouritedCourse: [],
+    viewedCourse: [],
+    courses: [],
+  });
+  const [loading, setLoading] = useState(true);
+  const [pagination, setPagination] = useState(0);
 
-  const [course, setCourse] = useState([]);
+  const queryParams = useMemo(() => {
+    const params = queryString.parse(location.search);
+
+    return {
+      ...params,
+      page: params.page || 1,
+      limit: params.limit || 6,
+    };
+  }, [location.search]);
 
   useEffect(() => {
     (async () => {
       try {
-        const { dataObj } = await courseApi.getAllCourse(queryParams);
+        const { dataObj, pagination } = await courseApi.getAllCourse(
+          queryParams
+        );
 
         setCourse(dataObj);
+        setPagination(pagination);
       } catch (error) {
         console.log('Some error occur: ', error);
       }
     })();
+
+    setLoading(false);
   }, [queryParams]);
 
-  console.log('course', course);
+  const handlePageChange = (e, page) => {
+    const filter = {
+      ...queryParams,
+      page: page,
+    };
+
+    navigate({
+      pathname: location.pathname,
+      search: queryString.stringify(filter),
+    });
+  };
+
+  console.log(course);
 
   const classes = useStyles();
   return (
@@ -80,11 +112,12 @@ function MainPage(props) {
 
       <Box mt={5} mb={10}>
         <Grid container spacing={3} className={classes.courseContainer}>
-          {[...Array(3)].map((x) => (
-            <Grid item>
-              <CourseCard />
-            </Grid>
-          ))}
+          {!loading &&
+            course.favouritedCourse.map((item) => (
+              <Grid item key={item.id}>
+                <CourseCard item={item} />
+              </Grid>
+            ))}
         </Grid>
       </Box>
 
@@ -100,11 +133,12 @@ function MainPage(props) {
 
       <Box mt={5} mb={10}>
         <Grid container spacing={3} className={classes.courseContainer}>
-          {[...Array(3)].map((x) => (
-            <Grid item>
-              <CourseCard />
-            </Grid>
-          ))}
+          {!loading &&
+            course.viewedCourse.map((item) => (
+              <Grid item key={item.id}>
+                <CourseCard item={item} />
+              </Grid>
+            ))}
         </Grid>
       </Box>
 
@@ -128,16 +162,21 @@ function MainPage(props) {
       <Box mt={3} mb={2}>
         <Box mt={3}>
           <Grid container spacing={3} className={classes.courseContainer}>
-            {[...Array(6)].map((x) => (
-              <Grid item>
-                <CourseCard />
-              </Grid>
-            ))}
+            {!loading &&
+              course.courses.map((item) => (
+                <Grid item key={item.id}>
+                  <CourseCard item={item} />
+                </Grid>
+              ))}
           </Grid>
         </Box>
 
         <Box mt={3} className={classes.pagination}>
-          <Pagination count={10} color="primary" />
+          <Pagination
+            count={Math.round(pagination.total / pagination.limit)}
+            color="primary"
+            onChange={handlePageChange}
+          />
         </Box>
       </Box>
     </Box>

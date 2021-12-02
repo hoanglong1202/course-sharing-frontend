@@ -7,6 +7,7 @@ import {
   Breadcrumbs,
   Button,
   Grid,
+  LinearProgress,
   Link,
   Rating,
   Typography,
@@ -30,6 +31,7 @@ function CourseDetail(props) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState({});
 
   const handleNavigate = () => {
@@ -46,6 +48,8 @@ function CourseDetail(props) {
         console.log('Some error occur: ', error);
       }
     })();
+
+    setLoading(false);
   }, []);
 
   console.log(course);
@@ -53,6 +57,10 @@ function CourseDetail(props) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  if (loading) {
+    return <LinearProgress />;
+  }
 
   return (
     <Box className={classes.root}>
@@ -73,21 +81,20 @@ function CourseDetail(props) {
                 <Typography className={classes.breadcumb}>Khóa học</Typography>
               </Breadcrumbs>
               <Typography className={classes.courseTitle} variant="h1">
-                Machine Learning A-Z™: Hands-On Python & R In Data Science
+                {course?.course_name}
               </Typography>
               <Typography className={classes.courseDecription} variant="body2">
-                Learn to create Machine Learning Algorithms in Python and R from
-                two Data Science experts. Code templates included.
+                {course?.description}
               </Typography>
               <Box className={classes.iconContainer}>
                 <Box className={classes.iconHolder}>
                   <FavoriteIcon style={{ color: 'rgb(255 76 106)' }} />
-                  <span className={classes.score}>45</span>
+                  <span className={classes.score}>{course?.favourited}</span>
                 </Box>
 
                 <Box className={classes.iconHolder}>
                   <RemoveRedEyeIcon style={{ color: '#CEC0FC' }} />
-                  <span className={classes.score}>55</span>
+                  <span className={classes.score}>{course?.viewed}</span>
                 </Box>
 
                 <Box className={classes.iconHolder}>
@@ -117,7 +124,7 @@ function CourseDetail(props) {
                       classes.authorTitle
                     )}
                   >
-                    Easy Frontend
+                    {course?.creator_name}
                   </Typography>
                   <Typography className={classes.authorDescription}>
                     Senior tại NCC Soft

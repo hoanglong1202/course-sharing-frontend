@@ -37,11 +37,24 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 32,
     marginBottom: theme.spacing(1),
     fontWeight: 600,
+
+    display: '-webkit-box',
+    boxOrient: 'vertical',
+    lineClamp: 1,
+    textOverflow: `ellipsis`,
+    overflow: 'hidden',
   },
 
   courseDecription: {
     marginBottom: theme.spacing(2),
     fontSize: 19,
+    minHeight: 80,
+
+    display: '-webkit-box',
+    boxOrient: 'vertical',
+    lineClamp: 3,
+    textOverflow: `ellipsis`,
+    overflow: 'hidden',
   },
 
   courseCover: {
