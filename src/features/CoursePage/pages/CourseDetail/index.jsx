@@ -127,7 +127,7 @@ function CourseDetail(props) {
                     {course?.creator_name}
                   </Typography>
                   <Typography className={classes.authorDescription}>
-                    Senior tại NCC Soft
+                    {course?.creator_description}
                   </Typography>
                 </Box>
               </Box>
