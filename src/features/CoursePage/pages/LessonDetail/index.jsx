@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, useLocation } from 'react-router-dom';
 import { Box } from '@mui/system';
@@ -14,6 +14,7 @@ import {
 import Test from 'assets/images/test.jpg';
 import clsx from 'clsx';
 import Comments from './components/Comments';
+import courseApi from 'api/courseApi';
 
 LessonDetail.propTypes = {};
 
@@ -23,6 +24,10 @@ function LessonDetail(props) {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const { pathname } = useLocation();
 
+  const [loading, setLoading] = useState(true);
+  const [lesson, setLesson] = useState({});
+  const [lessonList, setLessonList] = useState([]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
@@ -31,6 +36,38 @@ function LessonDetail(props) {
     setSelectedIndex(index);
   };
 
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        const { dataObj } = await courseApi.getLessonDetail(courseId, lessonId);
+
+        setLesson(dataObj);
+      } catch (error) {
+        console.log('Some error occur: ', error);
+      }
+    })();
+
+    setLoading(false);
+  }, [courseId, lessonId]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        const { dataObj } = await courseApi.getLessons(courseId);
+
+        setLessonList(dataObj);
+      } catch (error) {
+        console.log('Some error occur: ', error);
+      }
+    })();
+
+    setLoading(false);
+  }, [courseId]);
+
+  console.log('lesson: ', lesson)
+  console.log('lessonList: ', lessonList)
   return (
     <Box>
       <Box className={classes.titleBackground} />
