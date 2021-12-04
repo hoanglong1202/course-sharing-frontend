@@ -3,7 +3,7 @@ const useStyles = makeStyles((theme) => ({
   root: {},
 
   titleBackground: {
-    height: 600,
+    height: 620,
     backgroundColor: '#1c1d1f',
 
     position: 'absolute',
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     textOverflow: `ellipsis`,
     overflow: 'hidden',
 
-    padding: theme.spacing(1, 0),
+    padding: theme.spacing(0.625, 0),
     color: theme.palette.tertiary.main,
     fontWeight: 600,
   },
@@ -71,9 +71,19 @@ const useStyles = makeStyles((theme) => ({
 
     display: '-webkit-box',
     boxOrient: 'vertical',
+    lineClamp: 1,
+    textOverflow: `ellipsis`,
+    overflow: 'hidden',
+  },
+
+  courseDescription: {
+    display: '-webkit-box',
+    boxOrient: 'vertical',
     lineClamp: 2,
     textOverflow: `ellipsis`,
     overflow: 'hidden',
+
+    maxWidth: 950,
   },
 
   authorContainer: {

@@ -6,9 +6,9 @@ import {
   Toolbar,
   Typography,
   IconButton,
-  Switch,
-  FormControlLabel,
-  FormGroup,
+  // Switch,
+  // FormControlLabel,
+  // FormGroup,
   MenuItem,
   Menu,
   Button,
@@ -18,7 +18,11 @@ import {
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import CodeIcon from '@mui/icons-material/Code';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { 
+  Link, 
+  NavLink, 
+  useNavigate 
+} from 'react-router-dom';
 import { Close } from '@mui/icons-material';
 import Register from 'features/Auth/components/Register';
 import Login from 'features/Auth/components/Login';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { Box } from '@mui/system';
 import useStyles from './styles';
 import {
@@ -23,24 +23,32 @@ function LessonDetail(props) {
   let { courseId, lessonId } = useParams();
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const lessonIndex = parseInt(lessonId);
 
   const [loading, setLoading] = useState(true);
   const [lesson, setLesson] = useState({});
+  const [creator, setCreator] = useState({});
   const [lessonList, setLessonList] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
+  const handleListItemClick = (event, id) => {
+    navigate(`/course/${courseId}/${id}`);
+    // setSelectedIndex(index);
   };
 
   useEffect(() => {
     (async () => {
       try {
         setLoading(true);
-        const { dataObj } = await courseApi.getLessonDetail(courseId, lessonId);
+        const { dataObj } = await courseApi.getLessonDetail(
+          courseId,
+          lessonId
+        );
 
         setLesson(dataObj);
       } catch (error) {
@@ -55,9 +63,11 @@ function LessonDetail(props) {
     (async () => {
       try {
         setLoading(true);
-        const { dataObj } = await courseApi.getLessons(courseId);
+        const { dataObj, creator } = await courseApi.getLessons(courseId);
 
         setLessonList(dataObj);
+        setCreator(creator);
+
       } catch (error) {
         console.log('Some error occur: ', error);
       }
@@ -66,8 +76,6 @@ function LessonDetail(props) {
     setLoading(false);
   }, [courseId]);
 
-  console.log('lesson: ', lesson)
-  console.log('lessonList: ', lessonList)
   return (
     <Box>
       <Box className={classes.titleBackground} />
@@ -76,10 +84,9 @@ function LessonDetail(props) {
           <Grid item xs={12} md={9}>
             <iframe
               className={classes.mediaContainer}
-              // src="https://drive.google.com/file/d/0BxxqCeuD1il5T2tmRF9ST19aRG8/preview?resourcekey=0-TTFP8JW_feWeGiAyEb3nRw"
-              src="https://www.youtube.com/embed/gGzDcUjZGmI"
+              src={lesson.content}
               title="YouTube video player"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen;"
             />
           </Grid>
@@ -87,32 +94,36 @@ function LessonDetail(props) {
           <Grid item xs={12} md={3}>
             <Box className={classes.chapterContainer}>
               <List component="nav" aria-label="secondary mailbox folder">
-                {[...Array(20)].map((item, index) => (
-                  <ListItemButton
-                    className={clsx(
-                      classes.chapterButton,
-                      selectedIndex === index && classes.chapterButtonActive
-                    )}
-                    selected={selectedIndex === index}
-                    key={index}
-                    onClick={(event) => handleListItemClick(event, index)}
-                  >
-                    <Typography
+                {!loading &&
+                  lessonList.map((item, index) => (
+                    <ListItemButton
                       className={clsx(
-                        classes.chapterTitle,
-                        selectedIndex === index && classes.chapterTitleActive
+                        classes.chapterButton,
+                        item.id === lessonIndex && classes.chapterButtonActive
                       )}
+                      selected={item.id === lessonIndex}
+                      key={index}
+                      onClick={(event) => handleListItemClick(event, item.id)}
                     >
-                      Accel pzo
-                    </Typography>
-                  </ListItemButton>
-                ))}
+                      <Typography
+                        className={clsx(
+                          classes.chapterTitle,
+                          item.id === lessonIndex && classes.chapterTitleActive
+                        )}
+                      >
+                        {item.lesson_name}
+                      </Typography>
+                    </ListItemButton>
+                  ))}
               </List>
             </Box>
           </Grid>
         </Grid>
         <Typography className={classes.courseTitle} variant="h1">
-          This is Lesson Detail of {lessonId} in course {courseId}
+          {lesson.lesson_name}
+        </Typography>
+        <Typography variant="p" className={classes.courseDescription}>
+          {lesson.description}
         </Typography>
       </Box>
 
@@ -122,10 +133,10 @@ function LessonDetail(props) {
           <Typography
             className={clsx(classes.authorDescription, classes.authorTitle)}
           >
-            Easy Frontend
+            {creator?.creator_name}
           </Typography>
           <Typography className={classes.authorDescription}>
-            Senior tại NCC Soft
+            {creator?.description}
           </Typography>
         </Box>
       </Box>

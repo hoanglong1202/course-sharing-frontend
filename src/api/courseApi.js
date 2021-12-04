@@ -19,7 +19,7 @@ const courseApi = {
   },
 
   getLessonDetail(courseId, lessonId) {
-    const url = `${BASE_URL}/lesson${courseId}/${lessonId}`;
+    const url = `${BASE_URL}/lesson/${courseId}/${lessonId}`;
     return axiosClient.get(url);
   }
 };
