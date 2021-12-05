@@ -21,7 +21,12 @@ const courseApi = {
   getLessonDetail(courseId, lessonId) {
     const url = `${BASE_URL}/lesson/${courseId}/${lessonId}`;
     return axiosClient.get(url);
-  }
+  },
+
+  getLessonTypes() {
+    const url = `${BASE_URL}/lesson/types`;
+    return axiosClient.get(url);
+  },
 };
 
 export default courseApi;

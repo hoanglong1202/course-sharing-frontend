@@ -3,14 +3,14 @@ import {
   FormControl,
   FormHelperText,
   IconButton,
-  makeStyles,
   OutlinedInput,
   Typography,
-} from "@mui/material";
-import { AddCircleOutline, RemoveCircleOutline } from "@mui/icons-material";
-import PropTypes from "prop-types";
-import React from "react";
-import { Controller } from "react-hook-form";
+} from '@mui/material';
+import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { makeStyles } from '@mui/styles';
+import { Controller } from 'react-hook-form';
 
 QuantityField.propTypes = {
   form: PropTypes.object.isRequired,
@@ -23,9 +23,9 @@ QuantityField.propTypes = {
 const useStyles = makeStyles((theme) => ({
   root: {},
   box: {
-    display: "flex",
-    flexFlow: "row nowrap",
-    alignItems: "center",
+    display: 'flex',
+    flexFlow: 'row nowrap',
+    alignItems: 'center',
     maxWidth: 250,
   },
 }));
@@ -37,9 +37,6 @@ function QuantityField(props) {
 
   const hasError = formState.errors[name] ? true : false;
 
-  const getQuantity = () => {
-    return Number.parseInt(getValues("quantity"));
-  };
   return (
     <FormControl error={hasError} fullWidth margin="normal" variant="outlined">
       <Typography>{label}</Typography>
@@ -48,28 +45,12 @@ function QuantityField(props) {
         control={control}
         render={({ field }) => (
           <Box className={classes.box}>
-            <IconButton
-              onClick={() =>
-                setValue(name, getQuantity() > 0 ? getQuantity() - 1 : 1)
-              }
-            >
-              <RemoveCircleOutline />
-            </IconButton>
-
             <OutlinedInput
               {...field}
               id={name}
               type="number"
               disabled={disabled}
             />
-
-            <IconButton
-              onClick={() =>
-                setValue(name, getQuantity() > 0 ? getQuantity() + 1 : 1)
-              }
-            >
-              <AddCircleOutline />
-            </IconButton>
           </Box>
         )}
       />

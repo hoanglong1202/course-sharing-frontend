@@ -106,13 +106,22 @@ export default function Header() {
 
           <Box className={classes.appBarTitleContainer}>
             <SearchAppBar />
+
             <Typography
               className={classes.appBarTitle}
               variant="h6"
               component="div"
               sx={{ flexGrow: 1 }}
             >
-              Quản lý
+              Quản trị
+            </Typography>
+            <Typography
+              className={classes.appBarTitle}
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1 }}
+            >
+              Chia sẻ
             </Typography>
             <Typography
               className={classes.appBarTitle}
