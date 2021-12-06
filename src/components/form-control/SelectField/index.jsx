@@ -47,7 +47,7 @@ function SelectField({
               }}
             >
               <option key="all" value="">
-                Loại nội dung
+                Chọn
               </option>
               {values.map((x) => (
                 <option key={x.name} value={x.id}>

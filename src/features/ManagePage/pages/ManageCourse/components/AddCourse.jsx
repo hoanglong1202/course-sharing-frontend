@@ -26,7 +26,6 @@ function AddCourse(props) {
 
   return (
     <Box>
-      This is Add Course 
       <AddCourseForm onFormSubmit={onSubmit} types={types} />
     </Box>
   );

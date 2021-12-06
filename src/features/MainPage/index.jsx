@@ -61,8 +61,6 @@ function MainPage(props) {
     });
   };
 
-  console.log(course);
-
   const classes = useStyles();
   return (
     <Box className={classes.root}>

@@ -27,6 +27,11 @@ const courseApi = {
     const url = `${BASE_URL}/lesson/types`;
     return axiosClient.get(url);
   },
+
+  getCourseList(id) {
+    const url = `${BASE_URL}/course-list/${id}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default courseApi;
