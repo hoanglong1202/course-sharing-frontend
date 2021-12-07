@@ -26,7 +26,7 @@ function AddCourse(props) {
 
       temp.name = values.course_name.trim();
       temp.description = values.description.trim();
-      temp.profile_picture = values?.cover_picture[0]?.name;
+      temp.cover_picture = values?.profile_picture[0]?.name;
       temp.creator_id = 1;
       temp.lesson = JSON.stringify(
         values.lesson.map((item) => {
@@ -38,6 +38,8 @@ function AddCourse(props) {
           };
         })
       );
+
+      // console.log(temp);
 
       const formData = new FormData();
       Object.keys(temp).forEach((key) => formData.append(key, temp[key]));

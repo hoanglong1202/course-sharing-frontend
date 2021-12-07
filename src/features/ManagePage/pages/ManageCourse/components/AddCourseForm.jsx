@@ -42,15 +42,15 @@ function AddCourseForm({ types, onFormSubmit }) {
       course_name: '',
       description: '',
       max_user: 0,
-      // cover_picture: '',
-      cover_picture: null,
+      // profile_picture: '',
+      profile_picture: null,
       lesson: [
         { lesson_name: '', description: '', content: '', lesson_types_id: '' },
       ],
     },
     // resolver: yupResolver(schema),
   });
-  const formCoverImageValue = form.watch('cover_picture');
+  const formCoverImageValue = form.watch('profile_picture');
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -139,7 +139,7 @@ function AddCourseForm({ types, onFormSubmit }) {
                   </Box>
                   <UploadField
                     form={form}
-                    name="cover_picture"
+                    name="profile_picture"
                     value={formCoverImageValue}
                   />
                 </Grid>
