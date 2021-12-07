@@ -32,6 +32,12 @@ const courseApi = {
     const url = `${BASE_URL}/course-list/${id}`;
     return axiosClient.get(url);
   },
+
+  addCourse: async (data) => {
+    const url = `${BASE_URL}/add-course`;
+    const result = await axiosClient.post(url, data);
+    return result;
+  },
 };
 
 export default courseApi;

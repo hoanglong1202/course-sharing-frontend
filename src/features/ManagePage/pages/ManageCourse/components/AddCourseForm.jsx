@@ -256,31 +256,31 @@ function AddCourseForm({ types, onFormSubmit }) {
               possimus architecto sed ab
             </Typography>
             <Grid container>
-              <Grid item sx={12} sm={6}>
+              <Grid item xs={12} sm={6}>
                 Tên khóa học
               </Grid>
-              <Grid item sx={12} sm={6}>
+              <Grid item xs={12} sm={6}>
                 {values?.course_name}
               </Grid>
 
-              <Grid item sx={12} sm={6}>
+              <Grid item xs={12} sm={6}>
                 Miêu tả
               </Grid>
-              <Grid item sx={12} sm={6}>
+              <Grid item xs={12} sm={6}>
                 {values?.description}
               </Grid>
 
-              <Grid item sx={12} sm={6}>
+              <Grid item xs={12} sm={6}>
                 Giới hạn người dùng
               </Grid>
-              <Grid item sx={12} sm={6}>
+              <Grid item xs={12} sm={6}>
                 {values?.max_user === 0 ? 'Không giới hạn' : `${parseInt(values.max_user)} người dùng`}
               </Grid>
 
-              <Grid item sx={12} sm={6}>
+              <Grid item xs={12} sm={6}>
                 Số lượng bài học
               </Grid>
-              <Grid item sx={12} sm={6}>
+              <Grid item xs={12} sm={6}>
                 {values?.lesson?.length}
               </Grid>
             </Grid>

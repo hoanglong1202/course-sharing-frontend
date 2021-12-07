@@ -87,7 +87,14 @@ const useStyles = makeStyles((theme) => ({
 
   imageSubmit: {
     width: '60%',
-  }
+  },
+
+  updateButton: {
+    width: '100%',
+    borderRadius: 5,
+
+    marginTop: theme.spacing(2),
+  },
 }));
 
 export default useStyles;

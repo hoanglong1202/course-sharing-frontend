@@ -19,6 +19,7 @@
     "axios": "^0.24.0",
     "clsx": "^1.1.1",
     "dotenv": "^10.0.0",
+    "moment": "^2.29.1",
     "node-sass": "^6.0.1",
     "notistack": "^2.0.3",
     "prop-types": "^15.7.2",

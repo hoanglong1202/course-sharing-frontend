@@ -9,7 +9,7 @@ import AddCourseForm from './AddCourseForm';
 
 function AddCourse(props) {
   // const classes = useStyles();
-  
+
   const [types, setTypes] = useState([]);
 
   useEffect(() => {
@@ -20,8 +20,32 @@ function AddCourse(props) {
     })();
   }, []);
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values) => {
+    try {
+      let temp = { ...values };
+
+      temp.name = values.course_name.trim();
+      temp.description = values.description.trim();
+      temp.profile_picture = values?.cover_picture[0]?.name;
+      temp.creator_id = 1;
+      temp.lesson = JSON.stringify(
+        values.lesson.map((item) => {
+          return {
+            ...item,
+            lesson_name: item.lesson_name.trim(),
+            description: item.description.trim(),
+            content: item.content.trim(),
+          };
+        })
+      );
+
+      const formData = new FormData();
+      Object.keys(temp).forEach((key) => formData.append(key, temp[key]));
+
+      await courseApi.addCourse(formData);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
