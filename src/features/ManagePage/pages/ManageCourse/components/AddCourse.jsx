@@ -24,7 +24,7 @@ function AddCourse(props) {
     try {
       let temp = { ...values };
 
-      temp.name = values.course_name.trim();
+      temp.course_name = values.course_name.trim();
       temp.description = values.description.trim();
       temp.cover_picture = values?.profile_picture[0]?.name;
       temp.creator_id = 1;

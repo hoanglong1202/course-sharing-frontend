@@ -24,12 +24,12 @@ function UpdateCourseForm({ course, onFormSubmit }) {
       course_name: temp,
       description: course?.description,
       max_user: course?.max_user || 0,
-      // cover_picture: '',
-      cover_picture: course?.profile_picture,
+      // profile_picture: '',
+      profile_picture: course?.profile_picture,
     },
     // resolver: yupResolver(schema),
   });
-  const formCoverImageValue = form.watch('cover_picture');
+  const formCoverImageValue = form.watch('profile_picture');
 
   const onSubmit = async (values) => {
     if (onFormSubmit) {
@@ -78,13 +78,13 @@ function UpdateCourseForm({ course, onFormSubmit }) {
                 </Box>
                 <UploadField
                   form={form}
-                  name="cover_picture"
+                  name="profile_picture"
                   value={formCoverImageValue}
                 />
               </Grid>
             </Grid>
 
-            <Button className={classes.updateButton} variant="contained">
+            <Button className={classes.updateButton} variant="contained" type="submit">
               Cập nhập
             </Button>
           </Box>

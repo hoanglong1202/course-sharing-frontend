@@ -21,8 +21,23 @@ function UpdateCourse(props) {
 
   }, []);
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values) => {
+    try {
+      let temp = { ...values };
+
+      temp.course_name = values.course_name.trim();
+      temp.description = values.description.trim();
+      temp.cover_picture = values?.profile_picture[0]?.name;
+      temp.creator_id = 1;
+      temp.id = id;
+  
+      const formData = new FormData();
+      Object.keys(temp).forEach((key) => formData.append(key, temp[key]));
+  
+      await courseApi.updateCourse(formData);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

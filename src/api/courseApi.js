@@ -38,6 +38,12 @@ const courseApi = {
     const result = await axiosClient.post(url, data);
     return result;
   },
+
+  updateCourse: async (data) => {
+    const url = `${BASE_URL}/update-course`;
+    const result = await axiosClient.put(url, data);
+    return result;
+  },
 };
 
 export default courseApi;

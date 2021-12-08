@@ -44,8 +44,8 @@ export default function Header() {
   const auth = currentUser.id ? true : false;
   // const auth = true;
 
-  const handleNavigate = () => {
-    navigate(`/`);
+  const handleNavigate = (path) => {
+    navigate(path);
   };
 
   // const [auth, setAuth] = useState(true);
@@ -98,7 +98,7 @@ export default function Header() {
               variant="h6"
               component="div"
               sx={{ flexGrow: 1 }}
-              onClick={handleNavigate}
+              onClick={() => handleNavigate('/')}
             >
               Courses Sharing
             </Typography>
@@ -120,6 +120,7 @@ export default function Header() {
               variant="h6"
               component="div"
               sx={{ flexGrow: 1 }}
+              onClick={() => handleNavigate('/manage/course')}
             >
               Chia sẻ
             </Typography>
