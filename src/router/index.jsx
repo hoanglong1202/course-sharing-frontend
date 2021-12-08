@@ -8,7 +8,7 @@ import ManagePage from 'features/ManagePage';
 function Routing() {
   return (
     <Routes>
-      <Route path="/" element={<MainPage />} />
+      <Route path="/*" element={<MainPage />} />
       <Route path="/course/*" element={<CoursePage />} />
       <Route path="/manage/*" element={<ManagePage />} />
 
