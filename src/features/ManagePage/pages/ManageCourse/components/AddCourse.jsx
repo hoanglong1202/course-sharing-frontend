@@ -11,11 +11,14 @@ function AddCourse(props) {
   // const classes = useStyles();
 
   const [types, setTypes] = useState([]);
+  const [courseTypes, setCourseTypes] = useState([]);
 
   useEffect(() => {
     (async () => {
       const { dataObj } = await courseApi.getLessonTypes();
+      const { dataObj: courseType } = await courseApi.getCourseTypes();
 
+      setCourseTypes(courseType);
       setTypes(dataObj);
     })();
   }, []);
@@ -39,7 +42,7 @@ function AddCourse(props) {
         })
       );
 
-      // console.log(temp);
+      console.log(temp);
 
       const formData = new FormData();
       Object.keys(temp).forEach((key) => formData.append(key, temp[key]));
@@ -52,7 +55,7 @@ function AddCourse(props) {
 
   return (
     <Box>
-      <AddCourseForm onFormSubmit={onSubmit} types={types} />
+      <AddCourseForm onFormSubmit={onSubmit} courseTypes={courseTypes} types={types} />
     </Box>
   );
 }

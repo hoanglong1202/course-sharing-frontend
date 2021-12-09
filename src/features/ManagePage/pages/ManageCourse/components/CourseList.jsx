@@ -1,21 +1,28 @@
-import { Box } from '@mui/system';
-import courseApi from 'api/courseApi';
-import React, { useEffect, useState } from 'react';
-import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
-import useStyles from '../styles';
-import { Button, Typography } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import BrightnessLowIcon from '@mui/icons-material/BrightnessLow';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
+import courseApi from 'api/courseApi';
+import ConfirmDialog from 'features/ManagePage/components/ConfirmDialog';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useStyles from '../styles';
+import { useSnackbar } from "notistack";
 
 CourseList.propTypes = {};
 
 function CourseList(props) {
   const classes = useStyles();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
   const [loading, setLoading] = useState(true);
   const [courseList, setCourseList] = useState([]);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedId, setSelectedId] = useState('');
+
   useEffect(() => {
     (async () => {
       const { dataObj } = await courseApi.getCourseList(1);
@@ -27,17 +34,35 @@ function CourseList(props) {
   }, []);
 
   const handleDetailButton = (id) => {
-    navigate(`/manage/course/${id}`)
-    // return alert(id);
+    navigate(`/manage/course/${id}`);
   };
 
   const handleUpdateButton = (id) => {
-    navigate(`/manage/course/update-course/${id}`)
-    // return alert(id);
+    navigate(`/manage/course/update-course/${id}`);
   };
 
   const handleDeleteButton = (id) => {
-    return alert(id);
+    setOpenDialog(true);
+    setSelectedId(id);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const handleDelete = async () => {
+    try {
+      setOpenDialog(false);
+      await courseApi.deleteCourse(selectedId);
+
+      enqueueSnackbar("Change course status successfully!", { variant: "success" });
+
+      //refresh course list
+      const { dataObj } = await courseApi.getCourseList(1);
+      setCourseList(dataObj);
+    } catch (error) {
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
   };
 
   const columns = [
@@ -92,6 +117,16 @@ function CourseList(props) {
       },
     },
     {
+      field: 'isDeleted',
+      headerName: 'Trạng thái',
+      width: 180,
+      headerAlign: 'center',
+      align: 'center',
+      renderCell: (params) => {
+        return params.value !== 'false' ? 'Đã ẩn' : 'Bình thường';
+      },
+    },
+    {
       field: 'actions',
       type: 'actions',
       headerName: '',
@@ -129,6 +164,14 @@ function CourseList(props) {
       <Box style={{ height: 400, width: '100%' }}>
         <DataGrid rows={courseList} columns={columns} />
       </Box>
+
+      <ConfirmDialog
+        isOpen={openDialog}
+        handleClose={handleCloseDialog}
+        onSubmit={handleDelete}
+        title="Bạn có muốn thay đổi trạng thái khóa học ID"
+        item={selectedId}
+      />
     </Box>
   );
 }

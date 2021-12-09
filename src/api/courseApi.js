@@ -54,6 +54,12 @@ const courseApi = {
     const result = await axiosClient.put(url, data);
     return result;
   },
+
+  deleteCourse: async (id) => {
+    const url = `${BASE_URL}/delete-course/${id}`;
+    const result = await axiosClient.delete(url);
+    return result;
+  },
 };
 
 export default courseApi;

@@ -11,15 +11,19 @@ function UpdateCourse(props) {
 
   const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState({});
+  const [courseTypes, setCourseTypes] = useState([]);
 
   useEffect(() => {
     (async () => {
       const { dataObj } = await courseApi.getCourse(id);
+      const { dataObj: courseType } = await courseApi.getCourseTypes();
+
+      setCourseTypes(courseType);
       setCourse(dataObj);
       setLoading(false);
     })();
 
-  }, []);
+  }, [id]);
 
   const onSubmit = async (values) => {
     try {
@@ -42,7 +46,7 @@ function UpdateCourse(props) {
 
   return (
     <Box>
-      {!loading && <UpdateCourseForm onFormSubmit={onSubmit} course={course} />}
+      {!loading && <UpdateCourseForm onFormSubmit={onSubmit} course={course} courseTypes={courseTypes} />}
     </Box>
   );
 }

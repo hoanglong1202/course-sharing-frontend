@@ -25,6 +25,7 @@ import SuccessIllustration from 'assets/images/success.svg';
 
 AddCourseForm.propTypes = {
   types: PropTypes.array,
+  courseTypes: PropTypes.array,
   onFormSubmit: PropTypes.func,
 };
 const steps = [
@@ -33,7 +34,7 @@ const steps = [
   'Kiểm tra thông tin',
 ];
 
-function AddCourseForm({ types, onFormSubmit }) {
+function AddCourseForm({ courseTypes, types, onFormSubmit }) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
 
@@ -44,6 +45,7 @@ function AddCourseForm({ types, onFormSubmit }) {
       max_user: 0,
       // profile_picture: '',
       profile_picture: null,
+      types_id: '',
       lesson: [
         { lesson_name: '', description: '', content: '', lesson_types_id: '' },
       ],
@@ -129,6 +131,15 @@ function AddCourseForm({ types, onFormSubmit }) {
                     name="max_user"
                     label="Giới hạn người dùng (optional)"
                   />
+                  <Box className={classes.lessonField}>
+                    <SelectField
+                      form={form}
+                      name="types_id"
+                      label="Danh mục"
+                      values={courseTypes}
+                      disable={false}
+                    />
+                  </Box>
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
@@ -274,7 +285,9 @@ function AddCourseForm({ types, onFormSubmit }) {
                 Giới hạn người dùng
               </Grid>
               <Grid item xs={12} sm={6}>
-                {values?.max_user === 0 ? 'Không giới hạn' : `${parseInt(values.max_user)} người dùng`}
+                {values?.max_user === 0
+                  ? 'Không giới hạn'
+                  : `${parseInt(values.max_user)} người dùng`}
               </Grid>
 
               <Grid item xs={12} sm={6}>

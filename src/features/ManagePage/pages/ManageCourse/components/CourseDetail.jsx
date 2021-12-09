@@ -9,15 +9,20 @@ import AnalyticsIcon from '@mui/icons-material/Analytics';
 import BrightnessLowIcon from '@mui/icons-material/BrightnessLow';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
+import ConfirmDialog from 'features/ManagePage/components/ConfirmDialog';
 
 CourseDetail.propTypes = {};
 
 function CourseDetail(props) {
   const { id } = useParams();
   const classes = useStyles();
+
   const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState({});
   const [lessonList, setLessonList] = useState([]);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedId, setSelectedId] = useState('');
+
   useEffect(() => {
     (async () => {
       const { dataObj } = await courseApi.getCourse(id);
@@ -34,7 +39,16 @@ function CourseDetail(props) {
   };
 
   const handleDeleteButton = (id) => {
-    return alert(id);
+    setOpenDialog(true);
+    setSelectedId(id);
+  };
+
+  const handleDelete = async () => {
+    setOpenDialog(false);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(true);
   };
 
   const columns = [
@@ -138,9 +152,18 @@ function CourseDetail(props) {
           </Grid>
         </Grid>
       </Box>
+
       <Box style={{ height: 400, width: '100%' }}>
         <DataGrid rows={lessonList} columns={columns} />
       </Box>
+
+      <ConfirmDialog
+        isOpen={openDialog}
+        handleClose={handleCloseDialog}
+        onSubmit={handleDelete}
+        title="Bạn có muốn thay đổi trạng thái bài học ID"
+        item={selectedId}
+      />
     </Box>
   );
 }

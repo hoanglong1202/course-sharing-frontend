@@ -9,13 +9,15 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import useStyles from '../styles';
 import { yupResolver } from '@hookform/resolvers/yup';
+import SelectField from 'components/form-control/SelectField';
 
 UpdateCourseForm.propTypes = {
   course: PropTypes.object,
   onFormSubmit: PropTypes.func,
+  courseTypes: PropTypes.array,
 };
 
-function UpdateCourseForm({ course, onFormSubmit }) {
+function UpdateCourseForm({ courseTypes, course, onFormSubmit }) {
   const classes = useStyles();
   console.log(course.course_name);
   const temp = course.course_name;
@@ -25,6 +27,7 @@ function UpdateCourseForm({ course, onFormSubmit }) {
       description: course?.description,
       max_user: course?.max_user || 0,
       // profile_picture: '',
+      types_id: course?.types_id,
       profile_picture: course?.profile_picture,
     },
     // resolver: yupResolver(schema),
@@ -68,6 +71,15 @@ function UpdateCourseForm({ course, onFormSubmit }) {
                   name="max_user"
                   label="Giới hạn người dùng (optional)"
                 />
+                <Box className={classes.lessonField}>
+                  <SelectField
+                    form={form}
+                    name="types_id"
+                    label="Danh mục"
+                    values={courseTypes}
+                    disable={false}
+                  />
+                </Box>
               </Grid>
 
               <Grid item xs={12} sm={6}>
@@ -84,7 +96,11 @@ function UpdateCourseForm({ course, onFormSubmit }) {
               </Grid>
             </Grid>
 
-            <Button className={classes.updateButton} variant="contained" type="submit">
+            <Button
+              className={classes.updateButton}
+              variant="contained"
+              type="submit"
+            >
               Cập nhập
             </Button>
           </Box>
