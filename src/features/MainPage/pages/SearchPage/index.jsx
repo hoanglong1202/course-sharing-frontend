@@ -1,6 +1,7 @@
 import { Grid, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 import { Box } from '@mui/system';
 import courseApi from 'api/courseApi';
+import creatorApi from 'api/creatorApi';
 import CourseCard from 'features/MainPage/components/CourseCard';
 import queryString from 'query-string';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -14,7 +15,9 @@ function SearchPage(props) {
   const [course, setCourse] = useState([]);
   const [orderBy, setOrderBy] = useState('DESC');
   const [courseTypes, setCourseTypes] = useState('all');
-  const [courseTypesList, setCourseTypesList] = useState('');
+  const [courseTypesList, setCourseTypesList] = useState([]);
+  const [creatorName, setCreatorName] = useState('all');
+  const [creatorNameList, setCreatorNameList] = useState([]);
 
   const location = useLocation();
   const classes = useStyles();
@@ -42,11 +45,11 @@ function SearchPage(props) {
   useEffect(() => {
     (async () => {
       try {
-        setLoading(true);
         const { dataObj } = await courseApi.getCourseTypes();
+        const { dataObj: nameList } = await creatorApi.getCreatorName();
 
         setCourseTypesList(dataObj);
-        setLoading(false);
+        setCreatorNameList(nameList);
       } catch (error) {
         console.log('Some error occur: ', error);
       }
@@ -89,42 +92,79 @@ function SearchPage(props) {
     setSearchParams(query);
   };
 
+  const handleCreatorNameChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    let query = {};
+
+    if (value !== 'all') {
+      query = {
+        ...queryParams,
+        creatorName: value,
+      };
+    } else {
+      const { creatorName, ...rest } = queryParams;
+      query = {
+        ...rest,
+      };
+    }
+
+    setCreatorName(value);
+    setSearchParams(query);
+  };
+
   return (
     <Box>
-      This is search Page is: {queryParams.courseName}
-      {!loading && (
-        <>
-          <Box mt={3} sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel>Sắp xếp</InputLabel>
-              <Select
-                value={orderBy}
-                label="Sắp xếp"
-                onChange={handleOrderByChange}
-              >
-                <MenuItem value="DESC">Mới nhất</MenuItem>
-                <MenuItem value="ASC">Lâu Nhất</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-          <Box mt={3} sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel>Danh mục</InputLabel>
-              <Select
-                value={courseTypes}
-                label="Danh mục"
-                onChange={handleCourseTypeChange}
-              >
-                <MenuItem value="all">All</MenuItem>
-                {courseTypesList.length > 0 &&
-                  courseTypesList?.map((item, index) => (
-                    <MenuItem value={item.name}>{item.name}</MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
-          </Box>{' '}
-        </>
-      )}
+      <Box className={classes.selectContainer}>
+        <Box className={classes.selectHolder}>
+          <FormControl fullWidth>
+            <InputLabel>Danh mục</InputLabel>
+            <Select
+              value={courseTypes}
+              label="Danh mục"
+              onChange={handleCourseTypeChange}
+            >
+              <MenuItem value="all">All</MenuItem>
+              {courseTypesList.length > 0 &&
+                courseTypesList?.map((item, index) => (
+                  <MenuItem value={item.name}>{item.name}</MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+        </Box>
+
+        <Box className={classes.selectHolder}>
+          <FormControl fullWidth>
+            <InputLabel>Tác giả</InputLabel>
+            <Select
+              value={creatorName}
+              label="Tác giả"
+              onChange={handleCreatorNameChange}
+            >
+              <MenuItem value="all">All</MenuItem>
+              {creatorNameList.length > 0 &&
+                creatorNameList?.map((item, index) => (
+                  <MenuItem value={item.name}>{item.name}</MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+        </Box>
+
+        <Box className={classes.selectHolder}>
+          <FormControl fullWidth>
+            <InputLabel>Sắp xếp theo</InputLabel>
+            <Select
+              value={orderBy}
+              label="Sắp xếp theo"
+              onChange={handleOrderByChange}
+            >
+              <MenuItem value="DESC">Mới nhất</MenuItem>
+              <MenuItem value="ASC">Lâu Nhất</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+      </Box>
       <Box mt={3}>
         <Grid container spacing={3} className={classes.courseContainer}>
           {!loading && course.length > 0 ? (

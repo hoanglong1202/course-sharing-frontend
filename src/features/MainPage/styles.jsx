@@ -104,6 +104,17 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  selectContainer: {
+    display: 'flex',
+    margin: theme.spacing(1, 6),
+    padding: theme.spacing(2, 3),
+  },
+
+  selectHolder: {
+    margin: theme.spacing(1, 1, 0, 0),
+    minWidth: 200,
+  },
 }));
 
 export default useStyles;

@@ -43,9 +43,6 @@ function AddCourse(props) {
 
       const formData = new FormData();
       Object.keys(temp).forEach((key) => formData.append(key, temp[key]));
-      formData.append('test[]', 'haha');
-
-
 
       await courseApi.addCourse(formData);
     } catch (error) {
