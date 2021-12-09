@@ -8,6 +8,11 @@ const courseApi = {
     return axiosClient.get(url, { params });
   },
 
+  searchCourse(params) {
+    const url = `${BASE_URL}/search`;
+    return axiosClient.get(url, { params });
+  },
+
   getCourse(id) {
     const url = `${BASE_URL}/${id}`;
     return axiosClient.get(url);
@@ -25,6 +30,11 @@ const courseApi = {
 
   getLessonTypes() {
     const url = `${BASE_URL}/lesson/types`;
+    return axiosClient.get(url);
+  },
+
+  getCourseTypes() {
+    const url = `${BASE_URL}/types`;
     return axiosClient.get(url);
   },
 

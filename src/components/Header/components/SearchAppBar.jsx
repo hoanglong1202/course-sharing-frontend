@@ -54,7 +54,7 @@ export default function SearchAppBar() {
   const handleNavigate = (event) => {
     const { key, target: { value } } = event
     if (key === 'Enter') {
-      navigate(`/all?search=${value}`);
+      navigate(`/all?courseName=${value}`);
     }
   };
 
