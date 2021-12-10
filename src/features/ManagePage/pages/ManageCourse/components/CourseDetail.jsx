@@ -1,16 +1,15 @@
-import { Box } from '@mui/system';
-import courseApi from 'api/courseApi';
-import React, { useEffect, useState } from 'react';
-import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
-import useStyles from '../styles';
-import { Button, Grid, Typography } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AnalyticsIcon from '@mui/icons-material/Analytics';
 import BrightnessLowIcon from '@mui/icons-material/BrightnessLow';
-import { useNavigate, useParams } from 'react-router-dom';
-import moment from 'moment';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Grid, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
+import courseApi from 'api/courseApi';
 import ConfirmDialog from 'features/ManagePage/components/ConfirmDialog';
+import moment from 'moment';
 import { useSnackbar } from 'notistack';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import useStyles from '../styles';
 
 CourseDetail.propTypes = {};
 
@@ -20,13 +19,12 @@ function CourseDetail(props) {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-
   const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState({});
   const [lessonList, setLessonList] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedId, setSelectedId] = useState('');
-  
+
   useEffect(() => {
     (async () => {
       const { dataObj } = await courseApi.getCourse(id);
@@ -36,10 +34,10 @@ function CourseDetail(props) {
     })();
 
     setLoading(false);
-  }, []);
+  }, [id]);
 
   const handleDetailButton = (lessonId) => {
-    navigate(`/manage/course/update-lesson/${id}/${lessonId}`)
+    navigate(`/manage/course/update-lesson/${id}/${lessonId}`);
   };
 
   const handleDeleteButton = (id) => {
@@ -183,7 +181,7 @@ function CourseDetail(props) {
       </Box>
 
       <Box style={{ height: 400, width: '100%' }}>
-        <DataGrid rows={lessonList} columns={columns} />
+        {!loading && <DataGrid rows={lessonList} columns={columns} />}
       </Box>
 
       <ConfirmDialog

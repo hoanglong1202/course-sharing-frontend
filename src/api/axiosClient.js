@@ -1,15 +1,19 @@
-import axios from "axios";
+import axios from 'axios';
+import StorageKeys from 'constants/storage-keys';
+
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_STATIC_HOST,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
 // Add a request interceptor
 axiosClient.interceptors.request.use(
   function (config) {
+    const token = localStorage.getItem(StorageKeys.TOKEN) || null;
+    config.headers.Authorization = token;
     // Do something before request is sent
     return config;
   },

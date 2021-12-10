@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useStyles from '../styles';
-import { yupResolver } from '@hookform/resolvers/yup';
+// import { yupResolver } from '@hookform/resolvers/yup';
 import SelectField from 'components/form-control/SelectField';
 
 UpdateCourseForm.propTypes = {
@@ -19,7 +19,7 @@ UpdateCourseForm.propTypes = {
 
 function UpdateCourseForm({ courseTypes, course, onFormSubmit }) {
   const classes = useStyles();
-  
+
   const form = useForm({
     defaultValues: {
       course_name: course?.course_name,

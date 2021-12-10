@@ -6,10 +6,10 @@ import { Box } from '@mui/system';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import courseApi from 'api/courseApi';
 import ConfirmDialog from 'features/ManagePage/components/ConfirmDialog';
+import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useStyles from '../styles';
-import { useSnackbar } from "notistack";
 
 CourseList.propTypes = {};
 
@@ -166,7 +166,7 @@ function CourseList(props) {
         possimus architecto sed ab
       </Typography>
       <Box style={{ height: 400, width: '100%' }}>
-        <DataGrid rows={courseList} columns={columns} />
+        {!loading && <DataGrid rows={courseList} columns={columns} />}
       </Box>
 
       <ConfirmDialog
