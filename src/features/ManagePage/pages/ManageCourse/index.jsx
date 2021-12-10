@@ -6,6 +6,7 @@ import CourseList from './components/CourseList';
 import LinkMenu from './components/LinkMenu';
 import CourseDetail from './components/CourseDetail';
 import UpdateCourse from './components/UpdateCourse';
+import UpdateLesson from './components/UpdateLesson';
 
 function ManageCourse(props) {
   return (
@@ -16,7 +17,8 @@ function ManageCourse(props) {
         <Route path="/" element={<AddCourse />} />
         <Route path="list" element={<CourseList />} />
         <Route path=":id" element={<CourseDetail />} />
-        <Route path="/update-course/:id" element={<UpdateCourse />} />
+        <Route path="update-course/:id" element={<UpdateCourse />} />
+        <Route path="update-lesson/:courseId/:lessonId" element={<UpdateLesson />} />
       </Routes>
     </Box>
   );

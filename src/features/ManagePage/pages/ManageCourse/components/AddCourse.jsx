@@ -1,6 +1,8 @@
 import { Box } from '@mui/system';
 import courseApi from 'api/courseApi';
+import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // import useStyles from '../styles';
 // import PropTypes from 'prop-types';
 import AddCourseForm from './AddCourseForm';
@@ -9,6 +11,8 @@ import AddCourseForm from './AddCourseForm';
 
 function AddCourse(props) {
   // const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   const [types, setTypes] = useState([]);
   const [courseTypes, setCourseTypes] = useState([]);
@@ -47,9 +51,16 @@ function AddCourse(props) {
       const formData = new FormData();
       Object.keys(temp).forEach((key) => formData.append(key, temp[key]));
 
-      await courseApi.addCourse(formData);
+      const result = await courseApi.addCourse(formData);
+      if (result.success) {
+        enqueueSnackbar('Change course status successfully!', {
+          variant: 'success',
+        });
+
+        navigate(`/manage/course/list`);
+      }
     } catch (error) {
-      console.log(error);
+      enqueueSnackbar(error.message, { variant: 'error' });
     }
   };
 

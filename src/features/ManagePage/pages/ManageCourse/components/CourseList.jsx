@@ -53,15 +53,19 @@ function CourseList(props) {
   const handleDelete = async () => {
     try {
       setOpenDialog(false);
-      await courseApi.deleteCourse(selectedId);
+      const result = await courseApi.deleteCourse(selectedId);
 
-      enqueueSnackbar("Change course status successfully!", { variant: "success" });
+      if (result.success) {
+        enqueueSnackbar('Change course status successfully!', {
+          variant: 'success',
+        });
 
-      //refresh course list
-      const { dataObj } = await courseApi.getCourseList(1);
-      setCourseList(dataObj);
+        //refresh course list
+        const { dataObj } = await courseApi.getCourseList(1);
+        setCourseList(dataObj);
+      }
     } catch (error) {
-      enqueueSnackbar(error.message, { variant: "error" });
+      enqueueSnackbar(error.message, { variant: 'error' });
     }
   };
 

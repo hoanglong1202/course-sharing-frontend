@@ -7,22 +7,26 @@ import { Button, Grid, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import BrightnessLowIcon from '@mui/icons-material/BrightnessLow';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 import ConfirmDialog from 'features/ManagePage/components/ConfirmDialog';
+import { useSnackbar } from 'notistack';
 
 CourseDetail.propTypes = {};
 
 function CourseDetail(props) {
   const { id } = useParams();
   const classes = useStyles();
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
 
   const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState({});
   const [lessonList, setLessonList] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedId, setSelectedId] = useState('');
-
+  
   useEffect(() => {
     (async () => {
       const { dataObj } = await courseApi.getCourse(id);
@@ -34,8 +38,8 @@ function CourseDetail(props) {
     setLoading(false);
   }, []);
 
-  const handleDetailButton = (id) => {
-    return alert(id);
+  const handleDetailButton = (lessonId) => {
+    navigate(`/manage/course/update-lesson/${id}/${lessonId}`)
   };
 
   const handleDeleteButton = (id) => {
@@ -44,11 +48,26 @@ function CourseDetail(props) {
   };
 
   const handleDelete = async () => {
-    setOpenDialog(false);
+    try {
+      setOpenDialog(false);
+      const result = await courseApi.deleteLesson(id, selectedId);
+
+      if (result.success) {
+        enqueueSnackbar('Change lesson status successfully!', {
+          variant: 'success',
+        });
+
+        //refresh lesson list
+        const { dataObj } = await courseApi.getCourse(id);
+        setLessonList(dataObj?.lessonList);
+      }
+    } catch (error) {
+      enqueueSnackbar(error.message, { variant: 'error' });
+    }
   };
 
   const handleCloseDialog = () => {
-    setOpenDialog(true);
+    setOpenDialog(false);
   };
 
   const columns = [
@@ -58,15 +77,15 @@ function CourseDetail(props) {
       headerName: 'Tên bài học',
       width: 200,
       headerAlign: 'center',
-      align: 'center',
+      // align: 'center',
     },
-    {
-      field: 'description',
-      headerName: 'Mô tả',
-      width: 400,
-      headerAlign: 'center',
-      align: 'center',
-    },
+    // {
+    //   field: 'description',
+    //   headerName: 'Mô tả',
+    //   width: 400,
+    //   headerAlign: 'center',
+    //   align: 'center',
+    // },
     {
       field: 'content',
       headerName: 'Link',
@@ -80,6 +99,16 @@ function CourseDetail(props) {
       width: 150,
       headerAlign: 'center',
       align: 'center',
+    },
+    {
+      field: 'isDeleted',
+      headerName: 'Trạng thái',
+      width: 150,
+      headerAlign: 'center',
+      align: 'center',
+      renderCell: (params) => {
+        return params.value !== 'false' ? 'Đã ẩn' : 'Bình thường';
+      },
     },
     {
       field: 'actions',

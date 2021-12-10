@@ -19,11 +19,10 @@ UpdateCourseForm.propTypes = {
 
 function UpdateCourseForm({ courseTypes, course, onFormSubmit }) {
   const classes = useStyles();
-  console.log(course.course_name);
-  const temp = course.course_name;
+  
   const form = useForm({
     defaultValues: {
-      course_name: temp,
+      course_name: course?.course_name,
       description: course?.description,
       max_user: course?.max_user || 0,
       // profile_picture: '',
