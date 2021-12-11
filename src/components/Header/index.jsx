@@ -18,11 +18,7 @@ import {
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import CodeIcon from '@mui/icons-material/Code';
 import { useDispatch, useSelector } from 'react-redux';
-import { 
-  Link, 
-  NavLink, 
-  useNavigate 
-} from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Close } from '@mui/icons-material';
 import Register from 'features/Auth/components/Register';
 import Login from 'features/Auth/components/Login';
@@ -30,6 +26,7 @@ import clsx from 'clsx';
 import SearchAppBar from './components/SearchAppBar';
 import useStyles from './styles';
 import { logOut } from 'features/Auth/authSlice';
+import Can from 'components/Can';
 
 const MODE = {
   REGISTER: 'register',
@@ -115,15 +112,19 @@ export default function Header() {
             >
               Quản trị
             </Typography>
-            <Typography
-              className={classes.appBarTitle}
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1 }}
-              onClick={() => handleNavigate('/manage/course')}
-            >
-              Chia sẻ
-            </Typography>
+
+            <Can roles={['admin', 'creator']}>
+              <Typography
+                className={classes.appBarTitle}
+                variant="h6"
+                component="div"
+                sx={{ flexGrow: 1 }}
+                onClick={() => handleNavigate('/manage/course')}
+              >
+                Chia sẻ
+              </Typography>
+            </Can>
+
             <Typography
               className={classes.appBarTitle}
               variant="h6"
@@ -204,7 +205,7 @@ export default function Header() {
             )}
           </Box>
         </Toolbar>
-  
+
         {/* <FormGroup>
           <FormControlLabel
             control={
