@@ -43,10 +43,10 @@ function AddCourse(props) {
           };
         })
       );
-
-      console.log(temp);
+      delete temp.profile_picture;
 
       const formData = new FormData();
+      formData.append('profile_picture', values?.profile_picture[0]);
       Object.keys(temp).forEach((key) => formData.append(key, temp[key]));
 
       const result = await courseApi.addCourse(formData);

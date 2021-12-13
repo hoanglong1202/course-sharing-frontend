@@ -1,15 +1,18 @@
-import axiosClient from "./axiosClient";
+import axiosClient from './axiosClient';
+
+const BASE_URL = '/user';
 
 const userApi = {
-  register(data) {
-    const url = `/auth/register`;
-    return axiosClient.post(url, data);
+  getUser(id) {
+    const url = `${BASE_URL}/${id}`;
+    return axiosClient.get(url);
   },
-  
-  login(data) {
-    const url = `/auth/signin`;
-    return axiosClient.post(url, data);
+
+  updateUser(data) {
+    const url = `${BASE_URL}/update-profile`;
+    return axiosClient.put(url, data);
   },
 };
+
 
 export default userApi;

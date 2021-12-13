@@ -1,2 +1,2 @@
 export * from "./axiosClient"
-export * from "./userApi"
+export * from "./authApi"

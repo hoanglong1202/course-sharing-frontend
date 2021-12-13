@@ -69,12 +69,12 @@ function ManageUser(props) {
     setLoading(false);
   }, []);
 
-  const handleDetailButton = (id, role) => {
+  const handleUpdateButton = (id, role) => {
     if (role === 'creator') {
-      return alert(JSON.stringify({ id, role }));
+      navigate(`/admin/update-creator/${id}`)
     }
     if (role === 'user') {
-      return alert(JSON.stringify({ id, role }));
+      navigate(`/admin/update-user/${id}`)
     }
   };
 
@@ -184,7 +184,7 @@ function ManageUser(props) {
           icon={<BrightnessLowIcon />}
           label="Cập nhập bài học"
           onClick={() =>
-            handleDetailButton(params.id, params.getValue(params.id, 'role'))
+            handleUpdateButton(params.id, params.getValue(params.id, 'role'))
           }
         />,
       ],

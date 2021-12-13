@@ -38,8 +38,10 @@ function UpdateCourse(props) {
       temp.cover_picture = values?.profile_picture[0]?.name;
       temp.creator_id = creatorId;
       temp.id = id;
+      delete temp.profile_picture;
   
       const formData = new FormData();
+      formData.append('profile_picture', values?.profile_picture[0]);
       Object.keys(temp).forEach((key) => formData.append(key, temp[key]));
   
       const result =  await courseApi.updateCourse(formData);

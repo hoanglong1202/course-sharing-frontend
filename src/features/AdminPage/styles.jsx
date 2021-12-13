@@ -17,6 +17,17 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.tertiary.second,
     fontWeight: 600,
   },
+
+  uploadLabel: {
+    marginTop: theme.spacing(2),
+  },
+
+  updateButton: {
+    width: '100%',
+    borderRadius: 5,
+
+    marginTop: theme.spacing(2),
+  },
 }));
 
 export default useStyles;

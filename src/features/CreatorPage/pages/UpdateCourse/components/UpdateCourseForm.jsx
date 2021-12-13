@@ -27,7 +27,8 @@ function UpdateCourseForm({ courseTypes, course, onFormSubmit }) {
       max_user: course?.max_user || 0,
       // profile_picture: '',
       types_id: course?.types_id,
-      profile_picture: course?.profile_picture,
+      // profile_picture: course?.profile_picture,
+      profile_picture: null,
     },
     // resolver: yupResolver(schema),
   });
