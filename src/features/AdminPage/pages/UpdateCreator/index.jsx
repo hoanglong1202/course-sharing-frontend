@@ -1,6 +1,5 @@
 import { Box } from '@mui/system';
 import creatorApi from 'api/creatorApi';
-import userApi from 'api/userApi';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
