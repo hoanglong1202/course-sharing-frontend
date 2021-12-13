@@ -109,17 +109,19 @@ export default function Header() {
           <Box className={classes.appBarTitleContainer}>
             <SearchAppBar />
 
-            <Typography
-              className={classes.appBarTitle}
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1 }}
-              onClick={() => handleNavigate('/admin')}
-            >
-              Quản trị
-            </Typography>
+            <Can roles={['admin']}>
+              <Typography
+                className={classes.appBarTitle}
+                variant="h6"
+                component="div"
+                sx={{ flexGrow: 1 }}
+                onClick={() => handleNavigate('/admin')}
+              >
+                Quản trị
+              </Typography>
+            </Can>
 
-            <Can roles={['admin', 'creator']}>
+            <Can roles={['creator']}>
               <Typography
                 className={classes.appBarTitle}
                 variant="h6"

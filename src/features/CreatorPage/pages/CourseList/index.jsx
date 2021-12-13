@@ -33,7 +33,7 @@ function CourseList(props) {
     })();
 
     setLoading(false);
-  }, []);
+  }, [creatorId]);
 
   const handleDetailButton = (id) => {
     navigate(`/creator/${id}`);
