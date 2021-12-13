@@ -2,15 +2,16 @@ import { Box } from '@mui/system';
 import courseApi from 'api/courseApi';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 // import useStyles from '../styles';
 import UpdateCourseForm from './components/UpdateCourseForm';
-
 function UpdateCourse(props) {
   // const classes = useStyles();
   const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+  const { current: {id: creatorId} } = useSelector((state) => state.auth);
 
   const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState({});
@@ -35,7 +36,7 @@ function UpdateCourse(props) {
       temp.course_name = values.course_name.trim();
       temp.description = values.description.trim();
       temp.cover_picture = values?.profile_picture[0]?.name;
-      temp.creator_id = 1;
+      temp.creator_id = creatorId;
       temp.id = id;
   
       const formData = new FormData();

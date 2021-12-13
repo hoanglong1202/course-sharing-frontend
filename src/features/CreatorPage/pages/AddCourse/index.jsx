@@ -2,6 +2,7 @@ import { Box } from '@mui/system';
 import courseApi from 'api/courseApi';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import AddCourseForm from './components/AddCourseForm';
 
@@ -9,6 +10,7 @@ function AddCourse(props) {
   // const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
+  const { current: {id: creatorId} } = useSelector((state) => state.auth);
 
   const [types, setTypes] = useState([]);
   const [courseTypes, setCourseTypes] = useState([]);
@@ -30,7 +32,7 @@ function AddCourse(props) {
       temp.course_name = values.course_name.trim();
       temp.description = values.description.trim();
       temp.cover_picture = values?.profile_picture[0]?.name;
-      temp.creator_id = 1;
+      temp.creator_id = creatorId;
       temp.lesson = JSON.stringify(
         values.lesson.map((item) => {
           return {

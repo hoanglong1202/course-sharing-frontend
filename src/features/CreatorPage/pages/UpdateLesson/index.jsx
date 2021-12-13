@@ -28,7 +28,6 @@ function UpdateLesson(props) {
 
   const handleSubmit = async (value) => {
     try {
-      console.log(value);
       const temp = value;
       
       temp.lesson_name = value?.lesson_name.trim();
