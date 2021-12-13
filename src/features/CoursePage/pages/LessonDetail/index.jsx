@@ -34,7 +34,6 @@ function LessonDetail(props) {
 
   const handleListItemClick = (event, id) => {
     navigate(`/course/${courseId}/${id}`);
-    // setSelectedIndex(index);
   };
 
   useEffect(() => {

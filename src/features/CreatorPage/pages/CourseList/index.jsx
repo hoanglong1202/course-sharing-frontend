@@ -8,6 +8,7 @@ import courseApi from 'api/courseApi';
 import ConfirmDialog from 'components/ConfirmDialog';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useStyles from '../../styles';
 
@@ -16,6 +17,7 @@ CourseList.propTypes = {};
 function CourseList(props) {
   const classes = useStyles();
   const navigate = useNavigate();
+  const { current: {id: creatorId} } = useSelector((state) => state.auth);
   const { enqueueSnackbar } = useSnackbar();
 
   const [loading, setLoading] = useState(true);
@@ -25,7 +27,7 @@ function CourseList(props) {
 
   useEffect(() => {
     (async () => {
-      const { dataObj } = await courseApi.getCourseList(1);
+      const { dataObj } = await courseApi.getCourseList(creatorId);
 
       setCourseList(dataObj);
     })();

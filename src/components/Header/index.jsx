@@ -18,6 +18,7 @@ import Can from 'components/Can';
 import { logOut } from 'features/Auth/authSlice';
 import Login from 'features/Auth/components/Login';
 import Register from 'features/Auth/components/Register';
+import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -34,6 +35,7 @@ export default function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.auth.current);
+  const { enqueueSnackbar } = useSnackbar();
   const auth = currentUser.id ? true : false;
   // const auth = true;
 
@@ -76,6 +78,13 @@ export default function Header() {
   const handleUserLogOut = () => {
     dispatch(logOut());
     handleMenuClose();
+
+    enqueueSnackbar('Đăng xuất thành công', {
+      variant: 'success',
+    });
+
+    handleNavigate('/');
+
   };
 
   return (
