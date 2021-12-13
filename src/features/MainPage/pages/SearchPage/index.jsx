@@ -21,6 +21,7 @@ function SearchPage(props) {
 
   const location = useLocation();
   const classes = useStyles();
+  // eslint-disable-next-line no-unused-vars
   let [searchParams, setSearchParams] = useSearchParams();
 
   const queryParams = useMemo(() => {

@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import { Grid, Pagination, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import courseApi from 'api/courseApi';
 import DesignIllustration from 'assets/images/design-illustration-2.svg';
 import UDN from 'assets/images/UDN.jpg';
 import UTE from 'assets/images/UTE.png';
-import { Box } from '@mui/system';
-import { Card, Grid, Pagination, Typography } from '@mui/material';
 import clsx from 'clsx';
+import queryString from 'query-string';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CourseCard from '../../components/CourseCard';
 import useStyles from '../../styles';
-import { useLocation, useNavigate } from 'react-router-dom';
-import queryString from 'query-string';
-import courseApi from 'api/courseApi';
 
 function LandingPage(props) {
   const location = useLocation();
@@ -168,14 +168,15 @@ function LandingPage(props) {
               ))}
           </Grid>
         </Box>
-
-        <Box mt={3} className={classes.pagination}>
-          <Pagination
-            count={Math.round(pagination.total / pagination.limit)}
-            color="primary"
-            onChange={handlePageChange}
-          />
-        </Box>
+        {!loading && (
+          <Box mt={3} className={classes.pagination}>
+            <Pagination
+              count={Math.round(pagination.total / pagination.limit) || 0}
+              color="primary"
+              onChange={handlePageChange}
+            />
+          </Box>
+        )}
       </Box>
     </Box>
   );

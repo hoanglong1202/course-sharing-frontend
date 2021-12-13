@@ -2,7 +2,7 @@ import courseApi from 'api/courseApi';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import UpdateLessonForm from './UpdateLessonForm';
+import UpdateLessonForm from './components/UpdateLessonForm';
 
 UpdateLesson.propTypes = {};
 
@@ -42,7 +42,7 @@ function UpdateLesson(props) {
           variant: 'success',
         });
 
-        navigate(`/manage/course/${courseId}`);
+        navigate(`/creator/${courseId}`);
       }
     } catch (error) {
       enqueueSnackbar(error.message, { variant: 'error' });

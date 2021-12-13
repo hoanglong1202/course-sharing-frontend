@@ -1,17 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Box } from '@mui/system';
-import { makeStyles } from '@mui/styles';
 import {
-  Avatar,
-  Button,
-  Card,
+  Avatar, Card,
   CardContent,
-  CardHeader,
-  IconButton,
-  TextField,
-  Typography,
+  CardHeader, TextField,
+  Typography
 } from '@mui/material';
+// import PropTypes from 'prop-types';
+import { makeStyles } from '@mui/styles';
+import { Box } from '@mui/system';
+import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,6 +88,7 @@ function Comments(props) {
         <Box className={classes.panel}>
           <Box className={classes.commentAs}>
             Comment as {' '}
+            {/* // eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a href="#" className={classes.username}>
               Kevin
             </a>

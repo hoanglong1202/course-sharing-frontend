@@ -1,32 +1,28 @@
-import React, { useState } from 'react';
-
+import { Close } from '@mui/icons-material';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import CodeIcon from '@mui/icons-material/Code';
 import {
   AppBar,
   Box,
-  Toolbar,
-  Typography,
-  IconButton,
-  // Switch,
-  // FormControlLabel,
-  // FormGroup,
-  MenuItem,
-  Menu,
   Button,
   Dialog,
   DialogContent,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
 } from '@mui/material';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import CodeIcon from '@mui/icons-material/Code';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Close } from '@mui/icons-material';
-import Register from 'features/Auth/components/Register';
-import Login from 'features/Auth/components/Login';
 import clsx from 'clsx';
+import Can from 'components/Can';
+import { logOut } from 'features/Auth/authSlice';
+import Login from 'features/Auth/components/Login';
+import Register from 'features/Auth/components/Register';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import SearchAppBar from './components/SearchAppBar';
 import useStyles from './styles';
-import { logOut } from 'features/Auth/authSlice';
-import Can from 'components/Can';
 
 const MODE = {
   REGISTER: 'register',
@@ -109,6 +105,7 @@ export default function Header() {
               variant="h6"
               component="div"
               sx={{ flexGrow: 1 }}
+              onClick={() => handleNavigate('/admin')}
             >
               Quản trị
             </Typography>
@@ -119,7 +116,7 @@ export default function Header() {
                 variant="h6"
                 component="div"
                 sx={{ flexGrow: 1 }}
-                onClick={() => handleNavigate('/manage/course')}
+                onClick={() => handleNavigate('/creator')}
               >
                 Chia sẻ
               </Typography>

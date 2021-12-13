@@ -1,19 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Box, typography } from '@mui/system';
-import { makeStyles } from '@mui/styles';
-import {
-  Avatar,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  IconButton,
-  Rating,
-  TextField,
-  Typography,
-} from '@mui/material';
 import { StarBorder } from '@mui/icons-material';
+import {
+  Avatar, Card,
+  CardContent,
+  CardHeader, Rating,
+  TextField,
+  Typography
+} from '@mui/material';
+import { makeStyles } from '@mui/styles';
+// import PropTypes from 'prop-types';
+import { Box } from '@mui/system';
+import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,15 +1,12 @@
 import {
   Box,
   FormControl,
-  FormHelperText,
-  IconButton,
-  OutlinedInput,
-  Typography,
+  FormHelperText, OutlinedInput,
+  Typography
 } from '@mui/material';
-import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
+import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { makeStyles } from '@mui/styles';
 import { Controller } from 'react-hook-form';
 
 QuantityField.propTypes = {
@@ -33,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 function QuantityField(props) {
   const classes = useStyles();
   const { form, name, label, disabled } = props;
-  const { control, formState, getValues, setValue } = form;
+  const { control, formState } = form;
 
   const hasError = formState.errors[name] ? true : false;
 

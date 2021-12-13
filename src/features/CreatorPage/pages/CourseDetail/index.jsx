@@ -4,12 +4,12 @@ import { Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import courseApi from 'api/courseApi';
-import ConfirmDialog from 'features/ManagePage/components/ConfirmDialog';
+import ConfirmDialog from 'components/ConfirmDialog';
 import moment from 'moment';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import useStyles from '../styles';
+import useStyles from '../../styles';
 
 CourseDetail.propTypes = {};
 
@@ -37,7 +37,7 @@ function CourseDetail(props) {
   }, [id]);
 
   const handleDetailButton = (lessonId) => {
-    navigate(`/manage/course/update-lesson/${id}/${lessonId}`);
+    navigate(`/creator/update-lesson/${id}/${lessonId}`);
   };
 
   const handleDeleteButton = (id) => {

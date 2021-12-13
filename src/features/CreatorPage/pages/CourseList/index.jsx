@@ -5,11 +5,11 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import courseApi from 'api/courseApi';
-import ConfirmDialog from 'features/ManagePage/components/ConfirmDialog';
+import ConfirmDialog from 'components/ConfirmDialog';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useStyles from '../styles';
+import useStyles from '../../styles';
 
 CourseList.propTypes = {};
 
@@ -34,11 +34,11 @@ function CourseList(props) {
   }, []);
 
   const handleDetailButton = (id) => {
-    navigate(`/manage/course/${id}`);
+    navigate(`/creator/${id}`);
   };
 
   const handleUpdateButton = (id) => {
-    navigate(`/manage/course/update-course/${id}`);
+    navigate(`/creator/update-course/${id}`);
   };
 
   const handleDeleteButton = (id) => {

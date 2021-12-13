@@ -7,7 +7,7 @@ import UploadField from 'components/form-control/UploadField';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import useStyles from '../styles';
+import useStyles from '../../../styles';
 // import { yupResolver } from '@hookform/resolvers/yup';
 import SelectField from 'components/form-control/SelectField';
 

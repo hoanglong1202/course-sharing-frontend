@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { Box } from '@mui/system';
-import useStyles from './styles';
 import {
   Avatar,
   Grid,
   List,
-  ListItemButton,
-  ListItemText,
-  Typography,
+  ListItemButton, Typography
 } from '@mui/material';
+import { Box } from '@mui/system';
+import courseApi from 'api/courseApi';
 import Test from 'assets/images/test.jpg';
 import clsx from 'clsx';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Comments from './components/Comments';
-import courseApi from 'api/courseApi';
+import useStyles from './styles';
 
 LessonDetail.propTypes = {};
 
 function LessonDetail(props) {
   const classes = useStyles();
   let { courseId, lessonId } = useParams();
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
   const { pathname } = useLocation();
   const navigate = useNavigate();
 

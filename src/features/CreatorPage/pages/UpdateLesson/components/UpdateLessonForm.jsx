@@ -8,7 +8,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 // import { yupResolver } from '@hookform/resolvers/yup';
-import useStyles from '../styles';
+import useStyles from '../../../styles';
 
 UpdateLessonForm.propTypes = {
   lesson: PropTypes.object,

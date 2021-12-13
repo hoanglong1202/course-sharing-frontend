@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { Box } from '@mui/system';
+import CheckIcon from '@mui/icons-material/Check';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import {
   Avatar,
   Breadcrumbs,
@@ -10,18 +10,17 @@ import {
   LinearProgress,
   Link,
   Rating,
-  Typography,
+  Typography
 } from '@mui/material';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import phongcanh3 from 'assets/images/phongcanh3.jpeg';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import Test from 'assets/images/test.jpg';
-import CheckIcon from '@mui/icons-material/Check';
-import useStyles from './styles';
-import clsx from 'clsx';
-import Comments from './components/Comments';
+import { Box } from '@mui/system';
 import courseApi from 'api/courseApi';
+import phongcanh3 from 'assets/images/phongcanh3.jpeg';
+import Test from 'assets/images/test.jpg';
+import clsx from 'clsx';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import Comments from './components/Comments';
+import useStyles from './styles';
 
 CourseDetail.propTypes = {};
 
@@ -50,7 +49,7 @@ function CourseDetail(props) {
     })();
 
     setLoading(false);
-  }, []);
+  }, [courseId]);
 
   console.log(course);
 

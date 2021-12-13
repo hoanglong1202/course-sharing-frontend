@@ -2,30 +2,31 @@ import { Box } from '@mui/system';
 import courseApi from 'api/courseApi';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 // import useStyles from '../styles';
-// import PropTypes from 'prop-types';
-import AddCourseForm from './AddCourseForm';
+import UpdateCourseForm from './components/UpdateCourseForm';
 
-// AddCourse.propTypes = {};
-
-function AddCourse(props) {
+function UpdateCourse(props) {
   // const classes = useStyles();
+  const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
-  const [types, setTypes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [course, setCourse] = useState({});
   const [courseTypes, setCourseTypes] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const { dataObj } = await courseApi.getLessonTypes();
+      const { dataObj } = await courseApi.getCourse(id);
       const { dataObj: courseType } = await courseApi.getCourseTypes();
 
       setCourseTypes(courseType);
-      setTypes(dataObj);
+      setCourse(dataObj);
+      setLoading(false);
     })();
-  }, []);
+
+  }, [id]);
 
   const onSubmit = async (values) => {
     try {
@@ -35,29 +36,19 @@ function AddCourse(props) {
       temp.description = values.description.trim();
       temp.cover_picture = values?.profile_picture[0]?.name;
       temp.creator_id = 1;
-      temp.lesson = JSON.stringify(
-        values.lesson.map((item) => {
-          return {
-            ...item,
-            lesson_name: item.lesson_name.trim(),
-            description: item.description.trim(),
-            content: item.content.trim(),
-          };
-        })
-      );
-
-      console.log(temp);
-
+      temp.id = id;
+  
       const formData = new FormData();
       Object.keys(temp).forEach((key) => formData.append(key, temp[key]));
+  
+      const result =  await courseApi.updateCourse(formData);
 
-      const result = await courseApi.addCourse(formData);
       if (result.success) {
         enqueueSnackbar('Change course status successfully!', {
           variant: 'success',
         });
 
-        navigate(`/manage/course/list`);
+        navigate(`/creator/list`);
       }
     } catch (error) {
       enqueueSnackbar(error.message, { variant: 'error' });
@@ -66,9 +57,9 @@ function AddCourse(props) {
 
   return (
     <Box>
-      <AddCourseForm onFormSubmit={onSubmit} courseTypes={courseTypes} types={types} />
+      {!loading && <UpdateCourseForm onFormSubmit={onSubmit} course={course} courseTypes={courseTypes} />}
     </Box>
   );
 }
 
-export default AddCourse;
+export default UpdateCourse;
