@@ -17,6 +17,11 @@ const adminApi = {
     const url = `${BASE_URL}/delete-creator/${id}`;
     return axiosClient.delete(url);
   },
+
+  addCreator(data) {
+    const url = `${BASE_URL}/add-creator`;
+    return axiosClient.post(url, data);
+  },
 };
 
 export default adminApi;

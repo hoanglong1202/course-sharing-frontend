@@ -242,13 +242,13 @@ function ManageUser(props) {
       </Box>
 
       <Box component="span">
-        <Button variant="contained" size="small">
+        <Button variant="contained" size="small" onClick={() => navigate("/admin/add-user")}>
           Thêm user
         </Button>
       </Box>
 
       <Box component="span" ml={1}>
-        <Button variant="contained" size="small">
+        <Button variant="contained" size="small" onClick={() => navigate("/admin/add-creator")}>
           Thêm creator
         </Button>
       </Box>
