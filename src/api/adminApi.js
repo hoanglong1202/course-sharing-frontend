@@ -1,3 +1,4 @@
+import ApproveCourse from 'features/AdminPage/pages/ApproveCourseList';
 import axiosClient from './axiosClient';
 
 const BASE_URL = '/admin';
@@ -22,6 +23,16 @@ const adminApi = {
     const url = `${BASE_URL}/add-creator`;
     return axiosClient.post(url, data);
   },
+
+  getAdminCourseList() {
+    const url = `${BASE_URL}/course-list`;
+    return axiosClient.get(url);
+  },
+
+  approveCourse(id) {
+    const url = `${BASE_URL}/approved-course/${id}`;
+    return axiosClient.put(url);
+  }
 };
 
 export default adminApi;

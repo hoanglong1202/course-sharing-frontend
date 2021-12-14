@@ -97,7 +97,7 @@ function ManageUser(props) {
       }
 
       if (result.success) {
-        enqueueSnackbar('Change lesson status successfully!', {
+        enqueueSnackbar('Change user status successfully!', {
           variant: 'success',
         });
 

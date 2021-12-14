@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import LinkMenu from './components/LinkMenu';
 import AddCreator from './pages/AddCreator';
 import AddUser from './pages/AddUser';
-import ApproveCourse from './pages/ApproveCourse';
+import ApproveCourseList from './pages/ApproveCourseList';
 import ManageCategory from './pages/ManageCategory';
 import ManageUser from './pages/ManageUser';
 import UpdateCreator from './pages/UpdateCreator';
@@ -24,7 +24,7 @@ function AdminPage(props) {
         <Route path="update-creator/:id" element={<UpdateCreator />} />
         <Route path="add-creator" element={<AddCreator />} />
         <Route path="category" element={<ManageCategory />} />
-        <Route path="approve" element={<ApproveCourse />} />
+        <Route path="approve" element={<ApproveCourseList />} />
       </Routes>
     </Box>
   );

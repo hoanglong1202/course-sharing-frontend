@@ -54,7 +54,7 @@ function LinkMenu(props) {
       </li>
       <li>
         <Link component={NavLink} to={`${pathname}/approve`}>
-          Phê duyệt
+          Khóa học
         </Link>
       </li>
     </Box>

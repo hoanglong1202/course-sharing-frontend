@@ -10,7 +10,7 @@ function ManageCategory(props) {
     <Box>
       <Typography className={classes.title}>Quản lý danh mục</Typography>
       <Typography className={classes.description}>
-        Đây là nơi quản lý danh mục ở Website
+        Đây là nơi quản lý danh mục ở Website&nbsp;
         <b>Course Sharing</b>
       </Typography>
     </Box>

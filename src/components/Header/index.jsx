@@ -138,6 +138,7 @@ export default function Header() {
               variant="h6"
               component="div"
               sx={{ flexGrow: 1 }}
+              onClick={() => handleNavigate('/all')}
             >
               Khóa học
             </Typography>
