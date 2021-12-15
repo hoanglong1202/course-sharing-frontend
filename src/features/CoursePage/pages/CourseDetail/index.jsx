@@ -21,6 +21,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Comments from './components/Comments';
 import useStyles from './styles';
+import CountUp from 'react-countup';
 
 CourseDetail.propTypes = {};
 
@@ -40,8 +41,9 @@ function CourseDetail(props) {
   useEffect(() => {
     (async () => {
       try {
+        await courseApi.countCourseViewed(courseId);
         const { dataObj } = await courseApi.getCourse(courseId);
-
+        
         setCourse(dataObj);
       } catch (error) {
         console.log('Some error occur: ', error);
@@ -88,12 +90,16 @@ function CourseDetail(props) {
               <Box className={classes.iconContainer}>
                 <Box className={classes.iconHolder}>
                   <FavoriteIcon style={{ color: 'rgb(255 76 106)' }} />
-                  <span className={classes.score}>{course?.favourited}</span>
+                  <span className={classes.score}>
+                    <CountUp duration={3} end={course?.favourited} />
+                  </span>
                 </Box>
 
                 <Box className={classes.iconHolder}>
                   <RemoveRedEyeIcon style={{ color: '#CEC0FC' }} />
-                  <span className={classes.score}>{course?.viewed}</span>
+                  <span className={classes.score}> 
+                    <CountUp duration={3} end={course?.viewed} />
+                  </span>
                 </Box>
 
                 <Box className={classes.iconHolder}>
@@ -144,9 +150,8 @@ function CourseDetail(props) {
                   Học ngay
                 </Button>
                 <Button className={classes.loveButton}>
-                  {' '}
                   <FavoriteIcon style={{ color: 'rgb(255 76 106)' }} />
-                  Yêu thích
+                  &nbsp;Yêu thích
                 </Button>
               </Box>
             </Box>
@@ -169,14 +174,14 @@ function CourseDetail(props) {
         <Box className={classes.contentInfor}>
           <CheckIcon />
           <Typography className={classes.infor}>
-            Hơn {course?.total} bài học được chia sẻ từ lập trình viên hàng đầu
+            Hơn <CountUp duration={3} end={course?.total} /> bài học được chia sẻ từ lập trình viên hàng đầu
           </Typography>
         </Box>
 
         <Box className={classes.contentInfor}>
           <CheckIcon />
           <Typography className={classes.infor}>
-            Hơn {course?.viewed} học viên đã tham gia và hơn {course?.favourited} người yêu thích khóa học này
+            Hơn <CountUp duration={3} end={course?.viewed} /> học viên đã tham gia và hơn <CountUp duration={3} end={course?.favourited} /> người yêu thích khóa học này
           </Typography>
         </Box>
 

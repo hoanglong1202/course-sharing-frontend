@@ -1,4 +1,3 @@
-import ApproveCourse from 'features/AdminPage/pages/ApproveCourseList';
 import axiosClient from './axiosClient';
 
 const BASE_URL = '/admin';

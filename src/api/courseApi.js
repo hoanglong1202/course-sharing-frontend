@@ -72,6 +72,12 @@ const courseApi = {
     const result = await axiosClient.put(url, data);
     return result;
   },
+
+  countCourseViewed: async (id) => {
+    const url = `${BASE_URL}/count-view/${id}`;
+    const result = await axiosClient.get(url);
+    return result;
+  },
 };
 
 export default courseApi;
