@@ -78,6 +78,18 @@ const courseApi = {
     const result = await axiosClient.get(url);
     return result;
   },
+
+  getCourseRating: async (id) => {
+    const url = `${BASE_URL}/rating/${id}`;
+    const result = await axiosClient.get(url);
+    return result;
+  },
+
+  addCourseRating: async (data) => {
+    const url = `${BASE_URL}/rating`;
+    const result = await axiosClient.post(url, data);
+    return result;
+  },
 };
 
 export default courseApi;

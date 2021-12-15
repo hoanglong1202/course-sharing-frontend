@@ -1,8 +1,8 @@
 import CheckIcon from '@mui/icons-material/Check';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {
   Avatar,
   Breadcrumbs,
@@ -15,18 +15,19 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import courseApi from 'api/courseApi';
+import userApi from 'api/userApi';
 import phongcanh3 from 'assets/images/phongcanh3.jpeg';
 import Test from 'assets/images/test.jpg';
 import clsx from 'clsx';
+import { openDialog } from 'features/Auth/authSlice';
+import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import Comments from './components/Comments';
-import useStyles from './styles';
 import CountUp from 'react-countup';
 import { useDispatch, useSelector } from 'react-redux';
-import { openDialog } from 'features/Auth/authSlice';
-import userApi from 'api/userApi';
-import { useSnackbar } from 'notistack';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import Comment from './components/Comment';
+import WriteComments from './components/WriteComments';
+import useStyles from './styles';
 
 CourseDetail.propTypes = {};
 
@@ -44,8 +45,13 @@ function CourseDetail(props) {
   const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState({});
   const [isFavourited, setIsFavourited] = useState(false);
+  const [commentList, setCommentList] = useState([]);
 
   const auth = currentUser.id ? true : false;
+  const isReviewed = commentList.findIndex(
+    (item) => item.id === currentUser.id
+  );
+  console.log('isReviewed', isReviewed);
 
   const handleNavigate = () => {
     navigate(`/course/${course.id}/${course.firstLesson.id}`);
@@ -56,29 +62,34 @@ function CourseDetail(props) {
       try {
         await courseApi.countCourseViewed(courseId);
         const { dataObj } = await courseApi.getCourse(courseId);
-        const { dataObj: userFavourite } = await userApi.getUserFavourite(
-          courseId,
-          currentUser.id
-        );
+        const { dataObj: list } = await courseApi.getCourseRating(courseId);
 
-        const isFavour =
-          userFavourite && Object.keys(userFavourite).length !== 0
-            ? true
-            : false;
-
-        setIsFavourited(isFavour);
         setCourse(dataObj);
+        setCommentList(list);
+        if (auth && currentUser.role === 'user') {
+          const { dataObj: userFavourite } = await userApi.getUserFavourite(
+            courseId,
+            currentUser.id
+          );
+
+          const isFavour =
+            userFavourite && Object.keys(userFavourite).length !== 0
+              ? true
+              : false;
+
+          setIsFavourited(isFavour);
+        }
       } catch (error) {
         console.log('Some error occur: ', error);
       }
     })();
 
     setLoading(false);
-  }, [courseId, currentUser.id]);
+  }, [courseId, currentUser.id, auth, currentUser.role]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, []);
 
   const handleFavouriteButton = async () => {
     try {
@@ -96,10 +107,7 @@ function CourseDetail(props) {
       }
 
       if (isFavourited && currentUser.role === 'user') {
-        result = await userApi.removeUserFavourite(
-          courseId,
-          currentUser.id
-        );
+        result = await userApi.removeUserFavourite(courseId, currentUser.id);
 
         if (result.success) {
           enqueueSnackbar('UnFavourite successful!', { variant: 'success' });
@@ -119,6 +127,30 @@ function CourseDetail(props) {
             : false;
 
         setIsFavourited(isFavour);
+      }
+    } catch (error) {
+      enqueueSnackbar(error.message, { variant: 'error' });
+    }
+  };
+
+  const handleWriteComment = async (data) => {
+    try {
+      if (auth && currentUser.role === 'user') {
+        const ratingData = {
+          ...data,
+          courseId,
+          userId: currentUser.id,
+        };
+
+        const result = await courseApi.addCourseRating(ratingData);
+
+        if (result.success) {
+          enqueueSnackbar('Review successful!', { variant: 'success' });
+
+          // refresh comment
+          const { dataObj: list } = await courseApi.getCourseRating(courseId);
+          setCommentList(list);
+        }
       }
     } catch (error) {
       enqueueSnackbar(error.message, { variant: 'error' });
@@ -297,7 +329,21 @@ function CourseDetail(props) {
         </Box>
       </Box>
 
-      <Comments />
+      <Box mt={3} mb={3} ml={2}>
+        <Typography className={classes.contentTitle}>
+          Đánh giá từ học viên:
+        </Typography>
+      </Box>
+
+      {auth && isReviewed === -1 ? (
+        <WriteComments onSubmit={handleWriteComment} />
+      ) : <p>Bạn đã đánh giá khóa học này</p>}
+
+      {!loading && commentList.length > 0 ? (
+        commentList.map((item, index) => <Comment key={index} item={item} />)
+      ) : (
+        <p>Khóa học này chưa có nhận xét nào</p>
+      )}
     </Box>
   );
 }
