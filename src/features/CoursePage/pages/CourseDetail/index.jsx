@@ -2,6 +2,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {
   Avatar,
   Breadcrumbs,
@@ -10,7 +11,7 @@ import {
   LinearProgress,
   Link,
   Rating,
-  Typography
+  Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import courseApi from 'api/courseApi';
@@ -22,6 +23,10 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Comments from './components/Comments';
 import useStyles from './styles';
 import CountUp from 'react-countup';
+import { useDispatch, useSelector } from 'react-redux';
+import { openDialog } from 'features/Auth/authSlice';
+import userApi from 'api/userApi';
+import { useSnackbar } from 'notistack';
 
 CourseDetail.propTypes = {};
 
@@ -29,10 +34,18 @@ function CourseDetail(props) {
   const classes = useStyles();
   let { courseId } = useParams();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const { pathname } = useLocation();
+  const { current: currentUser, openDialog: open } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState({});
+  const [isFavourited, setIsFavourited] = useState(false);
+
+  const auth = currentUser.id ? true : false;
 
   const handleNavigate = () => {
     navigate(`/course/${course.id}/${course.firstLesson.id}`);
@@ -43,7 +56,17 @@ function CourseDetail(props) {
       try {
         await courseApi.countCourseViewed(courseId);
         const { dataObj } = await courseApi.getCourse(courseId);
-        
+        const { dataObj: userFavourite } = await userApi.getUserFavourite(
+          courseId,
+          currentUser.id
+        );
+
+        const isFavour =
+          userFavourite && Object.keys(userFavourite).length !== 0
+            ? true
+            : false;
+
+        setIsFavourited(isFavour);
         setCourse(dataObj);
       } catch (error) {
         console.log('Some error occur: ', error);
@@ -51,13 +74,56 @@ function CourseDetail(props) {
     })();
 
     setLoading(false);
-  }, [courseId]);
-
-  console.log(course);
+  }, [courseId, currentUser.id]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  const handleFavouriteButton = async () => {
+    try {
+      let result;
+      if (!auth && !open) {
+        dispatch(openDialog());
+      }
+
+      if (!isFavourited && currentUser.role === 'user') {
+        result = await userApi.addUserFavourite(courseId, currentUser.id);
+
+        if (result.success) {
+          enqueueSnackbar('Add Favourite successful!', { variant: 'success' });
+        }
+      }
+
+      if (isFavourited && currentUser.role === 'user') {
+        result = await userApi.removeUserFavourite(
+          courseId,
+          currentUser.id
+        );
+
+        if (result.success) {
+          enqueueSnackbar('UnFavourite successful!', { variant: 'success' });
+        }
+      }
+
+      // refresh status
+      if (result && result.success) {
+        const { dataObj: userFavourite } = await userApi.getUserFavourite(
+          courseId,
+          currentUser.id
+        );
+
+        const isFavour =
+          userFavourite && Object.keys(userFavourite).length !== 0
+            ? true
+            : false;
+
+        setIsFavourited(isFavour);
+      }
+    } catch (error) {
+      enqueueSnackbar(error.message, { variant: 'error' });
+    }
+  };
 
   if (loading) {
     return <LinearProgress />;
@@ -97,7 +163,7 @@ function CourseDetail(props) {
 
                 <Box className={classes.iconHolder}>
                   <RemoveRedEyeIcon style={{ color: '#CEC0FC' }} />
-                  <span className={classes.score}> 
+                  <span className={classes.score}>
                     <CountUp duration={3} end={course?.viewed} />
                   </span>
                 </Box>
@@ -149,9 +215,27 @@ function CourseDetail(props) {
                 >
                   Học ngay
                 </Button>
-                <Button className={classes.loveButton}>
-                  <FavoriteIcon style={{ color: 'rgb(255 76 106)' }} />
-                  &nbsp;Yêu thích
+                <Button
+                  className={classes.loveButton}
+                  onClick={handleFavouriteButton}
+                  disabled={
+                    currentUser.role === 'creator' ||
+                    currentUser.role === 'admin'
+                  }
+                >
+                  {isFavourited ? (
+                    <>
+                      <FavoriteIcon style={{ color: 'rgb(255 76 106)' }} />
+                      &nbsp;Đã thích
+                    </>
+                  ) : (
+                    <>
+                      <FavoriteBorderIcon
+                        style={{ color: 'rgb(255 76 106)' }}
+                      />
+                      &nbsp;Yêu thích
+                    </>
+                  )}
                 </Button>
               </Box>
             </Box>
@@ -161,7 +245,7 @@ function CourseDetail(props) {
 
       <Box className={classes.content}>
         <Typography className={classes.contentTitle}>
-          Bạn sẽ học được gì ở khóa này: {courseId}
+          Bạn sẽ học được gì ở khóa này:
         </Typography>
 
         <Box className={classes.contentInfor}>
@@ -174,14 +258,17 @@ function CourseDetail(props) {
         <Box className={classes.contentInfor}>
           <CheckIcon />
           <Typography className={classes.infor}>
-            Hơn <CountUp duration={3} end={course?.total} /> bài học được chia sẻ từ lập trình viên hàng đầu
+            Hơn <CountUp duration={3} end={course?.total} /> bài học được chia
+            sẻ từ lập trình viên hàng đầu
           </Typography>
         </Box>
 
         <Box className={classes.contentInfor}>
           <CheckIcon />
           <Typography className={classes.infor}>
-            Hơn <CountUp duration={3} end={course?.viewed} /> học viên đã tham gia và hơn <CountUp duration={3} end={course?.favourited} /> người yêu thích khóa học này
+            Hơn <CountUp duration={3} end={course?.viewed} /> học viên đã tham
+            gia và hơn <CountUp duration={3} end={course?.favourited} /> người
+            yêu thích khóa học này
           </Typography>
         </Box>
 

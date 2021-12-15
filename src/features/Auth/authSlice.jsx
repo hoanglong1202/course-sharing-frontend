@@ -27,6 +27,7 @@ const userSlice = createSlice({
   initialState: {
     current: JSON.parse(localStorage.getItem(StorageKeys.USER)) || {},
     settings: {},
+    openDialog:  false,
   },
   reducers: {
     logOut: (state) => {
@@ -34,6 +35,12 @@ const userSlice = createSlice({
       localStorage.removeItem(StorageKeys.TOKEN);
 
       state.current = {};
+    },
+    openDialog: (state) => {
+      state.openDialog = true;
+    },
+    closeDialog: (state) => {
+      state.openDialog = false;
     },
   },
   extraReducers: {
@@ -47,5 +54,5 @@ const userSlice = createSlice({
 });
 
 const { actions, reducer } = userSlice;
-export const { logOut } = actions;
+export const { logOut, openDialog, closeDialog } = actions;
 export default reducer;

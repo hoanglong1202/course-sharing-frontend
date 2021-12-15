@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import clsx from 'clsx';
 import Can from 'components/Can';
-import { logOut } from 'features/Auth/authSlice';
+import { logOut, openDialog, closeDialog } from 'features/Auth/authSlice';
 import Login from 'features/Auth/components/Login';
 import Register from 'features/Auth/components/Register';
 import { useSnackbar } from 'notistack';
@@ -34,38 +34,35 @@ export default function Header() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const currentUser = useSelector((state) => state.auth.current);
+  const {current: currentUser, openDialog: open} = useSelector((state) => state.auth);
   const { enqueueSnackbar } = useSnackbar();
   const auth = currentUser.id ? true : false;
-  // const auth = true;
 
   const handleNavigate = (path) => {
     navigate(path);
   };
 
-  // const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
 
   const handleClickOpenLogin = () => {
     setMode(MODE.LOGIN);
-    setOpen(true);
+    dispatch(openDialog());
+    // setOpen(true);
   };
 
   const handleClickOpenRegister = () => {
     setMode(MODE.REGISTER);
-    setOpen(true);
+    dispatch(openDialog());
+    // setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    dispatch(closeDialog());
+    // setOpen(false);
   };
-
-  // const handleChange = (event) => {
-  //   setAuth(event.target.checked);
-  // };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -84,7 +81,6 @@ export default function Header() {
     });
 
     handleNavigate('/');
-
   };
 
   return (
@@ -214,19 +210,6 @@ export default function Header() {
             )}
           </Box>
         </Toolbar>
-
-        {/* <FormGroup>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={auth}
-                onChange={handleChange}
-                aria-label="login switch"
-              />
-            }
-            label={auth ? 'Logout' : 'Login'}
-          />
-        </FormGroup> */}
       </AppBar>
 
       <Dialog
@@ -235,11 +218,7 @@ export default function Header() {
         aria-labelledby="form-dialog-title"
         onClose={handleClose}
       >
-        <IconButton
-          // style={{ position: 'absolute', top: `8px`, right: `8px`, zIndex: 1 }}
-          className={classes.closeButton}
-          onClick={handleClose}
-        >
+        <IconButton className={classes.closeButton} onClick={handleClose}>
           <Close />
         </IconButton>
         <DialogContent>
