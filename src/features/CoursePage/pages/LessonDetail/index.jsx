@@ -12,7 +12,7 @@ import Test from 'assets/images/test.jpg';
 import clsx from 'clsx';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Comments from './components/Comments';
 import WriteComments from './components/WriteComments';
