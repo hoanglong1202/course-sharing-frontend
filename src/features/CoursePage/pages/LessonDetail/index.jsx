@@ -26,10 +26,9 @@ function LessonDetail(props) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-  const { current: currentUser, openDialog: open } = useSelector(
+  const { current: currentUser } = useSelector(
     (state) => state.auth
   );
-  const dispatch = useDispatch();
 
   const lessonIndex = parseInt(lessonId);
 
