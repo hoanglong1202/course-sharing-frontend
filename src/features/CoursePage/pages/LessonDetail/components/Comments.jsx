@@ -1,24 +1,16 @@
 import {
-  Avatar, Card,
+  Avatar,
+  Card,
   CardContent,
-  CardHeader, TextField,
-  Typography
+  CardHeader,
+  Typography,
 } from '@mui/material';
-// import PropTypes from 'prop-types';
 import { makeStyles } from '@mui/styles';
-import { Box } from '@mui/system';
+import moment from 'moment';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    border: '1px solid #ddd',
-    borderRadius: 15,
-
-    marginTop: theme.spacing(2),
-    padding: theme.spacing(2),
-  },
-
   commentContainer: {
     maxWidth: '100%',
     marginTop: theme.spacing(2),
@@ -27,84 +19,13 @@ const useStyles = makeStyles((theme) => ({
   commentTitle: {
     padding: theme.spacing(1, 2),
   },
-
-  commentContent: {
-    paddingTop: theme.spacing(1),
-  },
-
-  commentBox: {
-    borderRadius: 8,
-    border: `solid 1px #3d4953`,
-    overflow: `hidden`,
-
-    marginBottom: theme.spacing(2),
-  },
-
-  panel: {
-    display: 'flex',
-    alignItems: 'center',
-    backgroundColor: '#1c1d1f',
-    padding: theme.spacing(1),
-  },
-
-  button: {
-    fontSize: 14,
-    marginLeft: 'auto',
-  },
-
-  commentAs: {
-    fontSize: 14,
-    color: '#cccccc',
-    marginRight: theme.spacing(1),
-  },
-
-  username: {
-    display: 'inline-block',
-    color: '#4f9eed',
-  },
 }));
 
-Comments.propTypes = {};
+Comment.propTypes = {
+  item: PropTypes.object,
+};
 
-function Comments(props) {
-  const classes = useStyles();
-  const [value, setValue] = React.useState('Controlled');
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
-  return (
-    <Box className={classes.root}>
-      <Box className={classes.commentBox}>
-        <TextField
-          placeholder="What are your thoughts?"
-          fullWidth
-          multiline
-          rows={3}
-          // defaultValue={text}
-          onChange={handleChange}
-        />
-        <Box className={classes.panel}>
-          <Box className={classes.commentAs}>
-            Comment as {' '}
-            {/* // eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a href="#" className={classes.username}>
-              Kevin
-            </a>
-          </Box>
-          <button className={classes.button}>COMMENT</button>
-        </Box>
-      </Box>
-
-      {[...Array(4)].map((item, index) => (
-        <Comment key={index} />
-      ))}
-    </Box>
-  );
-}
-
-function Comment(props) {
+function Comment({ item }) {
   const classes = useStyles();
   return (
     <Card className={classes.commentContainer}>
@@ -112,21 +33,19 @@ function Comment(props) {
         className={classes.commentTitle}
         avatar={
           <Avatar sx={{ bgcolor: 'red' }} aria-label="recipe">
-            L
+            {item.username.slice(0, 1)}
           </Avatar>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={item.username}
+        subheader={moment(item.timestamp).format('DD-MM-YYYY')}
       />
       <CardContent className={classes.commentTitle}>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {item.content}
         </Typography>
       </CardContent>
     </Card>
   );
 }
 
-export default Comments;
+export default Comment;

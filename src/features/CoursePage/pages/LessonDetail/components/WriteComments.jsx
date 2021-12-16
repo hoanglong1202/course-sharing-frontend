@@ -1,14 +1,16 @@
-import { StarBorder } from '@mui/icons-material';
-import { Rating, TextField, Typography } from '@mui/material';
+import {
+  TextField
+} from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
+import { openDialog } from 'features/Auth/authSlice';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { openDialog } from 'features/Auth/authSlice';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    width: '100%',
     border: '1px solid #ddd',
     borderRadius: 15,
 
@@ -50,24 +52,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'inline-block',
     color: '#4f9eed',
   },
-
-  ratingContainer: {
-    marginTop: 0,
-    padding: theme.spacing(0.5, 2),
-
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  ratingTitle: {
-    color: '#fff',
-    fontWeight: 600,
-    marginRight: theme.spacing(0.5),
-  },
-
-  customTextField: {
-    borderColor: '#f0f !important',
-  },
 }));
 
 WriteComments.propTypes = {
@@ -76,20 +60,13 @@ WriteComments.propTypes = {
 
 function WriteComments({ onSubmit }) {
   const classes = useStyles();
-  const [content, setContent] = useState('');
   const dispatch = useDispatch();
-  const [point, setPoint] = React.useState(2);
-
+  const [content, setContent] = useState('');
   const { current: currentUser } = useSelector((state) => state.auth);
-
   const auth = currentUser.id ? true : false;
 
   const handleChange = (event) => {
     setContent(event.target.value);
-  };
-
-  const handlePointChange = (event, newValue) => {
-    setPoint(newValue);
   };
 
   const handleSubmit = () => {
@@ -98,10 +75,7 @@ function WriteComments({ onSubmit }) {
     }
 
     if (onSubmit && currentUser.role === 'user') {
-      onSubmit({
-        content,
-        point,
-      });
+      onSubmit(content);
       setContent('');
     }
   };
@@ -110,7 +84,6 @@ function WriteComments({ onSubmit }) {
     <Box className={classes.root}>
       <Box className={classes.commentBox}>
         <TextField
-          className={classes.customTextField}
           placeholder="What are your thoughts?"
           fullWidth
           multiline
@@ -118,30 +91,15 @@ function WriteComments({ onSubmit }) {
           value={content}
           onChange={handleChange}
         />
-
         <Box className={classes.panel}>
-          <Box className={classes.ratingContainer}>
-            <Typography className={classes.ratingTitle}>Đánh giá:</Typography>
-            <Rating
-              emptyIcon={<StarBorder fontSize="inherit" color="info" />}
-              name="rating"
-              value={point}
-              precision={0.5}
-              onChange={handlePointChange}
-            />
-          </Box>
           {auth && (
             <Box className={classes.commentAs}>
-              Comment as <span className={classes.username}>{currentUser.username}</span>
+              Comment as&nbsp;
+              <span className={classes.username}>{currentUser.username}</span>
             </Box>
           )}
-          <button
-            className={classes.button}
-            onClick={handleSubmit}
-            disabled={
-              currentUser.role === 'creator' || currentUser.role === 'admin'
-            }
-          >
+
+          <button onClick={handleSubmit} className={classes.button}>
             COMMENT
           </button>
         </Box>

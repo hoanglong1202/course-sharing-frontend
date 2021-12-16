@@ -90,6 +90,16 @@ const courseApi = {
     const result = await axiosClient.post(url, data);
     return result;
   },
+
+  getLessonComment(courseId, lessonId) {
+    const url = `${BASE_URL}/lesson/comment/${courseId}/${lessonId}`;
+    return axiosClient.get(url);
+  },
+
+  addLessonComment(data) {
+    const url = `${BASE_URL}/lesson/comment`;
+    return axiosClient.post(url, data);
+  },
 };
 
 export default courseApi;

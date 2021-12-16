@@ -24,8 +24,8 @@ import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import CountUp from 'react-countup';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import Comment from './components/Comment';
+import { useNavigate, useParams } from 'react-router-dom';
+import Comment from './components/Comments';
 import WriteComments from './components/WriteComments';
 import useStyles from './styles';
 
@@ -36,7 +36,7 @@ function CourseDetail(props) {
   let { courseId } = useParams();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
   const { current: currentUser, openDialog: open } = useSelector(
     (state) => state.auth
   );
@@ -51,7 +51,6 @@ function CourseDetail(props) {
   const isReviewed = commentList.findIndex(
     (item) => item.id === currentUser.id
   );
-  console.log('isReviewed', isReviewed);
 
   const handleNavigate = () => {
     navigate(`/course/${course.id}/${course.firstLesson.id}`);
@@ -335,9 +334,9 @@ function CourseDetail(props) {
         </Typography>
       </Box>
 
-      {auth && isReviewed === -1 ? (
-        <WriteComments onSubmit={handleWriteComment} />
-      ) : <p>Bạn đã đánh giá khóa học này</p>}
+      {isReviewed === -1 && <WriteComments onSubmit={handleWriteComment} />}
+
+      {auth && isReviewed !== -1 && <p>Bạn đã đánh giá khóa học này</p>}
 
       {!loading && commentList.length > 0 ? (
         commentList.map((item, index) => <Comment key={index} item={item} />)

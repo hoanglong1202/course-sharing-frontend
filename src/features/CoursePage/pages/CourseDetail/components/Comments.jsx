@@ -31,11 +31,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-Comment.propTypes = {
+Comments.propTypes = {
   item: PropTypes.object,
 };
 
-function Comment({ item }) {
+function Comments({ item }) {
   const classes = useStyles();
   return (
     <Card className={classes.commentContainer}>
@@ -64,4 +64,4 @@ function Comment({ item }) {
   );
 }
 
-export default Comment;
+export default Comments;

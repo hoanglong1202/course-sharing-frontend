@@ -1,16 +1,21 @@
 import {
   Avatar,
   Grid,
+  LinearProgress,
   List,
-  ListItemButton, Typography
+  ListItemButton,
+  Typography
 } from '@mui/material';
 import { Box } from '@mui/system';
 import courseApi from 'api/courseApi';
 import Test from 'assets/images/test.jpg';
 import clsx from 'clsx';
+import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Comments from './components/Comments';
+import WriteComments from './components/WriteComments';
 import useStyles from './styles';
 
 LessonDetail.propTypes = {};
@@ -20,6 +25,11 @@ function LessonDetail(props) {
   let { courseId, lessonId } = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+  const { current: currentUser, openDialog: open } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
 
   const lessonIndex = parseInt(lessonId);
 
@@ -27,6 +37,9 @@ function LessonDetail(props) {
   const [lesson, setLesson] = useState({});
   const [creator, setCreator] = useState({});
   const [lessonList, setLessonList] = useState([]);
+  const [commentList, setCommentList] = useState([]);
+
+  const auth = currentUser.id ? true : false;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -40,12 +53,15 @@ function LessonDetail(props) {
     (async () => {
       try {
         setLoading(true);
-        const { dataObj } = await courseApi.getLessonDetail(
+        const { dataObj } = await courseApi.getLessonDetail(courseId, lessonId);
+
+        const { dataObj: commentList } = await courseApi.getLessonComment(
           courseId,
           lessonId
         );
 
         setLesson(dataObj);
+        setCommentList(commentList);
       } catch (error) {
         console.log('Some error occur: ', error);
       }
@@ -62,7 +78,6 @@ function LessonDetail(props) {
 
         setLessonList(dataObj);
         setCreator(creator);
-
       } catch (error) {
         console.log('Some error occur: ', error);
       }
@@ -70,6 +85,39 @@ function LessonDetail(props) {
 
     setLoading(false);
   }, [courseId]);
+
+  const handleWriteComment = async (values) => {
+    try {
+      if (auth) {
+        const data = {
+          courseId,
+          lessonId,
+          username: currentUser.username,
+          content: values,
+          isCreator: currentUser.role === 'creator' ? 'true' : 'false',
+        };
+
+        const result = await courseApi.addLessonComment(data);
+
+        if (result.success) {
+          enqueueSnackbar('Comment successful!', { variant: 'success' });
+
+          // refresh comment
+          const { dataObj: commentList } = await courseApi.getLessonComment(
+            courseId,
+            lessonId
+          );
+          setCommentList(commentList);
+        }
+      }
+    } catch (error) {
+      enqueueSnackbar(error.message, { variant: 'error' });
+    }
+  };
+
+  if (loading) {
+    return <LinearProgress />;
+  }
 
   return (
     <Box>
@@ -136,7 +184,14 @@ function LessonDetail(props) {
         </Box>
       </Box>
 
-      <Comments />
+      {/* <Comments /> */}
+      <WriteComments onSubmit={handleWriteComment} />
+
+      {!loading && commentList.length > 0 ? (
+        commentList.map((item, index) => <Comments key={index} item={item} />)
+      ) : (
+        <p>Khóa học này chưa có nhận xét nào</p>
+      )}
     </Box>
   );
 }
