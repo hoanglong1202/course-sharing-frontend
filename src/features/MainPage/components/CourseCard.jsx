@@ -130,7 +130,7 @@ export default function CourseCard({ item }) {
           <Grid item xs={4}>
             <Box className={classes.iconHolder}>
               <StarIcon style={{ color: '#ffbc00' }} />
-              <span className={classes.score}>4.5</span>
+              <span className={classes.score}>{item?.point}</span>
             </Box>
           </Grid>
 

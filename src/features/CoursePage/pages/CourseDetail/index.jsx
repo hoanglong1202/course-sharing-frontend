@@ -201,7 +201,7 @@ function CourseDetail(props) {
 
                 <Box className={classes.iconHolder}>
                   <Rating
-                    value={4.5}
+                    value={course?.point}
                     precision={0.5}
                     readOnly
                     style={{ color: '#ffbc00' }}
@@ -209,7 +209,7 @@ function CourseDetail(props) {
                     //   setValue(newValue);
                     // }}
                   />
-                  <span className={classes.score}>4.5</span>
+                  <span className={classes.score}>{course?.point}</span>
                 </Box>
               </Box>
               <Typography mt={1}>Created by:</Typography>
