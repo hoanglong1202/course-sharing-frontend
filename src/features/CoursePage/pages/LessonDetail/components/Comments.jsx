@@ -40,6 +40,9 @@ function Comment({ item }) {
         subheader={moment(item.timestamp).format('DD-MM-YYYY')}
       />
       <CardContent className={classes.commentTitle}>
+      <Typography variant="body2" color="text.secondary">
+          {item.isCreator === 'true' && <b>Tác giả</b>}
+        </Typography>
         <Typography variant="body2" color="text.secondary">
           {item.content}
         </Typography>

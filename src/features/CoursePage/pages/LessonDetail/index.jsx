@@ -93,9 +93,9 @@ function LessonDetail(props) {
           lessonId,
           username: currentUser.username,
           content: values,
-          isCreator: currentUser.role === 'creator' ? 'true' : 'false',
+          isCreator: currentUser.role === 'creator' && creator.creator_id === currentUser.id ? 'true' : 'false',
         };
-
+        console.log("vo day");
         const result = await courseApi.addLessonComment(data);
 
         if (result.success) {
@@ -183,7 +183,6 @@ function LessonDetail(props) {
         </Box>
       </Box>
 
-      {/* <Comments /> */}
       <WriteComments onSubmit={handleWriteComment} />
 
       {!loading && commentList.length > 0 ? (

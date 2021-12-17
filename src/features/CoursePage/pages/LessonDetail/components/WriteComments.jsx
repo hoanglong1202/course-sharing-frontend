@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    // width: '100%',
     border: '1px solid #ddd',
     borderRadius: 15,
 
@@ -74,7 +74,7 @@ function WriteComments({ onSubmit }) {
       dispatch(openDialog());
     }
 
-    if (onSubmit && currentUser.role === 'user') {
+    if (onSubmit && currentUser.role !== 'admin') {
       onSubmit(content);
       setContent('');
     }
@@ -99,7 +99,7 @@ function WriteComments({ onSubmit }) {
             </Box>
           )}
 
-          <button onClick={handleSubmit} className={classes.button}>
+          <button onClick={handleSubmit} className={classes.button} disabled={currentUser.role === 'admin'}>
             COMMENT
           </button>
         </Box>
