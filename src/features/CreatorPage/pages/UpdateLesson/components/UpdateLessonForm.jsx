@@ -7,7 +7,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-// import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { SUPPORTED_FORMATS } from 'constants/common';
 import useStyles from '../../../styles';
 
 UpdateLessonForm.propTypes = {
@@ -15,6 +17,21 @@ UpdateLessonForm.propTypes = {
   onFormSubmit: PropTypes.func,
   lessonTypes: PropTypes.array,
 };
+
+const schema = yup.object().shape({
+  lesson_name: yup
+    .string()
+    .required("Cần có tên bài học!"),
+  description: yup
+    .string()
+    .required("Cần có miêu tả bài học."),
+  content: yup
+    .string()
+    .required("Cần có nội dung bài học."),
+  lesson_types_id: yup
+    .string()
+    .required("Cần chọn loại bài học."),
+});
 
 function UpdateLessonForm({ lessonTypes, lesson, onFormSubmit }) {
   const classes = useStyles();
@@ -27,7 +44,7 @@ function UpdateLessonForm({ lessonTypes, lesson, onFormSubmit }) {
       content: lesson?.content,
       lesson_types_id: lesson?.types,
     },
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
   });
 
   const onSubmit = async (values) => {

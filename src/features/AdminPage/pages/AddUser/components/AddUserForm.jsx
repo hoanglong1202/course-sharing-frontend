@@ -8,10 +8,38 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useStyles from '../../../styles';
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { SUPPORTED_FORMATS } from 'constants/common';
 
 AddUserForm.propTypes = {
   onFormSubmit: PropTypes.func,
 };
+
+const schema = yup.object().shape({
+  username: yup
+    .string()
+    .required("Cần có tên người dùng!")
+    .test(
+      "usernameValidate",
+      "Tên người dùng cần ít nhất 2 chữ.",
+      (value) => {
+        return value.split(" ").length >= 2;
+      }
+    ),
+  email: yup
+    .string()
+    .required("Cần có email người dùng")
+    .email("Hãy nhập email hợp lệ."),
+  password: yup
+    .string()
+    .required("Hãy nhập mật khẩu.")
+    .min(6, "Your password need at least 6 characters."),
+  cover_picture: yup
+    .mixed()
+    .required('Cần thêm ảnh đại diện')
+    .test('fileType', 'Chỉ chấp nhập file image', (value) => value && value[0] && SUPPORTED_FORMATS.includes(value[0].type)),
+});
 
 function AddUserForm({ onFormSubmit }) {
   const classes = useStyles();
@@ -23,7 +51,7 @@ function AddUserForm({ onFormSubmit }) {
       password: '',
       cover_picture: null,
     },
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
   });
   const formCoverImageValue = form.watch('cover_picture');
 

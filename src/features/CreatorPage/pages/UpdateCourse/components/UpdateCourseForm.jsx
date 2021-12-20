@@ -8,7 +8,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useStyles from '../../../styles';
-// import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { SUPPORTED_FORMATS } from 'constants/common';
 import SelectField from 'components/form-control/SelectField';
 
 UpdateCourseForm.propTypes = {
@@ -16,6 +18,23 @@ UpdateCourseForm.propTypes = {
   onFormSubmit: PropTypes.func,
   courseTypes: PropTypes.array,
 };
+
+const schema = yup.object().shape({
+  course_name: yup
+    .string()
+    .required("Cần có tên khóa học!"),
+  description: yup
+    .string()
+    .required("Cần có miêu tả khóa học."),
+  max_user: yup
+    .number(),
+  types_id: yup
+    .string()
+    .required("Cần chọn danh mục khóa học."),
+  profile_picture: yup
+    .mixed()
+    .test('fileType', 'Chỉ chấp nhập file image', (value) => value && value[0] && SUPPORTED_FORMATS.includes(value[0].type)),
+});
 
 function UpdateCourseForm({ courseTypes, course, onFormSubmit }) {
   const classes = useStyles();
@@ -25,12 +44,10 @@ function UpdateCourseForm({ courseTypes, course, onFormSubmit }) {
       course_name: course?.course_name,
       description: course?.description,
       max_user: course?.max_user || 0,
-      // profile_picture: '',
       types_id: course?.types_id,
-      // profile_picture: course?.profile_picture,
       profile_picture: null,
     },
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
   });
   const formCoverImageValue = form.watch('profile_picture');
 

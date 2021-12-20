@@ -27,6 +27,16 @@ const userApi = {
     const url = `${BASE_URL}/user-favourite/${courseId}/${userId}`;
     return axiosClient.delete(url);
   },
+
+  addUserHistory(data) {
+    const url = `${BASE_URL}/user-history`;
+    return axiosClient.post(url, data);
+  },
+
+  getUserHistoryList(userId) {
+    const url = `${BASE_URL}/user-favourite/${userId}`;
+    return axiosClient.get(url);
+  },
 };
 
 
