@@ -34,7 +34,7 @@ const userApi = {
   },
 
   getUserHistoryList(userId) {
-    const url = `${BASE_URL}/user-favourite/${userId}`;
+    const url = `${BASE_URL}/user-history/${userId}`;
     return axiosClient.get(url);
   },
 };

@@ -5,6 +5,7 @@ import MainPage from 'features/MainPage';
 import CoursePage from 'features/CoursePage';
 import CreatorPage from 'features/CreatorPage';
 import AdminPage from 'features/AdminPage';
+import ProfilePage from 'features/ProfilePage';
 
 function Routing() {
   return (
@@ -13,6 +14,7 @@ function Routing() {
       <Route path="/course/*" element={<CoursePage />} />
       <Route path="/creator/*" element={<CreatorPage />} />
       <Route path="/admin/*" element={<AdminPage />} />
+      <Route path="/profile/*" element={<ProfilePage />} />
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
