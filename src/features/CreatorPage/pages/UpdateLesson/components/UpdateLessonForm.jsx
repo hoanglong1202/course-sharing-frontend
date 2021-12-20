@@ -9,7 +9,6 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { SUPPORTED_FORMATS } from 'constants/common';
 import useStyles from '../../../styles';
 
 UpdateLessonForm.propTypes = {
