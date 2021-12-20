@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'space-around',
 
-    minWidth: 120,
+    minWidth: 150,
     // maxWidth: 300,
     marginRight: theme.spacing(1),
   },

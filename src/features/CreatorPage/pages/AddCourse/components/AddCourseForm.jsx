@@ -13,7 +13,6 @@ import SelectField from 'components/form-control/SelectField';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-// import { yupResolver } from '@hookform/resolvers/yup';
 import useStyles from '../../../styles';
 import QuantityField from 'components/form-control/QuantityField';
 import UploadField from 'components/form-control/UploadField';
@@ -22,12 +21,42 @@ import BookmarkIllustration from 'assets/images/bookmark.svg';
 import PublishIllustration from 'assets/images/publish.svg';
 import CaculatorIllustration from 'assets/images/caculator.svg';
 import SuccessIllustration from 'assets/images/success.svg';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { SUPPORTED_FORMATS } from 'constants/common';
+import InputFieldArray from 'components/form-control/InputFieldArray';
+import SelectFieldArray from 'components/form-control/SelectFieldArray';
+
+const schema = yup.object().shape({
+  course_name: yup.string().required('Cần có tên khóa học!'),
+  description: yup.string().required('Cần có miêu tả khóa học.'),
+  max_user: yup.number(),
+  types_id: yup.string().required('Cần chọn danh mục khóa học.'),
+  profile_picture: yup
+    .mixed()
+    .test(
+      'fileType',
+      'Chỉ chấp nhập file image',
+      (value) => value && value[0] && SUPPORTED_FORMATS.includes(value[0].type)
+    ),
+  lesson: yup
+    .array(
+      yup.object({
+        lesson_name: yup.string().required('Cần có tên bài học'),
+        description: yup.string().required('Cần có miêu tả bài học.'),
+        content: yup.string().required('Cần có nội dung bài học.'),
+        lesson_types_id: yup.string().required('Cần loại bài học.'),
+      })
+    )
+    .min(1, 'Cần có ít nhất 1 bài học.'),
+});
 
 AddCourseForm.propTypes = {
   types: PropTypes.array,
   courseTypes: PropTypes.array,
   onFormSubmit: PropTypes.func,
 };
+
 const steps = [
   'Thêm nội dung khóa học',
   'Thêm nội dung bài học',
@@ -43,14 +72,13 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
       course_name: '',
       description: '',
       max_user: 0,
-      // profile_picture: '',
       profile_picture: null,
       types_id: '',
       lesson: [
         { lesson_name: '', description: '', content: '', lesson_types_id: '' },
       ],
     },
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
   });
   const formCoverImageValue = form.watch('profile_picture');
 
@@ -63,6 +91,8 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
     if (onFormSubmit) {
       await onFormSubmit(values);
     }
+
+    console.log(JSON.stringify(form))
   };
 
   const addLessonField = () => {
@@ -171,7 +201,7 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
                   classes.imageStepTwoLeft
                 )}
                 src={CaculatorIllustration}
-                alt="CaculatorIllustration"
+                alt="Caculator Illustration"
               />
             </Box>
           </Grid>
@@ -187,40 +217,48 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
             {fields.map((field, index) => (
               <Box key={field.id} className={classes.lessonFieldContainer}>
                 <Box className={classes.lessonField}>
-                  <InputField
+                  <InputFieldArray
                     form={form}
                     name={`lesson.${index}.lesson_name`}
                     label="Tên bài học"
+                    arrIndex={index}
+                    subName="lesson_name"
                   />
                 </Box>
 
                 <Box
                   className={clsx(classes.lessonField, classes.contentField)}
                 >
-                  <InputField
+                  <InputFieldArray
                     form={form}
                     name={`lesson.${index}.description`}
                     label="Miêu tả"
+                    arrIndex={index}
+                    subName="description"
                   />
                 </Box>
 
                 <Box
                   className={clsx(classes.lessonField, classes.contentField)}
                 >
-                  <InputField
+                  <InputFieldArray
                     form={form}
                     name={`lesson.${index}.content`}
                     label="Nội dung"
+                    arrIndex={index}
+                    subName="content"
                   />
                 </Box>
 
                 <Box className={classes.lessonField}>
-                  <SelectField
+                  <SelectFieldArray
                     form={form}
                     name={`lesson.${index}.lesson_types_id`}
                     label="Loại nội dung"
                     values={types}
                     disable={false}
+                    arrIndex={index}
+                    subName="lesson_types_id"
                   />
                 </Box>
 
@@ -249,7 +287,7 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
                   classes.imageStepTwoRight
                 )}
                 src={PublishIllustration}
-                alt="PublishIllustration"
+                alt="Publish Illustration"
               />
             </Box>
           </Grid>
@@ -304,7 +342,7 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
               <img
                 className={classes.image}
                 src={BookmarkIllustration}
-                alt="BookmarkIllustration"
+                alt="Bookmark Illustration"
               />
             </Box>
           </Grid>
