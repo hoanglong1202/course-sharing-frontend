@@ -91,8 +91,6 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
     if (onFormSubmit) {
       await onFormSubmit(values);
     }
-
-    console.log(JSON.stringify(form))
   };
 
   const addLessonField = () => {
