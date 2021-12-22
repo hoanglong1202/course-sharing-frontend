@@ -34,7 +34,9 @@ export default function Header() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {current: currentUser, openDialog: open} = useSelector((state) => state.auth);
+  const { current: currentUser, openDialog: open } = useSelector(
+    (state) => state.auth
+  );
   const { enqueueSnackbar } = useSnackbar();
   const auth = currentUser.id ? true : false;
 
@@ -70,6 +72,11 @@ export default function Header() {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const handeNavigateProfile = () => {
+    handleMenuClose();
+    navigate('/profile');
   };
 
   const handleUserLogOut = () => {
@@ -202,8 +209,7 @@ export default function Header() {
                   open={Boolean(anchorEl)}
                   onClose={handleMenuClose}
                 >
-                  <MenuItem onClick={handleMenuClose}>Cá nhân</MenuItem>
-                  <MenuItem onClick={handleMenuClose}>Tài khoản</MenuItem>
+                  <MenuItem onClick={handeNavigateProfile}>Cá nhân</MenuItem>
                   <MenuItem onClick={handleUserLogOut}>Đăng xuất</MenuItem>
                 </Menu>
               </div>

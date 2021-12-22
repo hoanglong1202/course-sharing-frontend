@@ -18,8 +18,8 @@ const userApi = {
     return axiosClient.get(url);
   },
 
-  getUserFavourite(courseId, userId) {
-    const url = `${BASE_URL}/user-favourite/${courseId}/${userId}`;
+  getUserFavourite(userId) {
+    const url = `${BASE_URL}/user-favourite/${userId}`;
     return axiosClient.get(url);
   },
 

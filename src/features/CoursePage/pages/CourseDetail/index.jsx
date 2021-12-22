@@ -67,7 +67,6 @@ function CourseDetail(props) {
         setCommentList(list);
         if (auth && currentUser.role === 'user') {
           const { dataObj: userFavourite } = await userApi.getUserFavourite(
-            courseId,
             currentUser.id
           );
 
@@ -78,12 +77,11 @@ function CourseDetail(props) {
 
           setIsFavourited(isFavour);
         }
+        setLoading(false);
       } catch (error) {
         console.log('Some error occur: ', error);
       }
     })();
-
-    setLoading(false);
   }, [courseId, currentUser.id, auth, currentUser.role]);
 
   useEffect(() => {
@@ -116,7 +114,6 @@ function CourseDetail(props) {
       // refresh status
       if (result && result.success) {
         const { dataObj: userFavourite } = await userApi.getUserFavourite(
-          courseId,
           currentUser.id
         );
 
@@ -199,18 +196,20 @@ function CourseDetail(props) {
                   </span>
                 </Box>
 
-                <Box className={classes.iconHolder}>
-                  <Rating
-                    value={course?.point}
-                    precision={0.5}
-                    readOnly
-                    style={{ color: '#ffbc00' }}
-                    // onChange={(event, newValue) => {
-                    //   setValue(newValue);
-                    // }}
-                  />
-                  <span className={classes.score}>{course?.point}</span>
-                </Box>
+                {!loading && (
+                  <Box className={classes.iconHolder}>
+                    <Rating
+                      value={course?.point}
+                      precision={0.5}
+                      readOnly
+                      style={{ color: '#ffbc00' }}
+                      // onChange={(event, newValue) => {
+                      //   setValue(newValue);
+                      // }}
+                    />
+                    <span className={classes.score}>{course?.point}</span>
+                  </Box>
+                )}
               </Box>
               <Typography mt={1}>Created by:</Typography>
               <Box className={classes.authorContainer}>

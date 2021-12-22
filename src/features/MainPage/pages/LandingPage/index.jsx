@@ -1,12 +1,16 @@
 import { Grid, Pagination, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import courseApi from 'api/courseApi';
+import userApi from 'api/userApi';
 import DesignIllustration from 'assets/images/design-illustration-2.svg';
 import UDN from 'assets/images/UDN.jpg';
 import UTE from 'assets/images/UTE.png';
 import clsx from 'clsx';
+import Can from 'components/Can';
+import SmallCourseCard from 'components/SmallCourseCard';
 import queryString from 'query-string';
 import React, { useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import CourseCard from '../../components/CourseCard';
 import useStyles from '../../styles';
@@ -14,12 +18,18 @@ import useStyles from '../../styles';
 function LandingPage(props) {
   const location = useLocation();
   const navigate = useNavigate();
+  const {
+    current: { id, role },
+  } = useSelector((state) => state.auth);
+
   const [course, setCourse] = useState({
     favouritedCourse: [],
     viewedCourse: [],
     courses: [],
   });
   const [loading, setLoading] = useState(true);
+  const [history, setHistory] = useState([]);
+  const [favourite, setFavourite] = useState([]);
   const [pagination, setPagination] = useState(0);
 
   const queryParams = useMemo(() => {
@@ -41,13 +51,20 @@ function LandingPage(props) {
 
         setCourse(dataObj);
         setPagination(pagination);
+
+        if (role === 'user') {
+          const { dataObj } = await userApi.getUserHistoryList(id);
+          const { dataObj: favouriteList } = await userApi.getUserFavourite(id);
+
+          setHistory(dataObj);
+          setFavourite(favouriteList);
+        }
+        setLoading(false);
       } catch (error) {
         console.log('Some error occur: ', error);
       }
     })();
-
-    setLoading(false);
-  }, [queryParams]);
+  }, [id, role, queryParams]);
 
   const handlePageChange = (e, page) => {
     const filter = {
@@ -97,6 +114,36 @@ function LandingPage(props) {
           </Box>
         </Grid>
       </Grid>
+
+      {!loading && history.length > 0 && (
+        <Can roles={["user"]}>
+          <Box className={classes.sectionContainer}>
+            <span className={classes.features}>Khóa học vừa xem</span>
+          </Box>
+          <Grid container spacing={2}>
+            {history.map((item, index) => (
+              <Grid item md={6} lg={3} key={index}>
+                <SmallCourseCard item={item} />
+              </Grid>
+            ))}
+          </Grid>
+        </Can>
+      )}
+
+      {!loading && favourite.length > 0 && (
+        <Can roles={["user"]}>
+          <Box className={classes.sectionContainer}>
+            <span className={classes.features}>Khóa học yêu thích</span>
+          </Box>
+          <Grid container spacing={2}>
+            {favourite.map((item, index) => (
+              <Grid item md={6} lg={3} key={index}>
+                <SmallCourseCard item={item} />
+              </Grid>
+            ))}
+          </Grid>
+        </Can>
+      )}
 
       <Box className={classes.sectionContainer}>
         <span className={classes.features}>Most Viewed</span>

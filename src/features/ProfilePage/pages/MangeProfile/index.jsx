@@ -72,6 +72,8 @@ function ManageProfile(props) {
         enqueueSnackbar('Update user profile successfully!', {
           variant: 'success',
         });
+
+        setProfile(result.dataObj);
       }
     } catch (error) {
       enqueueSnackbar(error.message, { variant: 'error' });
