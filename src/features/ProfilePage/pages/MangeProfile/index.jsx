@@ -1,4 +1,5 @@
 import { Box } from '@mui/system';
+import adminApi from 'api/adminApi';
 import creatorApi from 'api/creatorApi';
 import userApi from 'api/userApi';
 import { useSnackbar } from 'notistack';
@@ -24,24 +25,64 @@ function ManageProfile(props) {
         result = await userApi.getUser(id);
       } else if (role === 'creator') {
         result = await creatorApi.getCreator(id);
+      } else if (role === 'admin') {
+        result = await adminApi.getAdmin(id);
       }
 
-      setProfile(result);
+      setProfile(result.dataObj);
+      setLoading(false);
     })();
-    setLoading(false);
   }, [id, role]);
 
-  const onSubmit = async () => {
+  const onSubmit = async (values) => {
     try {
-     
+      const temp = { ...values };
+      const formData = new FormData();
+
+      temp.email = values.email.trim();
+      temp.username = values.username.trim();
+
+      if (values.cover_picture && values.cover_picture.length > 0) {
+        temp.profile_picture = values?.cover_picture[0]?.name;
+        formData.append('cover_picture', values?.cover_picture[0]);
+      }
+      delete temp.cover_picture;
+
+      Object.keys(temp).forEach((key) => formData.append(key, temp[key]));
+
+      let result;
+      if (role === 'user') {
+        formData.append('user_id', id);
+        formData.delete('description');
+        result = await userApi.updateUser(formData);
+      }
+
+      if (role === 'creator') {
+        formData.append('creator_id', id);
+        result = await creatorApi.updateCreator(formData);
+      }
+
+      if (role === 'admin') {
+        formData.append('admin_id', id);
+        formData.delete('description');
+        result = await adminApi.updateAdmin(formData);
+      }
+
+      if (result.success) {
+        enqueueSnackbar('Update user profile successfully!', {
+          variant: 'success',
+        });
+      }
     } catch (error) {
       enqueueSnackbar(error.message, { variant: 'error' });
     }
-  }
+  };
 
   return (
     <Box>
-      {!loading && <ManageProfileForm profile={profile} onFormSubmit={onSubmit} />}
+      {!loading && (
+        <ManageProfileForm profile={profile} onFormSubmit={onSubmit} />
+      )}
     </Box>
   );
 }

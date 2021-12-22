@@ -33,6 +33,17 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.tertiary.second,
     fontWeight: 600,
   },
+
+  updateButton: {
+    width: '100%',
+    borderRadius: 5,
+
+    marginTop: theme.spacing(2),
+  },
+
+  profileForm: {
+    margin: theme.spacing(0, 2),
+  },
 }));
 
 export default useStyles;

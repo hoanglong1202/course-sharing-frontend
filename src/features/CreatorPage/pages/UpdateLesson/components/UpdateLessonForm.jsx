@@ -91,6 +91,7 @@ function UpdateLessonForm({ lessonTypes, lesson, onFormSubmit }) {
               className={classes.updateButton}
               variant="contained"
               type="submit"
+              disabled={!form.formState.isDirty}
             >
               Cập nhập
             </Button>

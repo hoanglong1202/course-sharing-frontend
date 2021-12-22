@@ -36,8 +36,19 @@ const schema = yup.object().shape({
     .required("Cần có miêu tả người dùng."),
   cover_picture: yup
     .mixed()
-    .required('Cần thêm ảnh đại diện')
-    .test('fileType', 'Chỉ chấp nhập file image', (value) => value && value[0] && SUPPORTED_FORMATS.includes(value[0].type)),
+    .nullable()
+    .notRequired()
+    .test(
+      'fileType',
+      'Chỉ chấp nhập file image',
+      (value) => {
+        if (value && value[0]) {
+          return SUPPORTED_FORMATS.includes(value[0].type);
+        }
+  
+        return true;
+      }
+    ),
 });
 
 
@@ -105,6 +116,7 @@ function UpdateCreatorForm({ creator, onFormSubmit }) {
               className={classes.updateButton}
               variant="contained"
               type="submit"
+              disabled={!form.formState.isDirty}
             >
               Cập nhập
             </Button>

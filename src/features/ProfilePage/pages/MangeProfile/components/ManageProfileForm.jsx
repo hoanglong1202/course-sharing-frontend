@@ -1,12 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  Button,
-  Grid, Typography
-} from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import CaculatorIllustration from 'assets/images/caculator.svg';
 import PublishIllustration from 'assets/images/publish.svg';
 import clsx from 'clsx';
+import Can from 'components/Can';
+import InputField from 'components/form-control/InputField';
+import UploadField from 'components/form-control/UploadField';
 import { SUPPORTED_FORMATS } from 'constants/common';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -15,14 +15,31 @@ import * as yup from 'yup';
 import useStyles from '../../../styles';
 
 const schema = yup.object().shape({
-  course_name: yup.string().required('Cần có tên khóa học!'),
-  description: yup.string().required('Cần có miêu tả khóa học.'),
-  profile_picture: yup
+  username: yup
+    .string()
+    .required('Cần có tên người dùng!')
+    .test('usernameValidate', 'Tên người dùng cần ít nhất 2 chữ.', (value) => {
+      return value.split(' ').length >= 2;
+    }),
+  email: yup
+    .string()
+    .required('Cần có email người dùng')
+    .email('Hãy nhập email hợp lệ.'),
+  description: yup.string('Hãy nhập email hợp lệ.'),
+  cover_picture: yup
     .mixed()
+    .nullable()
+    .notRequired()
     .test(
       'fileType',
       'Chỉ chấp nhập file image',
-      (value) => value && value[0] && SUPPORTED_FORMATS.includes(value[0].type)
+      (value) => {
+        if (value && value[0]) {
+          return SUPPORTED_FORMATS.includes(value[0].type);
+        }
+  
+        return true;
+      }
     ),
 });
 
@@ -36,13 +53,15 @@ function ManageProfileForm({ profile, onFormSubmit }) {
 
   const form = useForm({
     defaultValues: {
-      course_name: '',
-      description: '',
-      profile_picture: null,
+      email: profile?.email,
+      username: profile?.username,
+      description: profile?.description,
+      profile_picture: profile?.profile_picture,
+      cover_picture: null,
     },
     resolver: yupResolver(schema),
   });
-  // const formCoverImageValue = form.watch('profile_picture');
+  const formCoverImageValue = form.watch('cover_picture');
 
   const onSubmit = async (values) => {
     if (onFormSubmit) {
@@ -51,9 +70,9 @@ function ManageProfileForm({ profile, onFormSubmit }) {
   };
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)}>
+    <form onSubmit={form.handleSubmit(onSubmit)} className={classes.profileForm}>
       <Grid container spacing={2}>
-        <Grid item xs={2}>
+        <Grid item xs={3}>
           <Box className={classes.imageHolder}>
             <img
               className={clsx(
@@ -67,19 +86,44 @@ function ManageProfileForm({ profile, onFormSubmit }) {
           </Box>
         </Grid>
 
-        <Grid item xs={8}>
-          <Typography className={classes.title}>
-            Trang cá nhân
-          </Typography>
+        <Grid item xs={6}>
+          <Typography className={classes.title}>Trang cá nhân</Typography>
           <Typography className={classes.description}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
             possimus architecto sed ab
           </Typography>
 
-          {JSON.stringify(profile)}
+          <InputField form={form} name="email" label="Email" disabled={true} />
+          <InputField form={form} name="username" label="Tên người dùng" />
+
+          <Can roles={['creator']}>
+            <InputField form={form} name="description" label="Miêu tả" />
+          </Can>
+
+          <Box mb={2}>
+            <Box>
+              <Typography className={classes.uploadLabel}>
+                Ảnh đại diện
+              </Typography>
+            </Box>
+            <UploadField
+              form={form}
+              name="cover_picture"
+              value={formCoverImageValue}
+            />
+          </Box>
+
+          <Button
+            className={classes.updateButton}
+            variant="contained"
+            type="submit"
+            disabled={!form.formState.isDirty}
+          >
+            Cập nhập
+          </Button>
         </Grid>
 
-        <Grid item xs={2}>
+        <Grid item xs={3}>
           <Box className={classes.imageHolder}>
             <img
               className={clsx(
@@ -93,17 +137,6 @@ function ManageProfileForm({ profile, onFormSubmit }) {
           </Box>
         </Grid>
       </Grid>
-
-      <>
-        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-          <Button color="inherit" sx={{ mr: 1 }}>
-            Back
-          </Button>
-          <Box sx={{ flex: '1 1 auto' }} />
-
-          <Button>hi</Button>
-        </Box>
-      </>
     </form>
   );
 }

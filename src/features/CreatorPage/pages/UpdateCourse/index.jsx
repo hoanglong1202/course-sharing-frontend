@@ -32,16 +32,19 @@ function UpdateCourse(props) {
   const onSubmit = async (values) => {
     try {
       let temp = { ...values };
+      const formData = new FormData();
 
       temp.course_name = values.course_name.trim();
       temp.description = values.description.trim();
-      temp.cover_picture = values?.profile_picture[0]?.name;
       temp.creator_id = creatorId;
       temp.id = id;
+
+      if (values.profile_picture && values.profile_picture.length > 0) {
+        temp.cover_picture = values?.profile_picture[0]?.name;
+        formData.append('profile_picture', values?.profile_picture[0]);
+      }
       delete temp.profile_picture;
   
-      const formData = new FormData();
-      formData.append('profile_picture', values?.profile_picture[0]);
       Object.keys(temp).forEach((key) => formData.append(key, temp[key]));
   
       const result =  await courseApi.updateCourse(formData);

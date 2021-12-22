@@ -26,14 +26,17 @@ function UpdateUser(props) {
   const onSubmit = async (values) => {
     try {
       let temp = { ...values };
+      const formData = new FormData();
 
       temp.email = values.email.trim();
       temp.username = values.username.trim();
-      temp.profile_picture = values?.cover_picture[0]?.name;
+
+      if (values.cover_picture && values.cover_picture.length > 0) {
+        temp.profile_picture = values?.cover_picture[0]?.name;
+        formData.append('cover_picture', values?.cover_picture[0]);
+      }
       delete temp.cover_picture;
-  
-      const formData = new FormData();
-      formData.append('cover_picture', values?.cover_picture[0]);
+      
       Object.keys(temp).forEach((key) => formData.append(key, temp[key]));
 
       const result =  await userApi.updateUser(formData);

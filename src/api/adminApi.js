@@ -8,6 +8,11 @@ const adminApi = {
     return axiosClient.get(url);
   },
 
+  getAdmin(id) {
+    const url = `${BASE_URL}/${id}`;
+    return axiosClient.get(url);
+  },
+
   removeUser(id) {
     const url = `${BASE_URL}/delete-user/${id}`;
     return axiosClient.delete(url);
@@ -45,6 +50,11 @@ const adminApi = {
 
   updateCourseType(data) {
     const url = `${BASE_URL}/update-course-type`;
+    return axiosClient.put(url, data);
+  },
+
+  updateAdmin(data) {
+    const url = `${BASE_URL}`;
     return axiosClient.put(url, data);
   },
 };

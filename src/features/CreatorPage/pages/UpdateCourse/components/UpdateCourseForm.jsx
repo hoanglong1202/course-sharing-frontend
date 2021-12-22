@@ -33,7 +33,19 @@ const schema = yup.object().shape({
     .required("Cần chọn danh mục khóa học."),
   profile_picture: yup
     .mixed()
-    .test('fileType', 'Chỉ chấp nhập file image', (value) => value && value[0] && SUPPORTED_FORMATS.includes(value[0].type)),
+    .nullable()
+    .notRequired()
+    .test(
+      'fileType',
+      'Chỉ chấp nhập file image',
+      (value) => {
+        if (value && value[0]) {
+          return SUPPORTED_FORMATS.includes(value[0].type);
+        }
+  
+        return true;
+      }
+    ),
 });
 
 function UpdateCourseForm({ courseTypes, course, onFormSubmit }) {
@@ -117,6 +129,7 @@ function UpdateCourseForm({ courseTypes, course, onFormSubmit }) {
               className={classes.updateButton}
               variant="contained"
               type="submit"
+              disabled={!form.formState.isDirty}
             >
               Cập nhập
             </Button>
