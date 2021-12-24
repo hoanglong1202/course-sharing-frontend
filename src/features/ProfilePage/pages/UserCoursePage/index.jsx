@@ -1,7 +1,5 @@
-import { Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import userApi from 'api/userApi';
-import SmallCourseCard from 'components/SmallCourseCard';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import useStyles from '../../styles';
