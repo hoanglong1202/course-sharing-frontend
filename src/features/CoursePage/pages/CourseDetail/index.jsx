@@ -70,12 +70,14 @@ function CourseDetail(props) {
             currentUser.id
           );
 
-          const isFavour =
-            userFavourite && Object.keys(userFavourite).length !== 0
-              ? true
-              : false;
+          if (userFavourite && Object.keys(userFavourite).length !== 0) {
+            const isFavour =
+              userFavourite.findIndex(
+                (item) => item.courseId === parseInt(courseId)
+              ) !== -1;
 
-          setIsFavourited(isFavour);
+            setIsFavourited(isFavour);
+          }
         }
         setLoading(false);
       } catch (error) {
@@ -107,7 +109,7 @@ function CourseDetail(props) {
         result = await userApi.removeUserFavourite(courseId, currentUser.id);
 
         if (result.success) {
-          enqueueSnackbar('UnFavourite successful!', { variant: 'success' });
+          enqueueSnackbar('Unfavourite successful!', { variant: 'success' });
         }
       }
 
@@ -117,12 +119,17 @@ function CourseDetail(props) {
           currentUser.id
         );
 
-        const isFavour =
-          userFavourite && Object.keys(userFavourite).length !== 0
-            ? true
-            : false;
+        if (userFavourite && Object.keys(userFavourite).length !== 0) {
+          const isFavour =
+            userFavourite.findIndex(
+              (item) => item.courseId === parseInt(courseId)
+            ) !== -1;
+          console.log(
+            userFavourite.findIndex((item) => item.courseId === courseId)
+          );
 
-        setIsFavourited(isFavour);
+          setIsFavourited(isFavour);
+        }
       }
     } catch (error) {
       enqueueSnackbar(error.message, { variant: 'error' });

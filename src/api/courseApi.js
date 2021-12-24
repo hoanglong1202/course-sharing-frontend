@@ -100,6 +100,11 @@ const courseApi = {
     const url = `${BASE_URL}/lesson/comment`;
     return axiosClient.post(url, data);
   },
+
+  addSingleLesson (data) {
+    const url = `${BASE_URL}/lesson`;
+    return axiosClient.post(url, data);
+  }
 };
 
 export default courseApi;

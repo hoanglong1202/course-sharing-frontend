@@ -1,6 +1,6 @@
 import BrightnessLowIcon from '@mui/icons-material/BrightnessLow';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import courseApi from 'api/courseApi';
@@ -178,6 +178,12 @@ function CourseDetail(props) {
             {course?.lessonList?.length}
           </Grid>
         </Grid>
+      </Box>
+
+      <Box mb={2}>
+        <Button variant="contained" size="small" onClick={() => navigate(`/creator/add-lesson/${id}`)}>
+          Thêm bài học
+        </Button>
       </Box>
 
       <Box style={{ height: 400, width: '100%' }}>

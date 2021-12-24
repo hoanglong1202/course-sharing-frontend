@@ -44,6 +44,28 @@ const useStyles = makeStyles((theme) => ({
   profileForm: {
     margin: theme.spacing(0, 2),
   },
+
+  userHistoryWrapper: {
+    height: 400,
+    overflow: 'scroll',
+    margin: theme.spacing(2, 0)
+  },
+
+  sectionContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    // alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: theme.spacing(3)
+  },
+
+  features: {
+    color: theme.palette.primary.main,
+    fontWeight: 600,
+    textTransform: 'uppercase',
+    letterSpacing: `0.2em`,
+    margin: theme.spacing(2, 1),
+  },
 }));
 
 export default useStyles;

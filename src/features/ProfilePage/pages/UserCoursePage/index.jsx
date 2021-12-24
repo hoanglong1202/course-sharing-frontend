@@ -5,6 +5,7 @@ import SmallCourseCard from 'components/SmallCourseCard';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import useStyles from '../../styles';
+import HorizontalCourseCard from './components/HorizontalCourseCard';
 
 CoursePage.propTypes = {};
 
@@ -33,23 +34,21 @@ function CoursePage(props) {
 
   return (
     <Box>
-      <Grid container spacing={2}>
+      <Box className={classes.sectionContainer}>
+        <span className={classes.features}>Khóa học vừa xem</span>
+      </Box>
+      <Box className={classes.userHistoryWrapper}>
         {!loading &&
-          history.map((item, index) => (
-            <Grid item md={6} lg={3} key={index}>
-              <SmallCourseCard item={item} />
-            </Grid>
-          ))}
-      </Grid>
+          history.map((item, index) => <HorizontalCourseCard item={item} />)}
+      </Box>
 
-      <Grid container spacing={2}>
+      <Box className={classes.sectionContainer}>
+        <span className={classes.features}>Khóa học yêu thích</span>
+      </Box>
+      <Box className={classes.userHistoryWrapper}>
         {!loading &&
-          favourite.map((item, index) => (
-            <Grid item md={6} lg={3} key={index}>
-              <SmallCourseCard item={item} />
-            </Grid>
-          ))}
-      </Grid>
+          favourite.map((item, index) => <HorizontalCourseCard item={item} />)}
+      </Box>
     </Box>
   );
 }

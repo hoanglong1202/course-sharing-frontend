@@ -4,10 +4,11 @@ import {
   LinearProgress,
   List,
   ListItemButton,
-  Typography
+  Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import courseApi from 'api/courseApi';
+import userApi from 'api/userApi';
 import Test from 'assets/images/test.jpg';
 import clsx from 'clsx';
 import { useSnackbar } from 'notistack';
@@ -26,9 +27,7 @@ function LessonDetail(props) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-  const { current: currentUser } = useSelector(
-    (state) => state.auth
-  );
+  const { current: currentUser } = useSelector((state) => state.auth);
 
   const lessonIndex = parseInt(lessonId);
 
@@ -58,6 +57,14 @@ function LessonDetail(props) {
           courseId,
           lessonId
         );
+
+        if (auth && currentUser.role === 'user') {
+          await userApi.addUserHistory({
+            courseId: parseInt(courseId),
+            lessonId: parseInt(lessonId),
+            userId: parseInt(currentUser.id),
+          });
+        }
 
         setLesson(dataObj);
         setCommentList(commentList);
@@ -93,9 +100,13 @@ function LessonDetail(props) {
           lessonId,
           username: currentUser.username,
           content: values,
-          isCreator: currentUser.role === 'creator' && creator.creator_id === currentUser.id ? 'true' : 'false',
+          isCreator:
+            currentUser.role === 'creator' &&
+            creator.creator_id === currentUser.id
+              ? 'true'
+              : 'false',
         };
-        console.log("vo day");
+        console.log('vo day');
         const result = await courseApi.addLessonComment(data);
 
         if (result.success) {

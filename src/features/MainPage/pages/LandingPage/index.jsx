@@ -56,8 +56,8 @@ function LandingPage(props) {
           const { dataObj } = await userApi.getUserHistoryList(id);
           const { dataObj: favouriteList } = await userApi.getUserFavourite(id);
 
-          setHistory(dataObj);
-          setFavourite(favouriteList);
+          setHistory(dataObj.slice(0, 4));
+          setFavourite(favouriteList.slice(0, 4));
         }
         setLoading(false);
       } catch (error) {

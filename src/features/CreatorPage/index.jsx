@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import LinkMenu from './components/LinkMenu';
 import AddCourse from './pages/AddCourse';
+import AddLesson from './pages/AddLesson';
 import CourseDetail from './pages/CourseDetail';
 import CourseList from './pages/CourseList';
 import UpdateCourse from './pages/UpdateCourse';
@@ -29,6 +30,8 @@ function CreatorPage(props) {
           path="update-lesson/:courseId/:lessonId"
           element={<UpdateLesson />}
         />
+
+        <Route path="add-lesson/:courseId" element={<AddLesson />} />
       </Routes>
     </Box>
   );
