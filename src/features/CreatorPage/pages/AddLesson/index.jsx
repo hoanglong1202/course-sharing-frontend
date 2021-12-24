@@ -2,6 +2,7 @@ import courseApi from 'api/courseApi';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { validateYouTubeUrl } from 'utils';
 import AddLessonForm from './components/AddLessonForm';
 
 AddLesson.propTypes = {};
@@ -30,7 +31,7 @@ function AddLesson(props) {
       temp.courseId = parseInt(courseId);
       temp.lesson_name = value?.lesson_name.trim();
       temp.description = value?.description.trim();
-      temp.content = value?.content.trim();
+      temp.content = validateYouTubeUrl(value?.content.trim());
 
       const result = await courseApi.addSingleLesson(temp);
 

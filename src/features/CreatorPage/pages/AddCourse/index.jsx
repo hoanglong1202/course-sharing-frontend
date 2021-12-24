@@ -4,6 +4,7 @@ import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { validateYouTubeUrl } from 'utils';
 import AddCourseForm from './components/AddCourseForm';
 
 function AddCourse(props) {
@@ -39,7 +40,7 @@ function AddCourse(props) {
             ...item,
             lesson_name: item.lesson_name.trim(),
             description: item.description.trim(),
-            content: item.content.trim(),
+            content: validateYouTubeUrl(item.content.trim()),
           };
         })
       );

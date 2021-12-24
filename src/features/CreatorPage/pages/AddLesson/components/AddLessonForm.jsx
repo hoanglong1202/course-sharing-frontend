@@ -7,9 +7,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import useStyles from '../../../styles';
+import { validateYouTubeUrl } from 'utils';
 
 AddLessonForm.propTypes = {
   onFormSubmit: PropTypes.func,
@@ -17,18 +18,20 @@ AddLessonForm.propTypes = {
 };
 
 const schema = yup.object().shape({
-  lesson_name: yup
-    .string()
-    .required("Cần có tên bài học!"),
-  description: yup
-    .string()
-    .required("Cần có miêu tả bài học."),
+  lesson_name: yup.string().required('Cần có tên bài học!'),
+  description: yup.string().required('Cần có miêu tả bài học.'),
   content: yup
     .string()
-    .required("Cần có nội dung bài học."),
-  lesson_types_id: yup
-    .string()
-    .required("Cần chọn loại bài học."),
+    .required('Cần có nội dung bài học.')
+    .test('ValidURL', 'Cần nhập đúng định dạng URL', (value) => {
+      if (value) {
+        const temp = validateYouTubeUrl(value.trim());
+        console.log(!(temp === ''))
+        return !(temp === '');
+      }
+      return true;
+    }),
+  lesson_types_id: yup.string().required('Cần chọn loại bài học.'),
 });
 
 function AddLessonForm({ lessonTypes, lesson, onFormSubmit }) {
@@ -66,9 +69,7 @@ function AddLessonForm({ lessonTypes, lesson, onFormSubmit }) {
         </Grid>
         <Grid item xs={12} md={5}>
           <Box>
-            <Typography className={classes.title}>
-              Thêm bài học
-            </Typography>
+            <Typography className={classes.title}>Thêm bài học</Typography>
             <Typography className={classes.description}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
               possimus architecto sed ab
@@ -92,11 +93,13 @@ function AddLessonForm({ lessonTypes, lesson, onFormSubmit }) {
               type="submit"
               disabled={!form.formState.isDirty}
             >
-              Cập nhập
+              THÊM MỚI
             </Button>
 
             <Box mt={2}>
-              <Button onClick={() => navigate(-1)} variant="outlined">Back</Button>
+              <Button onClick={() => navigate(-1)} variant="outlined">
+                Back
+              </Button>
             </Box>
           </Box>
         </Grid>

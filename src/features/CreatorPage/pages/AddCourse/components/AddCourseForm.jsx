@@ -26,6 +26,7 @@ import * as yup from 'yup';
 import { SUPPORTED_FORMATS } from 'constants/common';
 import InputFieldArray from 'components/form-control/InputFieldArray';
 import SelectFieldArray from 'components/form-control/SelectFieldArray';
+import { validateYouTubeUrl } from 'utils';
 
 const schema = yup.object().shape({
   course_name: yup.string().required('Cần có tên khóa học!'),
@@ -44,7 +45,17 @@ const schema = yup.object().shape({
       yup.object({
         lesson_name: yup.string().required('Cần có tên bài học'),
         description: yup.string().required('Cần có miêu tả bài học.'),
-        content: yup.string().required('Cần có nội dung bài học.'),
+        content: yup
+          .string()
+          .required('Cần có nội dung bài học.')
+          .test('ValidURL', 'Cần nhập đúng định dạng URL', (value) => {
+            if (value) {
+              const temp = validateYouTubeUrl(value.trim());
+              console.log(!(temp === ''));
+              return !(temp === '');
+            }
+            return true;
+          }),
         lesson_types_id: yup.string().required('Cần loại bài học.'),
       })
     )

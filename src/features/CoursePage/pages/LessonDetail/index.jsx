@@ -74,7 +74,7 @@ function LessonDetail(props) {
     })();
 
     setLoading(false);
-  }, [courseId, lessonId]);
+  }, [auth, courseId, currentUser.id, currentUser.role, lessonId]);
 
   useEffect(() => {
     (async () => {

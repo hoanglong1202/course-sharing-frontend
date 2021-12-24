@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import useStyles from '../../../styles';
+import { validateYouTubeUrl } from 'utils';
 
 UpdateLessonForm.propTypes = {
   lesson: PropTypes.object,
@@ -26,7 +27,15 @@ const schema = yup.object().shape({
     .required("Cần có miêu tả bài học."),
   content: yup
     .string()
-    .required("Cần có nội dung bài học."),
+    .required('Cần có nội dung bài học.')
+    .test('ValidURL', 'Cần nhập đúng định dạng URL', (value) => {
+      if (value) {
+        const temp = validateYouTubeUrl(value.trim());
+        console.log(!(temp === ''))
+        return !(temp === '');
+      }
+      return true;
+    }),
   lesson_types_id: yup
     .string()
     .required("Cần chọn loại bài học."),
