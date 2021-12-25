@@ -5,15 +5,16 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardMedia, Grid, Typography
+  CardMedia,
+  Grid,
+  Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
-import phongcanh3 from 'assets/images/phongcanh3.jpeg';
+import PhongCanh from 'assets/images/phongcanh3.jpeg';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,7 +81,6 @@ const useStyles = makeStyles((theme) => ({
     lineClamp: 1,
     textOverflow: `ellipsis`,
     overflow: 'hidden',
-
   },
 
   description: {
@@ -89,7 +89,6 @@ const useStyles = makeStyles((theme) => ({
     lineClamp: 3,
     textOverflow: `ellipsis`,
     overflow: 'hidden',
-
   },
 }));
 
@@ -110,8 +109,12 @@ export default function CourseCard({ item }) {
       <CardMedia
         component="img"
         height="250"
-        image={phongcanh3}
-        alt="green iguana"
+        image={
+          item?.cover_picture
+            ? `${process.env.REACT_APP_STATIC_PUBLIC}${item?.cover_picture}`
+            : PhongCanh
+        }
+        alt={item?.course_name}
       />
       <CardContent className={classes.cardContent}>
         <Box className={classes.titleContainer}>
@@ -149,7 +152,12 @@ export default function CourseCard({ item }) {
           </Grid>
         </Grid>
 
-        <Typography variant="body2" component="div" mt={1} className={classes.description}>
+        <Typography
+          variant="body2"
+          component="div"
+          mt={1}
+          className={classes.description}
+        >
           {item?.description}
         </Typography>
       </CardContent>

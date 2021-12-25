@@ -244,7 +244,15 @@ function CourseDetail(props) {
 
           <Grid item xs={12} md={5} className={classes.courseLearnGrid}>
             <Box className={classes.courseLearn}>
-              <img className={classes.courseCover} src={phongcanh3} alt="tét" />
+              <img
+                className={classes.courseCover}
+                src={
+                  course?.cover_picture
+                    ? `${process.env.REACT_APP_STATIC_PUBLIC}${course?.cover_picture}`
+                    : phongcanh3
+                }
+                alt="tét"
+              />
               <Box className={classes.buttonContainer}>
                 <Button
                   onClick={handleNavigate}

@@ -73,7 +73,15 @@ function HorizontalCourseCard({ item }) {
 
   return (
     <Box className={classes.root} onClick={handleNavigate}>
-      <img className={classes.imgHolder} src={PhongCanh} alt="nana" />
+      <img
+        className={classes.imgHolder}
+        src={
+          item?.cover_picture
+            ? `${process.env.REACT_APP_STATIC_PUBLIC}${item?.cover_picture}`
+            : PhongCanh
+        }
+        alt={item?.courseName}
+      />
       <Box>
         <h3 className={classes.title}>{item?.courseName}</h3>
 
