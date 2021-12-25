@@ -9,7 +9,7 @@ import {
 import { Box } from '@mui/system';
 import courseApi from 'api/courseApi';
 import userApi from 'api/userApi';
-import Test from 'assets/images/test.jpg';
+import Test from 'assets/images/phongcanh3.jpeg';
 import clsx from 'clsx';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
@@ -181,7 +181,15 @@ function LessonDetail(props) {
       </Box>
 
       <Box className={classes.authorContainer}>
-        <Avatar className={classes.authorAvatar} alt="Remy Sharp" src={Test} />
+        <Avatar
+          className={classes.authorAvatar}
+          alt={creator?.creator_name}
+          src={
+            creator?.profile_picture
+              ? `${process.env.REACT_APP_STATIC_PUBLIC}${creator?.profile_picture}`
+              : Test
+          }
+        />
         <Box className={classes.authorHolder}>
           <Typography
             className={clsx(classes.authorDescription, classes.authorTitle)}

@@ -28,7 +28,9 @@ function UploadField({ form, name, value, imageSource }) {
     register,
   } = form;
   const imagePlaceholder = 'https://via.placeholder.com/150';
-  const uploadImage = imageSource || imagePlaceholder;
+  const uploadImage = imageSource
+    ? `${process.env.REACT_APP_STATIC_PUBLIC}${imageSource}`
+    : imagePlaceholder;
   const [image, setImage] = useState(null);
 
   useEffect(() => {

@@ -110,6 +110,7 @@ function ManageProfileForm({ profile, onFormSubmit }) {
               form={form}
               name="cover_picture"
               value={formCoverImageValue}
+              imageSource={profile?.profile_picture}
             />
           </Box>
 

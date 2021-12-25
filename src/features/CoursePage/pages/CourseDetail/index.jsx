@@ -17,7 +17,7 @@ import { Box } from '@mui/system';
 import courseApi from 'api/courseApi';
 import userApi from 'api/userApi';
 import phongcanh3 from 'assets/images/phongcanh3.jpeg';
-import Test from 'assets/images/test.jpg';
+import Test from 'assets/images/phongcanh3.jpeg';
 import clsx from 'clsx';
 import { openDialog } from 'features/Auth/authSlice';
 import { useSnackbar } from 'notistack';
@@ -222,8 +222,10 @@ function CourseDetail(props) {
               <Box className={classes.authorContainer}>
                 <Avatar
                   className={classes.authorAvatar}
-                  alt="Remy Sharp"
-                  src={Test}
+                  alt={course?.creator_name}
+                  src={course?.profile_picture
+                    ? `${process.env.REACT_APP_STATIC_PUBLIC}${course?.profile_picture}`
+                    : Test}
                 />
                 <Box className={classes.authorHolder}>
                   <Typography

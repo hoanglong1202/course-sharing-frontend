@@ -121,6 +121,7 @@ function UpdateCourseForm({ courseTypes, course, onFormSubmit }) {
                   form={form}
                   name="profile_picture"
                   value={formCoverImageValue}
+                  imageSource={course?.cover_picture}
                 />
               </Grid>
             </Grid>
