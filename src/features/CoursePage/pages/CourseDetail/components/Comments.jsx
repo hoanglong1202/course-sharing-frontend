@@ -42,9 +42,13 @@ function Comments({ item }) {
       <CardHeader
         className={classes.commentTitle}
         avatar={
-          <Avatar sx={{ bgcolor: 'red' }} aria-label="recipe">
-            {item.username.slice(0, 1)}
-          </Avatar>
+          item.profile_picture ? (
+            <Avatar alt={item.username} src={`${process.env.REACT_APP_STATIC_PUBLIC}${item.profile_picture}`} />
+          ) : (
+            <Avatar sx={{ bgcolor: 'red' }} aria-label="recipe">
+              {item.username.slice(0, 1)}
+            </Avatar>
+          )
         }
         title={item.username}
         subheader={moment(item.timestamp).format('DD-MM-YYYY')}
