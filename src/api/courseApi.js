@@ -104,7 +104,17 @@ const courseApi = {
   addSingleLesson (data) {
     const url = `${BASE_URL}/lesson`;
     return axiosClient.post(url, data);
-  }
+  },
+
+  addCourseRegister(courseId, userId) {
+    const url = `${BASE_URL}/course-register/${courseId}/${userId}`;
+    return axiosClient.post(url);
+  },
+
+  getCourseRegister(courseId) {
+    const url = `${BASE_URL}/course-register/${courseId}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default courseApi;

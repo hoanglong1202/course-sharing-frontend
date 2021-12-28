@@ -46,6 +46,7 @@ function CourseDetail(props) {
   const [course, setCourse] = useState({});
   const [isFavourited, setIsFavourited] = useState(false);
   const [commentList, setCommentList] = useState([]);
+  const [isRegister, setIsRegister] = useState(false);
 
   const auth = currentUser.id ? true : false;
   const isReviewed = commentList.findIndex(
@@ -78,13 +79,22 @@ function CourseDetail(props) {
 
             setIsFavourited(isFavour);
           }
+
+          if (course.max_user && parseInt(course.max_user) > 0) {
+            const {
+              dataObj: { totalView },
+            } = await courseApi.getCourseRegister(courseId);
+
+            const isLocked = parseInt(course.max_user) < parseInt(totalView);
+            setIsRegister(isLocked);
+          }
         }
         setLoading(false);
       } catch (error) {
         console.log('Some error occur: ', error);
       }
     })();
-  }, [courseId, currentUser.id, auth, currentUser.role]);
+  }, [courseId, currentUser.id, auth, currentUser.role, course.max_user]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -164,6 +174,7 @@ function CourseDetail(props) {
     return <LinearProgress />;
   }
 
+  console.log(isRegister);
   return (
     <Box className={classes.root}>
       <Box className={classes.titleBackground} />
@@ -223,9 +234,11 @@ function CourseDetail(props) {
                 <Avatar
                   className={classes.authorAvatar}
                   alt={course?.creator_name}
-                  src={course?.profile_picture
-                    ? `${process.env.REACT_APP_STATIC_PUBLIC}${course?.profile_picture}`
-                    : Test}
+                  src={
+                    course?.profile_picture
+                      ? `${process.env.REACT_APP_STATIC_PUBLIC}${course?.profile_picture}`
+                      : Test
+                  }
                 />
                 <Box className={classes.authorHolder}>
                   <Typography
@@ -259,8 +272,9 @@ function CourseDetail(props) {
                 <Button
                   onClick={handleNavigate}
                   className={classes.learnButton}
+                  disabled={isRegister}
                 >
-                  Học ngay
+                  {!isRegister ? `Học ngay` : `Đến giới hạn`}
                 </Button>
                 <Button
                   className={classes.loveButton}

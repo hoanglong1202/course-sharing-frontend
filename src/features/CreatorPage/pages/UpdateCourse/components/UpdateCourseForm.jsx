@@ -55,6 +55,7 @@ function UpdateCourseForm({ courseTypes, course, onFormSubmit }) {
     defaultValues: {
       course_name: course?.course_name,
       description: course?.description,
+      cover_picture: course?.cover_picture,
       max_user: course?.max_user || 0,
       types_id: course?.types_id,
       profile_picture: null,
