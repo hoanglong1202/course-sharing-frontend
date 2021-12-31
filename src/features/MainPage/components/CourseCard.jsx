@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    width: 345,
     borderRadius: '2.5rem 0 2.5rem 0',
   },
 

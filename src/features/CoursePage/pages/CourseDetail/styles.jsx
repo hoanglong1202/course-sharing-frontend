@@ -59,15 +59,18 @@ const useStyles = makeStyles((theme) => ({
 
   courseCover: {
     width: '100%',
+    height: '100%',
+    objectFit: 'cover',
   },
   courseLearnGrid: {
     display: 'flex',
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
   },
 
   courseLearn: {
-    maxWidth: 300,
+    width: 250,
+    height: 200,
     border: '1px solid #fff',
   },
 
@@ -181,7 +184,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: `auto`,
 
-    marginLeft: theme.spacing(2)
+    marginLeft: theme.spacing(2),
   },
 }));
 

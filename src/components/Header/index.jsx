@@ -145,14 +145,14 @@ export default function Header() {
             >
               Khóa học
             </Typography>
-            <Typography
+            {/* <Typography
               className={classes.appBarTitle}
               variant="h6"
               component="div"
               sx={{ flexGrow: 1 }}
             >
               Thảo luận
-            </Typography>
+            </Typography> */}
 
             {!auth && (
               <>
