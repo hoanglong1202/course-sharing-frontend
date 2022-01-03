@@ -105,7 +105,7 @@ export default function Header() {
               sx={{ flexGrow: 1 }}
               onClick={() => handleNavigate('/')}
             >
-              Courses Sharing
+              UTE Courses Sharing
             </Typography>
           </Box>
 

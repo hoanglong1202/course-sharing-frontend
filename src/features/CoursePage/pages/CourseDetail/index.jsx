@@ -67,6 +67,7 @@ function CourseDetail(props) {
         setCourse(dataObj);
         setCommentList(list);
         if (auth && currentUser.role === 'user') {
+          await courseApi.addCourseRegister(courseId, currentUser.id)
           const { dataObj: userFavourite } = await userApi.getUserFavourite(
             currentUser.id
           );
@@ -229,7 +230,7 @@ function CourseDetail(props) {
                   </Box>
                 )}
               </Box>
-              <Typography mt={1}>Created by:</Typography>
+              <Typography mt={1}>Tác giả:</Typography>
               <Box className={classes.authorContainer}>
                 <Avatar
                   className={classes.authorAvatar}
