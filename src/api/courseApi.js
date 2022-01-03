@@ -115,6 +115,11 @@ const courseApi = {
     const url = `${BASE_URL}/course-register/${courseId}`;
     return axiosClient.get(url);
   },
+
+  getUserLessonHistory(courseId, userId) {
+    const url = `${BASE_URL}/lesson-history/${courseId}/${userId}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default courseApi;

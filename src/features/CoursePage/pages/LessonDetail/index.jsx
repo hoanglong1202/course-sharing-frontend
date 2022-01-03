@@ -36,6 +36,7 @@ function LessonDetail(props) {
   const [creator, setCreator] = useState({});
   const [lessonList, setLessonList] = useState([]);
   const [commentList, setCommentList] = useState([]);
+  const [lessonHistory, setLessonHistory] = useState([]);
 
   const auth = currentUser.id ? true : false;
 
@@ -58,16 +59,22 @@ function LessonDetail(props) {
           lessonId
         );
 
+        setLesson(dataObj);
+        setCommentList(commentList);
+
         if (auth && currentUser.role === 'user') {
           await userApi.addUserHistory({
             courseId: parseInt(courseId),
             lessonId: parseInt(lessonId),
             userId: parseInt(currentUser.id),
           });
-        }
 
-        setLesson(dataObj);
-        setCommentList(commentList);
+          const { dataObj: temp } = await courseApi.getUserLessonHistory(
+            courseId,
+            currentUser.id
+          );
+          setLessonHistory(temp);
+        }
       } catch (error) {
         console.log('Some error occur: ', error);
       }
@@ -106,7 +113,6 @@ function LessonDetail(props) {
               ? 'true'
               : 'false',
         };
-        console.log('vo day');
         const result = await courseApi.addLessonComment(data);
 
         if (result.success) {
@@ -124,6 +130,28 @@ function LessonDetail(props) {
       enqueueSnackbar(error.message, { variant: 'error' });
     }
   };
+
+  let filtered = [];
+  if (lessonHistory.length > 0) {
+    filtered = lessonList.map((item) => {
+      const index = lessonHistory.find(
+        (x) => parseInt(x.lessonId) === parseInt(item.id)
+      );
+      if (index) {
+        return {
+          ...item,
+          isWatched: true,
+        };
+      }
+
+      return {
+        ...item,
+        isWatched: false,
+      };
+    });
+  } else {
+    filtered = lessonList;
+  }
 
   if (loading) {
     return <LinearProgress />;
@@ -148,7 +176,7 @@ function LessonDetail(props) {
             <Box className={classes.chapterContainer}>
               <List component="nav" aria-label="secondary mailbox folder">
                 {!loading &&
-                  lessonList.map((item, index) => (
+                  filtered.map((item, index) => (
                     <ListItemButton
                       className={clsx(
                         classes.chapterButton,
@@ -161,6 +189,7 @@ function LessonDetail(props) {
                       <Typography
                         className={clsx(
                           classes.chapterTitle,
+                          item.isWatched && classes.chapterTitleSeen,
                           item.id === lessonIndex && classes.chapterTitleActive
                         )}
                       >

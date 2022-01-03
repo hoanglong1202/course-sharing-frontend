@@ -48,6 +48,10 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
   },
 
+  chapterTitleSeen: {
+    color: '#ddd !important',
+  },
+
   chapterTitleActive: {
     color: '#fff !important',
   },
