@@ -53,7 +53,10 @@ function CourseDetail(props) {
     (item) => item.id === currentUser.id
   );
 
-  const handleNavigate = () => {
+  const handleNavigate = async () => {
+    if (auth && currentUser.role === 'user') {
+      await courseApi.addCourseRegister(courseId, currentUser.id)
+    }
     navigate(`/course/${course.id}/${course.firstLesson.id}`);
   };
 
@@ -67,7 +70,6 @@ function CourseDetail(props) {
         setCourse(dataObj);
         setCommentList(list);
         if (auth && currentUser.role === 'user') {
-          await courseApi.addCourseRegister(courseId, currentUser.id)
           const { dataObj: userFavourite } = await userApi.getUserFavourite(
             currentUser.id
           );
@@ -83,10 +85,10 @@ function CourseDetail(props) {
 
           if (course.max_user && parseInt(course.max_user) > 0) {
             const {
-              dataObj: { totalView },
+              dataObj: { totalView, user: userRegister },
             } = await courseApi.getCourseRegister(courseId);
 
-            const isLocked = parseInt(course.max_user) < parseInt(totalView);
+            const isLocked = parseInt(course.max_user) <= parseInt(totalView) && !userRegister.find(x => parseInt(x.userId) === parseInt(currentUser.id));
             setIsRegister(isLocked);
           }
         }
@@ -135,9 +137,6 @@ function CourseDetail(props) {
             userFavourite.findIndex(
               (item) => item.courseId === parseInt(courseId)
             ) !== -1;
-          console.log(
-            userFavourite.findIndex((item) => item.courseId === courseId)
-          );
 
           setIsFavourited(isFavour);
         }
@@ -175,7 +174,7 @@ function CourseDetail(props) {
     return <LinearProgress />;
   }
 
-  console.log(isRegister);
+
   return (
     <Box className={classes.root}>
       <Box className={classes.titleBackground} />
