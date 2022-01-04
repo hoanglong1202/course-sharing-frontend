@@ -26,41 +26,7 @@ import * as yup from 'yup';
 import { SUPPORTED_FORMATS } from 'constants/common';
 import InputFieldArray from 'components/form-control/InputFieldArray';
 import SelectFieldArray from 'components/form-control/SelectFieldArray';
-import { validateYouTubeUrl } from 'utils';
-
-const schema = yup.object().shape({
-  course_name: yup.string().required('Cần có tên khóa học!'),
-  description: yup.string().required('Cần có miêu tả khóa học.'),
-  max_user: yup.number(),
-  types_id: yup.string().required('Cần chọn danh mục khóa học.'),
-  profile_picture: yup
-    .mixed()
-    .test(
-      'fileType',
-      'Chỉ chấp nhập file image',
-      (value) => value && value[0] && SUPPORTED_FORMATS.includes(value[0].type)
-    ),
-  lesson: yup
-    .array(
-      yup.object({
-        lesson_name: yup.string().required('Cần có tên bài học'),
-        description: yup.string().required('Cần có miêu tả bài học.'),
-        content: yup
-          .string()
-          .required('Cần có nội dung bài học.')
-          .test('ValidURL', 'Cần nhập đúng định dạng URL', (value) => {
-            if (value) {
-              const temp = validateYouTubeUrl(value.trim());
-              console.log(!(temp === ''));
-              return !(temp === '');
-            }
-            return true;
-          }),
-        lesson_types_id: yup.string().required('Cần loại bài học.'),
-      })
-    )
-    .min(1, 'Cần có ít nhất 1 bài học.'),
-});
+import { validateFacebookUrl, validateYouTubeUrl } from 'utils';
 
 AddCourseForm.propTypes = {
   types: PropTypes.array,
@@ -77,6 +43,66 @@ const steps = [
 function AddCourseForm({ courseTypes, types, onFormSubmit }) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+
+  const schema = yup.object().shape({
+    course_name: yup.string().required('Cần có tên khóa học!'),
+    description: yup.string().required('Cần có miêu tả khóa học.'),
+    max_user: yup.number(),
+    types_id: yup.string().required('Cần chọn danh mục khóa học.'),
+    profile_picture: yup
+      .mixed()
+      .test(
+        'fileType',
+        'Chỉ chấp nhập file image',
+        (value) =>
+          value && value[0] && SUPPORTED_FORMATS.includes(value[0].type)
+      ),
+    lesson: yup
+      .array(
+        yup.object({
+          lesson_name: yup.string().required('Cần có tên bài học'),
+          description: yup.string().required('Cần có miêu tả bài học.'),
+          content: yup
+            .string()
+            .required('Cần có nội dung bài học.')
+            .when('lesson_types_id', {
+              is: (val) => parseInt(val) === 1, // alternatively: (val) => val == true
+              then: yup
+                .string()
+                .test(
+                  'ValidURL',
+                  'Cần nhập đúng định dạng URL',
+                  function (value) {
+                    if (value) {
+                      const trimValue = value.trim();
+                      const temp = validateYouTubeUrl(trimValue);
+
+                      return !(temp === '');
+                    }
+                    return true;
+                  }
+                ),
+              otherwise: yup
+                .string()
+                .test(
+                  'ValidURL',
+                  'Cần nhập đúng định dạng URL',
+                  function (value) {
+                    if (value) {
+                      const trimValue = value.trim();
+                      const temp = validateFacebookUrl(trimValue);
+
+                      return !(temp === '');
+                    }
+                    return true;
+                  }
+                ),
+            }),
+          lesson_types_id: yup.string().required('Cần loại bài học.'),
+        })
+      )
+      .min(1, 'Cần có ít nhất 1 bài học.'),
+  });
 
   const form = useForm({
     defaultValues: {
@@ -244,6 +270,7 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
                     label="Miêu tả"
                     arrIndex={index}
                     subName="description"
+                    // type={parseInt(form.getValues(`lesson.${index}.lesson_types_id`))}
                   />
                 </Box>
 

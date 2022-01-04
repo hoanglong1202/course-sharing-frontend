@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { validateYouTubeUrl } from 'utils';
+import { validateFacebookUrl, validateYouTubeUrl } from 'utils';
 import AddCourseForm from './components/AddCourseForm';
 
 function AddCourse(props) {
@@ -36,11 +36,22 @@ function AddCourse(props) {
       temp.creator_id = creatorId;
       temp.lesson = JSON.stringify(
         values.lesson.map((item) => {
+          const type = parseInt(item?.lesson_types_id);
+          let content;
+
+          if (type === 1) {
+            content = validateYouTubeUrl(item?.content.trim());
+          } else if (type === 2) {
+            content = validateFacebookUrl(item?.content.trim());
+          } else {
+            content = '';
+          }
+
           return {
             ...item,
             lesson_name: item.lesson_name.trim(),
             description: item.description.trim(),
-            content: validateYouTubeUrl(item.content.trim()),
+            content,
           };
         })
       );
