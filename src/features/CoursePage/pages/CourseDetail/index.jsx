@@ -332,30 +332,6 @@ function CourseDetail(props) {
             yêu thích khóa học này
           </Typography>
         </Box>
-
-        <Box className={classes.contentInfor}>
-          <CheckIcon />
-          <Typography className={classes.infor}>
-            Learn to create Machine Learning Algorithms in Python. Master
-            Machine Learning on Python & R
-          </Typography>
-        </Box>
-
-        <Box className={classes.contentInfor}>
-          <CheckIcon />
-          <Typography className={classes.infor}>
-            Master Machine Learning on Python & R Handle advanced techniques
-            like Dimensionality Reduction
-          </Typography>
-        </Box>
-
-        <Box className={classes.contentInfor}>
-          <CheckIcon />
-          <Typography className={classes.infor}>
-            Build an army of powerful Machine Learning models and know how to
-            combine them to solve any problem
-          </Typography>
-        </Box>
       </Box>
 
       <Box mt={3} mb={3} ml={2}>

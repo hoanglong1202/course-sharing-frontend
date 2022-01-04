@@ -166,7 +166,7 @@ function LessonDetail(props) {
             <iframe
               className={classes.mediaContainer}
               src={lesson.content}
-              title="YouTube video player"
+              title="Video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen;"
             />

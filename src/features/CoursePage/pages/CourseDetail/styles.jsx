@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   courseLearn: {
-    width: 250,
+    width: 300,
     height: 200,
     border: '1px solid #fff',
   },
