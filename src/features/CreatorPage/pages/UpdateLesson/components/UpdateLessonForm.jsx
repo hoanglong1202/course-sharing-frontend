@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import useStyles from '../../../styles';
-import { validateYouTubeUrl } from 'utils';
+import { validateFacebookUrl, validateYouTubeUrl } from 'utils';
 
 UpdateLessonForm.propTypes = {
   lesson: PropTypes.object,
@@ -18,32 +18,39 @@ UpdateLessonForm.propTypes = {
   lessonTypes: PropTypes.array,
 };
 
-const schema = yup.object().shape({
-  lesson_name: yup
-    .string()
-    .required("Cần có tên bài học!"),
-  description: yup
-    .string()
-    .required("Cần có miêu tả bài học."),
-  content: yup
-    .string()
-    .required('Cần có nội dung bài học.')
-    .test('ValidURL', 'Cần nhập đúng định dạng URL', (value) => {
-      if (value) {
-        const temp = validateYouTubeUrl(value.trim());
-        console.log(!(temp === ''))
-        return !(temp === '');
-      }
-      return true;
-    }),
-  lesson_types_id: yup
-    .string()
-    .required("Cần chọn loại bài học."),
-});
-
 function UpdateLessonForm({ lessonTypes, lesson, onFormSubmit }) {
   const classes = useStyles();
   const navigate = useNavigate();
+
+  const schema = yup.object().shape({
+    lesson_name: yup
+      .string()
+      .required("Cần có tên bài học!"),
+    description: yup
+      .string()
+      .required("Cần có miêu tả bài học."),
+    lesson_types_id: yup
+      .string()
+      .required("Cần chọn loại bài học."),
+    content: yup
+      .string()
+      .required('Cần có nội dung bài học.')
+      .test('ValidURL', 'Cần nhập đúng định dạng URL', (value) => {
+        const type = parseInt(form.getValues('lesson_types_id'));
+        if (value && type === 1) {
+          const temp = validateYouTubeUrl(value.trim());
+  
+          return !(temp === '');
+        }
+
+        if (value && type === 2) {
+          const temp = validateFacebookUrl(value.trim());
+  
+          return !(temp === '');
+        }
+        return true;
+      }),
+  });
 
   const form = useForm({
     defaultValues: {

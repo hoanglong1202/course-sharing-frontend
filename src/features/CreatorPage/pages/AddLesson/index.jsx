@@ -2,7 +2,7 @@ import courseApi from 'api/courseApi';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { validateYouTubeUrl } from 'utils';
+import { validateFacebookUrl, validateYouTubeUrl } from 'utils';
 import AddLessonForm from './components/AddLessonForm';
 
 AddLesson.propTypes = {};
@@ -31,7 +31,15 @@ function AddLesson(props) {
       temp.courseId = parseInt(courseId);
       temp.lesson_name = value?.lesson_name.trim();
       temp.description = value?.description.trim();
-      temp.content = validateYouTubeUrl(value?.content.trim());
+      const type = parseInt(value?.lesson_types_id);
+
+      if (type === 1) {
+        temp.content = validateYouTubeUrl(value?.content.trim());
+      } else if (type === 2) {
+        temp.content = validateFacebookUrl(value?.content.trim());
+      } else {
+        temp.content = '';
+      }
 
       const result = await courseApi.addSingleLesson(temp);
 
