@@ -3,7 +3,7 @@ const useStyles = makeStyles((theme) => ({
   root: {},
 
   titleBackground: {
-    height: 620,
+    height: 640,
     backgroundColor: '#1c1d1f',
 
     position: 'absolute',
@@ -124,6 +124,16 @@ const useStyles = makeStyles((theme) => ({
     lineClamp: 2,
     textOverflow: `ellipsis`,
     overflow: 'hidden',
+  },
+
+  icon: {
+    color: '#fff',
+  },
+
+  breadcumb: {
+    color: '#fff',
+    fontWeight: 600,
+    fontSize: 16,
   },
 }));
 

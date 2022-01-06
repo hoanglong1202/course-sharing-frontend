@@ -1,7 +1,9 @@
 import {
   Avatar,
+  Breadcrumbs,
   Grid,
   LinearProgress,
+  Link,
   List,
   ListItemButton,
   Typography,
@@ -18,6 +20,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Comments from './components/Comments';
 import WriteComments from './components/WriteComments';
 import useStyles from './styles';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 LessonDetail.propTypes = {};
 
@@ -34,6 +37,7 @@ function LessonDetail(props) {
   const [loading, setLoading] = useState(true);
   const [lesson, setLesson] = useState({});
   const [creator, setCreator] = useState({});
+  const [course, setCourse] = useState({});
   const [lessonList, setLessonList] = useState([]);
   const [commentList, setCommentList] = useState([]);
   const [lessonHistory, setLessonHistory] = useState([]);
@@ -87,10 +91,13 @@ function LessonDetail(props) {
     (async () => {
       try {
         setLoading(true);
-        const { dataObj, creator } = await courseApi.getLessons(courseId);
+        const { dataObj, creator, courseDetail } = await courseApi.getLessons(
+          courseId
+        );
 
         setLessonList(dataObj);
         setCreator(creator);
+        setCourse(courseDetail);
       } catch (error) {
         console.log('Some error occur: ', error);
       }
@@ -161,6 +168,26 @@ function LessonDetail(props) {
     <Box>
       <Box className={classes.titleBackground} />
       <Box className={classes.titleContainer}>
+        <Box mb={1}>
+          <Breadcrumbs
+            separator={
+              <NavigateNextIcon className={classes.icon} fontSize="small" />
+            }
+          >
+            <Link underline="hover" className={classes.breadcumb} href="/">
+              Trang chủ
+            </Link>
+            <Link
+              underline="hover"
+              className={classes.breadcumb}
+              href={`/course/${courseId}`}
+            >
+              {course?.course_name}
+            </Link>
+            <Typography className={classes.breadcumb}>Khóa học</Typography>
+          </Breadcrumbs>
+        </Box>
+
         <Grid container>
           <Grid item xs={12} md={9}>
             <iframe
