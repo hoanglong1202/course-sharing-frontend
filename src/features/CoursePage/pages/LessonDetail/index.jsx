@@ -184,7 +184,7 @@ function LessonDetail(props) {
             >
               {course?.course_name}
             </Link>
-            <Typography className={classes.breadcumb}>Khóa học</Typography>
+            <Typography className={classes.breadcumb}>Bài học</Typography>
           </Breadcrumbs>
         </Box>
 
