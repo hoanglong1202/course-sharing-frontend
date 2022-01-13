@@ -124,6 +124,18 @@ export default function Header() {
               </Typography>
             </Can>
 
+            <Can roles={['admin']}>
+              <Typography
+                className={classes.appBarTitle}
+                variant="h6"
+                component="div"
+                sx={{ flexGrow: 1 }}
+                onClick={() => handleNavigate('/admin/analysis')}
+              >
+                Thống kê
+              </Typography>
+            </Can>
+
             <Can roles={['creator']}>
               <Typography
                 className={classes.appBarTitle}

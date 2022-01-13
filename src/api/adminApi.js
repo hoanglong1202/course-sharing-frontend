@@ -57,6 +57,16 @@ const adminApi = {
     const url = `${BASE_URL}`;
     return axiosClient.put(url, data);
   },
+
+  courseAnalysis() {
+    const url = `${BASE_URL}/course-analysis`;
+    return axiosClient.get(url);
+  },
+
+  creatorAnalysis() {
+    const url = `${BASE_URL}/creator-analysis`;
+    return axiosClient.get(url);
+  },
 };
 
 export default adminApi;

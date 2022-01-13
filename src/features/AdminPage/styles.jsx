@@ -28,6 +28,21 @@ const useStyles = makeStyles((theme) => ({
 
     marginTop: theme.spacing(2),
   },
+
+  gridWrap: {
+    marginTop: 20,
+    paddingTop: 20,
+    padding: 10,
+  },
+
+  totalBox: {
+    padding: theme.spacing(1, 2, 4, 2),
+    marginBottom: theme.spacing(2),
+  },
+
+  line: {
+    height: 500,
+  },
 }));
 
 export default useStyles;
