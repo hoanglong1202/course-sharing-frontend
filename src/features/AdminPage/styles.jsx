@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   line: {
-    height: 500,
+    maxHeight: 450,
   },
 }));
 

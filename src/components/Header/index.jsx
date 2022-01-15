@@ -130,7 +130,7 @@ export default function Header() {
                 variant="h6"
                 component="div"
                 sx={{ flexGrow: 1 }}
-                onClick={() => handleNavigate('/admin/analysis')}
+                onClick={() => handleNavigate('/analysis')}
               >
                 Thống kê
               </Typography>
@@ -157,15 +157,6 @@ export default function Header() {
             >
               Khóa học
             </Typography>
-            {/* <Typography
-              className={classes.appBarTitle}
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1 }}
-            >
-              Thảo luận
-            </Typography> */}
-
             {!auth && (
               <>
                 <div color="inherit" onClick={handleClickOpenLogin}>

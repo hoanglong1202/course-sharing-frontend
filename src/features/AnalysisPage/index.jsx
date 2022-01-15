@@ -14,7 +14,7 @@ import {
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { Line, Pie } from 'react-chartjs-2';
-import useStyles from './../../styles';
+import useStyles from './styles';
 
 ChartJS.register(
   CategoryScale,
@@ -86,11 +86,26 @@ function Analysis(props) {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top',
+        position: 'bottom',
       },
       title: {
         display: true,
-        text: 'Chart.js Line Chart',
+        text: 'Thống kê khóa học của tác giả',
+        position: 'bottom',
+      },
+    },
+  };
+
+  const pieChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'bottom',
+      },
+      title: {
+        display: true,
+        text: 'Thống kê khóa học của tác giả',
+        position: 'bottom',
       },
     },
   };
@@ -109,30 +124,11 @@ function Analysis(props) {
   };
 
   return (
-    // <div>
-    //   <pre>{JSON.stringify(courses, null, 4)}</pre>
-    //   <br />
-    //   creator
-    //   <pre>{JSON.stringify(creator, null, 4)}</pre>
-    //   <Line data={courseLineChartData} options={chartOptions} />
-    //   <Pie data={creatorPieChart} />
-    // </div>
     <Paper elevation={2} className={classes.gridWrap}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={9}>
           <Box className={classes.line}>
             <Line data={courseLineChartData} options={chartOptions} />
-          </Box>
-
-          <Box textAlign="center">
-            <Typography
-              component="h2"
-              variant="h6"
-              color="primary"
-              gutterBottom
-            >
-              Thống kê lượt tương tác với bài học
-            </Typography>
           </Box>
         </Grid>
 
@@ -157,7 +153,8 @@ function Analysis(props) {
           </Paper>
 
           <Paper elevation={1}>
-            <Pie data={creatorPieChart} />
+            <Pie data={creatorPieChart} options={pieChartOptions} />
+            
           </Paper>
         </Grid>
       </Grid>
