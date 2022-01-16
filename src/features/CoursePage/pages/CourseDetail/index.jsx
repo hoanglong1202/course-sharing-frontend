@@ -55,7 +55,13 @@ function CourseDetail(props) {
 
   const handleNavigate = async () => {
     if (auth && currentUser.role === 'user') {
-      await courseApi.addCourseRegister(courseId, currentUser.id)
+      await courseApi.addCourseRegister(courseId, currentUser.id);
+      return;
+    }
+
+    if (!auth && course.max_user && parseInt(course.max_user) > 0) {
+      dispatch(openDialog());
+      return;
     }
     navigate(`/course/${course.id}/${course.firstLesson.id}`);
   };
@@ -108,6 +114,7 @@ function CourseDetail(props) {
       let result;
       if (!auth && !open) {
         dispatch(openDialog());
+        return;
       }
 
       if (!isFavourited && currentUser.role === 'user') {

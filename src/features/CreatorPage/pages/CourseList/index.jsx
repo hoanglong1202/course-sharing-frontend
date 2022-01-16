@@ -145,7 +145,7 @@ function CourseList(props) {
         />,
         <GridActionsCellItem
           icon={<AnalyticsIcon />}
-          label="Xem chi tiết"
+          label="Danh sách bài học"
           onClick={() => handleDetailButton(params.id)}
           showInMenu
         />,
