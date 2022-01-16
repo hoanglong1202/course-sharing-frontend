@@ -1,4 +1,5 @@
 import { Box, Grid, Paper, Typography } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
 import adminApi from 'api/adminApi';
 import {
   ArcElement,
@@ -9,7 +10,7 @@ import {
   LineElement,
   PointElement,
   Title,
-  Tooltip,
+  Tooltip
 } from 'chart.js';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -38,6 +39,7 @@ function Analysis(props) {
   const classes = useStyles();
   const [courses, setCourses] = useState([]);
   const [creator, setCreator] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const courseName = courses.map((x) => x.course_name);
   const courseView = courses.map((x) => parseInt(x.viewed));
@@ -59,6 +61,7 @@ function Analysis(props) {
 
       setCourses(courseAnalysis);
       setCreator(creatorAnalysis);
+      setLoading(false);
     })();
   }, []);
 
@@ -123,6 +126,51 @@ function Analysis(props) {
     ],
   };
 
+  const columns = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      width: 80,
+      headerAlign: 'center',
+      align: 'center',
+    },
+    {
+      field: 'course_name',
+      headerName: 'Tên khóa học',
+      width: 200,
+      headerAlign: 'center',
+      align: 'center',
+    },
+    {
+      field: 'creator_name',
+      headerName: 'Tên khóa học',
+      width: 200,
+      headerAlign: 'center',
+      align: 'center',
+    },
+    {
+      field: 'viewed',
+      headerName: 'Lượt xem',
+      width: 100,
+      headerAlign: 'center',
+      align: 'center',
+    },
+    {
+      field: 'favourited',
+      headerName: 'Yêu thích',
+      width: 100,
+      headerAlign: 'center',
+      align: 'center',
+    },
+    {
+      field: 'total_lesson',
+      headerName: 'Số bài học',
+      width: 100,
+      headerAlign: 'center',
+      align: 'center',
+    },
+  ];
+
   return (
     <Paper elevation={2} className={classes.gridWrap}>
       <Grid container spacing={2}>
@@ -159,7 +207,10 @@ function Analysis(props) {
         </Grid>
       </Grid>
 
-      <Box></Box>
+      <Typography className={classes.title}>Danh sách khóa học</Typography>
+      <Box style={{ height: 400, width: '100%' }}>
+        {!loading && <DataGrid rows={courses} columns={columns} />}
+      </Box>
     </Paper>
   );
 }

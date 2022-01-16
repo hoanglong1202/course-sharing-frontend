@@ -15,6 +15,13 @@ const useStyles = makeStyles((theme) => ({
   line: {
     maxHeight: 450,
   },
+
+  title: {
+    fontSize: theme.spacing(2.5),
+    margin: theme.spacing(0, 0, 1, 0),
+    color: theme.palette.tertiary.second,
+    fontWeight: 600,
+  },
 }));
 
 export default useStyles;

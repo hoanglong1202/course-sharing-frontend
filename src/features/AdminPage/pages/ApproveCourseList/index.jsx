@@ -248,7 +248,7 @@ function ApproveCourse(props) {
             Số khóa học đã duyệt:
           </Grid>
           <Grid item xs={12} sm={6}>
-           {approvedCourse}
+            {approvedCourse}
           </Grid>
 
           <Grid item xs={12} sm={6}>

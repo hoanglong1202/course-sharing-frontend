@@ -1,7 +1,6 @@
 import axios from 'axios';
 import StorageKeys from 'constants/storage-keys';
 
-
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_STATIC_HOST,
   headers: {
@@ -33,6 +32,26 @@ axiosClient.interceptors.response.use(
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+    // const { enqueueSnackbar } = useSnackbar();
+    const statusCode = error.response.status;
+    if (statusCode === 404) {
+      window.location.href = '/not-found';
+      return;
+    }
+    if (statusCode === 401) {
+      window.location.href = '/unauthorized';
+      return;
+    }
+    if (statusCode === 403) {
+      window.location.href = '/forbidden';
+      return;
+    }
+    if (statusCode === 500) {
+      // show notification
+      alert(error.message)
+      return;
+    };
+
     return Promise.reject(error);
   }
 );

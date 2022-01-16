@@ -7,6 +7,8 @@ import CreatorPage from 'features/CreatorPage';
 import AdminPage from 'features/AdminPage';
 import ProfilePage from 'features/ProfilePage';
 import Analysis from 'features/AnalysisPage';
+import Unauthorized from 'components/Unauthorized';
+import Forbidden from 'components/Forbidden';
 
 function Routing() {
   return (
@@ -18,7 +20,9 @@ function Routing() {
       <Route path="/profile/*" element={<ProfilePage />} />
       <Route path="/analysis" element={<Analysis />} />
 
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path="/not-found" element={<NotFoundPage />} />
+      <Route path="/unauthorized" element={<Unauthorized />} />
+      <Route path="/forbidden" element={<Forbidden />} />
     </Routes>
   );
 }
