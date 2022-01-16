@@ -56,7 +56,6 @@ function CourseDetail(props) {
   const handleNavigate = async () => {
     if (auth && currentUser.role === 'user') {
       await courseApi.addCourseRegister(courseId, currentUser.id);
-      return;
     }
 
     if (!auth && course.max_user && parseInt(course.max_user) > 0) {
