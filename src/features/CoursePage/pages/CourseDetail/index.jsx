@@ -113,7 +113,6 @@ function CourseDetail(props) {
       let result;
       if (!auth && !open) {
         dispatch(openDialog());
-        return;
       }
 
       if (!isFavourited && currentUser.role === 'user') {
