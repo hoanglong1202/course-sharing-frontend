@@ -1,6 +1,6 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import BlankCanvasIllustration from 'assets/images/blank_canvas.svg';
+import MyPersonalFiles from 'assets/images/my_personal_files.svg';
 import InputField from 'components/form-control/InputField';
 import SelectField from 'components/form-control/SelectField';
 import PropTypes from 'prop-types';
@@ -69,8 +69,8 @@ function AddLessonForm({ lessonTypes, lesson, onFormSubmit }) {
             <img
               style={{ width: '75%' }}
               className={classes.image}
-              src={BlankCanvasIllustration}
-              alt="Blank Canvas Illustration"
+              src={MyPersonalFiles}
+              alt="My Personal Files"
             />
           </Box>
         </Grid>
@@ -105,7 +105,7 @@ function AddLessonForm({ lessonTypes, lesson, onFormSubmit }) {
 
             <Box mt={2}>
               <Button onClick={() => navigate(-1)} variant="outlined">
-                Back
+                Quay lại
               </Button>
             </Box>
           </Box>

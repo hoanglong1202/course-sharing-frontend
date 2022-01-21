@@ -142,14 +142,14 @@ function ManageUser(props) {
     {
       field: 'name',
       headerName: 'Tên người dùng',
-      width: 200,
+      width: 300,
       headerAlign: 'center',
       align: 'center',
     },
     {
       field: 'email',
       headerName: 'Email',
-      width: 200,
+      width: 300,
       headerAlign: 'center',
       align: 'center',
     },

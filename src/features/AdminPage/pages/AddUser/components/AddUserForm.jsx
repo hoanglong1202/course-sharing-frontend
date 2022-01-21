@@ -1,6 +1,6 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import ConversationIllustration from 'assets/images/conversation.svg';
+import InformationTab from 'assets/images/information_tab.svg';
 import InputField from 'components/form-control/InputField';
 import PasswordField from 'components/form-control/PasswordField';
 import UploadField from 'components/form-control/UploadField';
@@ -11,6 +11,7 @@ import useStyles from '../../../styles';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { SUPPORTED_FORMATS } from 'constants/common';
+import { useNavigate } from 'react-router-dom';
 
 AddUserForm.propTypes = {
   onFormSubmit: PropTypes.func,
@@ -43,6 +44,7 @@ const schema = yup.object().shape({
 
 function AddUserForm({ onFormSubmit }) {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
@@ -64,13 +66,13 @@ function AddUserForm({ onFormSubmit }) {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
       <Grid container spacing={3} className={classes.firstStepContainer}>
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} md={7} className={classes.imgGrid}>
           <Box className={classes.imageHolder}>
             <img
               style={{ width: '75%' }}
               className={classes.image}
-              src={ConversationIllustration}
-              alt="ConversationIllustration"
+              src={InformationTab}
+              alt="Information Tab"
             />
           </Box>
         </Grid>
@@ -106,6 +108,10 @@ function AddUserForm({ onFormSubmit }) {
             >
               Submit
             </Button>
+
+            <Box mt={2}>
+              <Button onClick={() => navigate(-1)} variant="outlined">Quay lại</Button>
+            </Box>
           </Box>
         </Grid>
       </Grid>

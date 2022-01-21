@@ -10,6 +10,7 @@ import useStyles from '../../../styles';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { SUPPORTED_FORMATS } from 'constants/common';
+import { useNavigate } from 'react-router-dom';
 
 UpdateCreatorForm.propTypes = {
   creator: PropTypes.object,
@@ -54,6 +55,7 @@ const schema = yup.object().shape({
 
 function UpdateCreatorForm({ creator, onFormSubmit }) {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
@@ -119,6 +121,10 @@ function UpdateCreatorForm({ creator, onFormSubmit }) {
             >
               Cập nhập
             </Button>
+
+            <Box mt={2}>
+              <Button onClick={() => navigate(-1)} variant="outlined">Quay lại</Button>
+            </Box>
           </Box>
         </Grid>
       </Grid>

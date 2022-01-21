@@ -18,6 +18,12 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
   },
 
+  imgGrid: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   uploadLabel: {
     marginTop: theme.spacing(2),
   },

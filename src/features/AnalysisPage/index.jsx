@@ -10,7 +10,7 @@ import {
   LineElement,
   PointElement,
   Title,
-  Tooltip
+  Tooltip,
 } from 'chart.js';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -29,9 +29,9 @@ ChartJS.register(
 );
 
 const dynamicColors = () => {
-  var r = Math.floor(Math.random() * 255);
-  var g = Math.floor(Math.random() * 255);
-  var b = Math.floor(Math.random() * 255);
+  let r = Math.floor(Math.random() * 255);
+  let g = Math.floor(Math.random() * 255);
+  let b = Math.floor(Math.random() * 255);
   return 'rgb(' + r + ',' + g + ',' + b + ')';
 };
 
@@ -72,14 +72,14 @@ function Analysis(props) {
         label: '# of Viewed',
         data: courseView,
         fill: false,
-        borderColor: 'rgb(75, 192, 100)',
+        borderColor: 'rgb(65, 112, 192)',
         tension: 0.1,
       },
       {
         label: '# of Favourited',
         data: courseFavourited,
         fill: false,
-        borderColor: 'rgb(65, 112, 192)',
+        borderColor: '#FF0833',
         tension: 0.1,
       },
     ],
@@ -93,7 +93,7 @@ function Analysis(props) {
       },
       title: {
         display: true,
-        text: 'Thống kê khóa học của tác giả',
+        text: 'Thống kê lượng tương tác khóa học',
         position: 'bottom',
       },
     },
@@ -137,81 +137,87 @@ function Analysis(props) {
     {
       field: 'course_name',
       headerName: 'Tên khóa học',
-      width: 200,
+      width: 250,
       headerAlign: 'center',
       align: 'center',
     },
     {
       field: 'creator_name',
       headerName: 'Tên khóa học',
-      width: 200,
+      width: 250,
       headerAlign: 'center',
       align: 'center',
     },
     {
       field: 'viewed',
       headerName: 'Lượt xem',
-      width: 100,
+      width: 200,
       headerAlign: 'center',
       align: 'center',
     },
     {
       field: 'favourited',
       headerName: 'Yêu thích',
-      width: 100,
+      width: 200,
       headerAlign: 'center',
       align: 'center',
     },
     {
       field: 'total_lesson',
       headerName: 'Số bài học',
-      width: 100,
+      width: 200,
       headerAlign: 'center',
       align: 'center',
     },
   ];
 
   return (
-    <Paper elevation={2} className={classes.gridWrap}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={9}>
-          <Box className={classes.line}>
-            <Line data={courseLineChartData} options={chartOptions} />
-          </Box>
-        </Grid>
+    <Box>
+      <Typography className={classes.title}>Trang thống kê thông tin</Typography>
+      <Typography className={classes.description}>
+        Đây là nơi hiển thị biểu độ thống kê thông tin của website
+      </Typography>
 
-        <Grid item xs={12} sm={3}>
-          <Paper elevation={1}>
-            <Box className={classes.totalBox}>
-              <Typography
-                component="h2"
-                variant="h6"
-                color="primary"
-                gutterBottom
-              >
-                Tổng số
-              </Typography>
-              <Typography component="p" variant="h6">
-                {courseLessons} bài học
-              </Typography>
-              <Typography color="textSecondary">
-                vào thời điểm {moment(new Date()).format('DD - MM - YYYY')}
-              </Typography>
+      <Paper elevation={2} className={classes.gridWrap}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={9}>
+            <Box className={classes.line}>
+              <Line data={courseLineChartData} options={chartOptions} />
             </Box>
-          </Paper>
+          </Grid>
 
-          <Paper elevation={1}>
-            <Pie data={creatorPieChart} options={pieChartOptions} />
-            
-          </Paper>
+          <Grid item xs={12} sm={3}>
+            <Paper elevation={1}>
+              <Box className={classes.totalBox}>
+                <Typography
+                  component="h2"
+                  variant="h6"
+                  color="primary"
+                  gutterBottom
+                >
+                  Tổng số
+                </Typography>
+                <Typography component="p" variant="h6">
+                  {courseLessons} bài học
+                </Typography>
+                <Typography color="textSecondary">
+                  vào thời điểm {moment(new Date()).format('DD - MM - YYYY')}
+                </Typography>
+              </Box>
+            </Paper>
+
+            <Paper elevation={1}>
+              <Pie data={creatorPieChart} options={pieChartOptions} />
+            </Paper>
+          </Grid>
         </Grid>
-      </Grid>
 
-      <Typography className={classes.title}>Danh sách khóa học</Typography>
-      <Box style={{ height: 400, width: '100%' }}>
-        {!loading && <DataGrid rows={courses} columns={columns} />}
-      </Box>
-    </Paper>
+        <Typography className={classes.title}>Danh sách khóa học</Typography>
+        <Box style={{ height: 400, width: '100%' }}>
+          {!loading && <DataGrid rows={courses} columns={columns} />}
+        </Box>
+      </Paper>
+    </Box>
   );
 }
 

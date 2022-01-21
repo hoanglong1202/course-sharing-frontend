@@ -12,6 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { SUPPORTED_FORMATS } from 'constants/common';
 import SelectField from 'components/form-control/SelectField';
+import { useNavigate } from 'react-router-dom';
 
 UpdateCourseForm.propTypes = {
   course: PropTypes.object,
@@ -50,6 +51,7 @@ const schema = yup.object().shape({
 
 function UpdateCourseForm({ courseTypes, course, onFormSubmit }) {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
@@ -134,6 +136,12 @@ function UpdateCourseForm({ courseTypes, course, onFormSubmit }) {
             >
               Cập nhập
             </Button>
+
+            <Box mt={2}>
+              <Button onClick={() => navigate(-1)} variant="outlined">
+                Quay lại
+              </Button>
+            </Box>
           </Box>
         </Grid>
       </Grid>

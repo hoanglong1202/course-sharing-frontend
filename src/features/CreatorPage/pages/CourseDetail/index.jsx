@@ -73,17 +73,9 @@ function CourseDetail(props) {
     {
       field: 'lesson_name',
       headerName: 'Tên bài học',
-      width: 200,
+      width: 300,
       headerAlign: 'center',
-      // align: 'center',
     },
-    // {
-    //   field: 'description',
-    //   headerName: 'Mô tả',
-    //   width: 400,
-    //   headerAlign: 'center',
-    //   align: 'center',
-    // },
     {
       field: 'content',
       headerName: 'Link',
@@ -131,10 +123,11 @@ function CourseDetail(props) {
   return (
     <Box>
       <Typography className={classes.title}>
-        Chi tiết khóa học {course.course_name}
+        Trang thông tin chi tiết khóa học
       </Typography>
       <Typography className={classes.description}>
-        {course.description}
+        Đây là nơi hiển thị chi tiết khóa học và danh sách các bài học trong
+        khóa.
       </Typography>
 
       <Box mb={2} ml={1}>
@@ -181,13 +174,23 @@ function CourseDetail(props) {
       </Box>
 
       <Box mb={2}>
-        <Button variant="contained" size="small" onClick={() => navigate(`/creator/add-lesson/${id}`)}>
+        <Button
+          variant="contained"
+          size="small"
+          onClick={() => navigate(`/creator/add-lesson/${id}`)}
+        >
           Thêm bài học
         </Button>
       </Box>
 
       <Box style={{ height: 400, width: '100%' }}>
         {!loading && <DataGrid rows={lessonList} columns={columns} />}
+      </Box>
+
+      <Box mt={2}>
+        <Button onClick={() => navigate(-1)} variant="outlined">
+          Quay lại
+        </Button>
       </Box>
 
       <ConfirmDialog

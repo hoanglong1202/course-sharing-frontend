@@ -2,7 +2,7 @@ import { Button, Grid, Typography } from '@mui/material';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Box } from '@mui/system';
-import ConversationIllustration from 'assets/images/conversation.svg';
+import AdvancedCustomization from 'assets/images/advanced_customization.svg';
 import InputField from 'components/form-control/InputField';
 import PasswordField from 'components/form-control/PasswordField';
 import UploadField from 'components/form-control/UploadField';
@@ -11,6 +11,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import useStyles from '../../../styles';
 import { SUPPORTED_FORMATS } from 'constants/common';
+import { useNavigate } from 'react-router-dom';
 
 AddCreatorForm.propTypes = {
   onFormSubmit: PropTypes.func,
@@ -46,6 +47,7 @@ const schema = yup.object().shape({
 
 function AddCreatorForm({ onFormSubmit }) {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
@@ -73,8 +75,8 @@ function AddCreatorForm({ onFormSubmit }) {
             <img
               style={{ width: '75%' }}
               className={classes.image}
-              src={ConversationIllustration}
-              alt="ConversationIllustration"
+              src={AdvancedCustomization}
+              alt="Advanced Customization"
             />
           </Box>
         </Grid>
@@ -111,6 +113,9 @@ function AddCreatorForm({ onFormSubmit }) {
             >
               Submit
             </Button>
+            <Box mt={2}>
+              <Button onClick={() => navigate(-1)} variant="outlined">Quay lại</Button>
+            </Box>
           </Box>
         </Grid>
       </Grid>

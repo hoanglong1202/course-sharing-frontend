@@ -112,7 +112,7 @@ function UpdateLessonForm({ lessonTypes, lesson, onFormSubmit }) {
             </Button>
 
             <Box mt={2}>
-              <Button onClick={() => navigate(-1)} variant="outlined">Back</Button>
+              <Button onClick={() => navigate(-1)} variant="outlined">Quay lại</Button>
             </Box>
           </Box>
         </Grid>

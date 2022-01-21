@@ -124,28 +124,28 @@ function ManageCategory(props) {
     {
       field: 'id',
       headerName: 'ID',
-      width: 80,
+      width: 100,
       headerAlign: 'center',
       align: 'center',
     },
     {
       field: 'name',
       headerName: 'Tên danh mục',
-      width: 200,
+      width: 350,
       headerAlign: 'center',
       align: 'center',
     },
     {
       field: 'total',
       headerName: 'Số khóa học',
-      width: 100,
+      width: 300,
       headerAlign: 'center',
       align: 'center',
     },
     {
       field: 'isDeleted',
       headerName: 'Trạng thái',
-      width: 130,
+      width: 200,
       headerAlign: 'center',
       align: 'center',
       renderCell: (params) => {
@@ -156,7 +156,7 @@ function ManageCategory(props) {
       field: 'actions',
       type: 'actions',
       headerName: '',
-      width: 150,
+      width: 200,
       getActions: (params) => [
         <GridActionsCellItem
           icon={<DeleteIcon />}
@@ -187,17 +187,17 @@ function ManageCategory(props) {
       <Box mb={2} ml={1}>
         <Grid container>
           <Grid item xs={12} sm={6}>
-            Tổng số khóa học:
+            Tổng số danh mục:
           </Grid>
           <Grid item xs={12} sm={6}>
-            g
+            {types.length} danh mục
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            Số khóa học đã duyệt:
+            Số danh mục đã ẩn:
           </Grid>
           <Grid item xs={12} sm={6}>
-           g
+            {types.filter(x => x.isDeleted === 'true').length} danh mục
           </Grid>
         </Grid>
       </Box>
