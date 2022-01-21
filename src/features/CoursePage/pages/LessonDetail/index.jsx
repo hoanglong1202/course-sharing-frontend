@@ -263,7 +263,7 @@ function LessonDetail(props) {
       {!loading && commentList.length > 0 ? (
         commentList.map((item, index) => <Comments key={index} item={item} />)
       ) : (
-        <p>Khóa học này chưa có nhận xét nào</p>
+        <p>Bài học này chưa có bình luận nào</p>
       )}
     </Box>
   );

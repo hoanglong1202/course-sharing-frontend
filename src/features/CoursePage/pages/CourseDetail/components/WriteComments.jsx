@@ -111,7 +111,7 @@ function WriteComments({ onSubmit }) {
       <Box className={classes.commentBox}>
         <TextField
           className={classes.customTextField}
-          placeholder="What are your thoughts?"
+          placeholder="Bạn muốn nhận xét gì ở khóa học này?"
           fullWidth
           multiline
           rows={3}
@@ -132,7 +132,7 @@ function WriteComments({ onSubmit }) {
           </Box>
           {auth && (
             <Box className={classes.commentAs}>
-              Comment as <span className={classes.username}>{currentUser.username}</span>
+              Nhận xét dưới tên <span className={classes.username}>{currentUser.username}</span>
             </Box>
           )}
           <button
@@ -142,7 +142,7 @@ function WriteComments({ onSubmit }) {
               currentUser.role === 'creator' || currentUser.role === 'admin'
             }
           >
-            COMMENT
+            NHẬN XÉT
           </button>
         </Box>
       </Box>

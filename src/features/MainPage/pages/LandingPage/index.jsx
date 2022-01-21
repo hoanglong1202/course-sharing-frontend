@@ -91,14 +91,13 @@ function LandingPage(props) {
               </span>
             </Typography>
             <Typography className={classes.description}>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-              nisi ex nesciunt eveniet ipsam beatae quidem ratione quaerat
-              aperiam voluptatem
+              Điểm đến dành cho những người có niềm đam mê và nhu cầu dễ dàng tiếp cận các khóa học lập trình
+              đồng thời là nơi chia sẻ các kiến thức về lập trình dành cho các bạn sinh viên UTE.
             </Typography>
 
             <Box className={classes.customerContainer}>
               <Typography className={classes.customerTitle}>
-                OUR TRUSTED CUSTOMER
+                SẢN PHẨM ĐỒ ÁN THUỘC
               </Typography>
               <Box className={classes.logoContainer}>
                 <img src={UDN} alt="UDN" className={classes.logo} />
@@ -146,7 +145,7 @@ function LandingPage(props) {
       )}
 
       <Box className={classes.sectionContainer}>
-        <span className={classes.features}>Most Viewed</span>
+        <span className={classes.features}>Xem nhiều nhất</span>
         <Typography variant="h2" className={classes.title}>
           Khóa học{' '}
           <span className={clsx(classes.title, classes.strong)}>
@@ -167,7 +166,7 @@ function LandingPage(props) {
       </Box>
 
       <Box className={classes.sectionContainer}>
-        <span className={classes.features}>Most Favourited</span>
+        <span className={classes.features}>Yêu thích nhất</span>
         <Typography variant="h2" className={classes.title}>
           Khóa học{' '}
           <span className={clsx(classes.title, classes.strong)}>
@@ -187,21 +186,8 @@ function LandingPage(props) {
         </Grid>
       </Box>
 
-      {/* <Box className={classes.sectionContainer}>
-        <span className={classes.features}>features</span>
-        <Typography variant="h2" className={classes.title}>
-          We have Amazing{' '}
-          <span className={clsx(classes.title, classes.strong)}>Services</span>
-        </Typography>
-        <p className={clsx(classes.description, classes.sectionDescription)}>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam nisi
-          ex nesciunt eveniet ipsam beatae quidem ratione quaerat aperiam
-          voluptatem
-        </p>
-      </Box> */}
-
       <Box className={classes.sectionContainer}>
-        <span className={classes.features}>All courses</span>
+        <span className={classes.features}>Toàn bộ khóa học</span>
       </Box>
 
       <Box mt={3} mb={2}>

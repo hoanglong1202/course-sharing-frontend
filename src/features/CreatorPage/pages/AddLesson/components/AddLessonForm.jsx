@@ -78,8 +78,8 @@ function AddLessonForm({ lessonTypes, lesson, onFormSubmit }) {
           <Box>
             <Typography className={classes.title}>Thêm bài học</Typography>
             <Typography className={classes.description}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-              possimus architecto sed ab
+              Đây là nơi thêm bài bài học mới của bạn. 
+              Hãy đảm bảo rằng các thông tin được nhập vào là hợp lệ và bạn phải tự chịu trách nhiệm với bài học của bản thân
             </Typography>
             <InputField form={form} name="lesson_name" label="Tên khóa học" />
             <InputField form={form} name="description" label="Miêu tả" />

@@ -81,11 +81,10 @@ function AddCreatorForm({ onFormSubmit }) {
         <Grid item xs={12} md={5}>
           <Box>
             <Typography className={classes.title}>
-              Thêm creator
+              Thêm người chia sẻ
             </Typography>
             <Typography className={classes.description}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-              possimus architecto sed ab
+              Đây là trang thêm mới với các thông tin của người chia sẻ ở đây.
             </Typography>
             <InputField form={form} name="email" label="Email" />
             <InputField form={form} name="username" label="Tên người dùng" />

@@ -80,8 +80,7 @@ function AddUserForm({ onFormSubmit }) {
               Thêm user
             </Typography>
             <Typography className={classes.description}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-              possimus architecto sed ab
+              Đây là trang thêm tài khoản mới với những thông tin của người dùng.
             </Typography>
             <InputField form={form} name="email" label="Email" />
             <InputField form={form} name="username" label="Tên người dùng" />

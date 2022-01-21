@@ -87,8 +87,7 @@ function UpdateLessonForm({ lessonTypes, lesson, onFormSubmit }) {
               Cập nhập thông tin bài học
             </Typography>
             <Typography className={classes.description}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-              possimus architecto sed ab
+              Đây là nơi cập nhập thông tin bài học của bạn. Bạn có thể xem chi tiết hoặc thay đổi thông tin bài học ở đây.
             </Typography>
             <InputField form={form} name="lesson_name" label="Tên khóa học" />
             <InputField form={form} name="description" label="Miêu tả" />

@@ -89,11 +89,10 @@ function UpdateCreatorForm({ creator, onFormSubmit }) {
         <Grid item xs={12} md={5}>
           <Box>
             <Typography className={classes.title}>
-              Cập nhập thông tin creator
+              Cập nhập thông tin người chia sẻ
             </Typography>
             <Typography className={classes.description}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-              possimus architecto sed ab
+              Đây là xem chi tiết hoặc bạn có thể cập nhập thông tin người chia sẻ ở đây.
             </Typography>
             <InputField form={form} name="email" label="Email" />
             <InputField form={form} name="username" label="Tên người dùng" />

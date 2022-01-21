@@ -184,8 +184,7 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
                 Tạo thông tin khóa học
               </Typography>
               <Typography className={classes.description}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-                possimus architecto sed ab
+                Đây là nơi để bạn chia sẻ khóa học của bản thân. Bắt đầu với việc thêm thông tin cơ bản của khóa học ở đây.
               </Typography>
               <InputField form={form} name="course_name" label="Tên khóa học" />
               <InputField form={form} name="description" label="Miêu tả" />
@@ -194,7 +193,7 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
                   <QuantityField
                     form={form}
                     name="max_user"
-                    label="Giới hạn người dùng (optional)"
+                    label="Giới hạn người dùng (tùy chọn)"
                   />
                   <Box className={classes.lessonField}>
                     <SelectField
@@ -246,8 +245,7 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
               Thêm bài học của bạn
             </Typography>
             <Typography className={classes.description}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-              possimus architecto sed ab
+              Hãy thêm các bài học trong khóa học của bạn ở đây
             </Typography>
             {fields.map((field, index) => (
               <Box key={field.id} className={classes.lessonFieldContainer}>
@@ -304,13 +302,13 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
                     color="error"
                     onClick={() => remove(index)}
                   >
-                    Delete
+                    Xóa
                   </Button>
                 </Box>
               </Box>
             ))}
             <Button variant="outlined" onClick={addLessonField}>
-              Add Lesson
+              Thêm bài học
             </Button>
           </Grid>
 
@@ -337,8 +335,7 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
               Kiểm tra thông tin khóa học
             </Typography>
             <Typography className={classes.description}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-              possimus architecto sed ab
+              Các bước đã gần hoàn thành, bạn hãy kiếm tra lại thông tin khóa học của mình.
             </Typography>
             <Grid container>
               <Grid item xs={12} sm={6}>
@@ -388,11 +385,11 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
       {activeStep === steps.length ? (
         <>
           <Typography className={classes.title}>
-            All steps completed - you&apos;re finished
+            Các bước đã hoàn thành - bạn có thể tạo khóa học của mình và chờ Admin phê duyệt
           </Typography>
           <Typography className={classes.description}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-            possimus architecto sed ab
+            Sau khi được tạo trên hệ thống, admin sẽ kiểm tra và phê duyệt khóa học. 
+            Bạn sẽ nhận được mail mới khi khóa học của bạn được phê duyệt
           </Typography>
           <Box className={classes.imageHolder}>
             <img
@@ -408,7 +405,7 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
               onClick={handleBackStep}
               sx={{ mr: 1 }}
             >
-              Back
+              Quay lại
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
             <Box>
@@ -417,7 +414,7 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
                 disabled={activeStep !== steps.length}
                 type="submit"
               >
-                SUBMIT
+                Tạo khóa học
               </Button>
             </Box>
           </Box>
@@ -431,12 +428,12 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
               onClick={handleBackStep}
               sx={{ mr: 1 }}
             >
-              Back
+              Quay lại
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
 
             <Button onClick={handleNextStep}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+              {activeStep === steps.length - 1 ? 'Hoàn thành' : 'Tiếp theo'}
             </Button>
           </Box>
         </>

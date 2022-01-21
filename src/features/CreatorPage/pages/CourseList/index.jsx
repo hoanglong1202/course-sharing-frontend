@@ -164,8 +164,7 @@ function CourseList(props) {
     <Box>
       <Typography className={classes.title}>Khóa học của bạn</Typography>
       <Typography className={classes.description}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-        possimus architecto sed ab
+        Đây là danh sách khóa học của bạn. Bạn có thể cập nhập thông tin khóa học hoặc các bài học ở đây
       </Typography>
       <Box style={{ height: 400, width: '100%' }}>
         {!loading && <DataGrid rows={courseList} columns={columns} />}

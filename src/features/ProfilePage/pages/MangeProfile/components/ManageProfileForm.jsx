@@ -89,8 +89,7 @@ function ManageProfileForm({ profile, onFormSubmit }) {
         <Grid item xs={6}>
           <Typography className={classes.title}>Trang cá nhân</Typography>
           <Typography className={classes.description}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-            possimus architecto sed ab
+            Đây là nơi bạn xem thông tin tài khoản. Bạn có thể thay đổi nội dung thông tin nếu muốn.
           </Typography>
 
           <InputField form={form} name="email" label="Email" disabled={true} />
