@@ -27,10 +27,10 @@ function Register(props) {
       }
 
       //show Snackbar
-      enqueueSnackbar("Register successful!", { variant: "success" });
+      enqueueSnackbar("Đăng ký tài khoản thành công!", { variant: "success" });
     } catch (error) {
       console.log("Some errors occer: " + JSON.stringify(error));
-      enqueueSnackbar(error.message, { variant: "error" });
+      enqueueSnackbar("Đăng ký tài khoản thất bại!", { variant: "error" });
     }
   };
 

@@ -26,10 +26,10 @@ function Login(props) {
       }
 
       //show Snackbar
-      enqueueSnackbar("Login successful!", { variant: "success" });
+      enqueueSnackbar("Đăng nhập tài khoản thành công!", { variant: "success" });
     } catch (error) {
       console.log("Some errors occer: " + JSON.stringify(error));
-      enqueueSnackbar(error.message, { variant: "error" });
+      enqueueSnackbar("Đăng nhập tài khoản thất bại!", { variant: "error" });
     }
   };
 
