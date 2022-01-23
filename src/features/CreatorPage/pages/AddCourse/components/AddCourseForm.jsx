@@ -385,7 +385,7 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
       {activeStep === steps.length ? (
         <>
           <Typography className={classes.title}>
-            Các bước đã hoàn thành - bạn có thể tạo khóa học của mình và chờ Admin phê duyệt
+            Các bước đã hoàn thành - bạn có thể tạo khóa học của mình.
           </Typography>
           <Typography className={classes.description}>
             Sau khi được tạo trên hệ thống, admin sẽ kiểm tra và phê duyệt khóa học. 

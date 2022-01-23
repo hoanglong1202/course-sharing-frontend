@@ -243,13 +243,13 @@ function ManageUser(props) {
 
       <Box component="span">
         <Button variant="contained" size="small" onClick={() => navigate("/admin/add-user")}>
-          Thêm user
+          Thêm Người dùng
         </Button>
       </Box>
 
       <Box component="span" ml={1}>
         <Button variant="contained" size="small" onClick={() => navigate("/admin/add-creator")}>
-          Thêm creator
+          Thêm Người chia sẻ
         </Button>
       </Box>
 
@@ -258,8 +258,8 @@ function ManageUser(props) {
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleTabChange}>
               <Tab label="Tất cả" value="1" />
-              <Tab label="Users" value="2" />
-              <Tab label="Creators" value="3" />
+              <Tab label="Người dùng" value="2" />
+              <Tab label="Người chia sẻ" value="3" />
             </TabList>
           </Box>
         </TabContext>

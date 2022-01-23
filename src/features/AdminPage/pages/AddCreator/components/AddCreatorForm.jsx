@@ -111,7 +111,7 @@ function AddCreatorForm({ onFormSubmit }) {
               variant="contained"
               type="submit"
             >
-              Submit
+              THÊM MỚI
             </Button>
             <Box mt={2}>
               <Button onClick={() => navigate(-1)} variant="outlined">Quay lại</Button>

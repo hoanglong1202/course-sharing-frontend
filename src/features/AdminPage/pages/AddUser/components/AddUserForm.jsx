@@ -106,7 +106,7 @@ function AddUserForm({ onFormSubmit }) {
               variant="contained"
               type="submit"
             >
-              Submit
+              THÊM MỚI
             </Button>
 
             <Box mt={2}>
