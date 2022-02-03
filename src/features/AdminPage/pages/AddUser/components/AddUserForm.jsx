@@ -79,7 +79,7 @@ function AddUserForm({ onFormSubmit }) {
         <Grid item xs={12} md={5}>
           <Box>
             <Typography className={classes.title}>
-              Thêm user
+              Thêm người dùng
             </Typography>
             <Typography className={classes.description}>
               Đây là trang thêm tài khoản mới với những thông tin của người dùng.

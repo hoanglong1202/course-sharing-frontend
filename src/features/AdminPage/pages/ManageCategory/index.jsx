@@ -224,7 +224,7 @@ function ManageCategory(props) {
         isOpen={openUpdateDialog}
         handleClose={handleCloseUpdateDialog}
         onSubmit={isUpdate ? handleUpdate : handleAddType}
-        title={`Bạn có muốn ${isUpdate ? `thay đổi trạng thái danh mục ID` : `thêm mới danh mục`}`}
+        title={`Bạn có muốn ${isUpdate ? `cập nhập danh mục ID` : `thêm mới danh mục`}`}
         item={isUpdate ? selectedId : ''}
       />
     </Box>
