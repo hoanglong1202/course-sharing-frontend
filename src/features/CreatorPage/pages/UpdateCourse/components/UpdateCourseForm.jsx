@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, CircularProgress, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import ConversationIllustration from 'assets/images/conversation.svg';
 import InputField from 'components/form-control/InputField';
@@ -91,7 +91,8 @@ function UpdateCourseForm({ courseTypes, course, onFormSubmit }) {
               Cập nhập thông tin khóa học
             </Typography>
             <Typography className={classes.description}>
-              Đây là nơi cập nhập thông tin khóa học của bạn. Bạn có thể xem chi tiết hoặc thay đổi thông tin khóa học ở đây.
+              Đây là nơi cập nhập thông tin khóa học của bạn. Bạn có thể xem chi
+              tiết hoặc thay đổi thông tin khóa học ở đây.
             </Typography>
             <InputField form={form} name="course_name" label="Tên khóa học" />
             <InputField form={form} name="description" label="Miêu tả" />
@@ -132,7 +133,10 @@ function UpdateCourseForm({ courseTypes, course, onFormSubmit }) {
               className={classes.updateButton}
               variant="contained"
               type="submit"
-              disabled={!form.formState.isDirty}
+              startIcon={
+                form.formState.isSubmitting && <CircularProgress size={20} />
+              }
+              disabled={!form.formState.isDirty || form.formState.isSubmitting}
             >
               Cập nhập
             </Button>

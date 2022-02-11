@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, CircularProgress, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import InformationTab from 'assets/images/information_tab.svg';
 import InputField from 'components/form-control/InputField';
@@ -105,6 +105,10 @@ function AddUserForm({ onFormSubmit }) {
               className={classes.updateButton}
               variant="contained"
               type="submit"
+              startIcon={
+                form.formState.isSubmitting && <CircularProgress size={20} />
+              }
+              disabled={!form.formState.isDirty || form.formState.isSubmitting}
             >
               THÊM MỚI
             </Button>

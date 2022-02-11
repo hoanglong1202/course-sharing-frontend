@@ -1,5 +1,7 @@
 import {
+  Alert,
   Button,
+  CircularProgress,
   Grid,
   Step,
   StepLabel,
@@ -184,7 +186,8 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
                 Tạo thông tin khóa học
               </Typography>
               <Typography className={classes.description}>
-                Đây là nơi để bạn chia sẻ khóa học của bản thân. Bắt đầu với việc thêm thông tin cơ bản của khóa học ở đây.
+                Đây là nơi để bạn chia sẻ khóa học của bản thân. Bắt đầu với
+                việc thêm thông tin cơ bản của khóa học ở đây.
               </Typography>
               <InputField form={form} name="course_name" label="Tên khóa học" />
               <InputField form={form} name="description" label="Miêu tả" />
@@ -335,7 +338,8 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
               Kiểm tra thông tin khóa học
             </Typography>
             <Typography className={classes.description}>
-              Các bước đã gần hoàn thành, bạn hãy kiếm tra lại thông tin khóa học của mình.
+              Các bước đã gần hoàn thành, bạn hãy kiếm tra lại thông tin khóa
+              học của mình.
             </Typography>
             <Grid container>
               <Grid item xs={12} sm={6}>
@@ -388,9 +392,18 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
             Các bước đã hoàn thành - bạn có thể tạo khóa học của mình.
           </Typography>
           <Typography className={classes.description}>
-            Sau khi được tạo trên hệ thống, admin sẽ kiểm tra và phê duyệt khóa học. 
-            Bạn sẽ nhận được mail mới khi khóa học của bạn được phê duyệt
+            Sau khi được tạo trên hệ thống, admin sẽ kiểm tra và phê duyệt khóa
+            học. Bạn sẽ nhận được mail mới khi khóa học của bạn được phê duyệt
           </Typography>
+
+          {!form.formState.isValid && (
+            <Box mb={2}>
+              <Alert severity="error">
+                Có lỗi xảy ra - xin hãy kiểm tra lại!
+              </Alert>
+            </Box>
+          )}
+
           <Box className={classes.imageHolder}>
             <img
               className={classes.imageSubmit}
@@ -411,8 +424,13 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
             <Box>
               <Button
                 variant="outlined"
-                disabled={activeStep !== steps.length}
+                disabled={
+                  activeStep !== steps.length || form.formState.isSubmitting
+                }
                 type="submit"
+                startIcon={
+                  form.formState.isSubmitting && <CircularProgress size={20} />
+                }
               >
                 Tạo khóa học
               </Button>
