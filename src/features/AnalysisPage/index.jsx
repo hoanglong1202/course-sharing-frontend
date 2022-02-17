@@ -69,14 +69,14 @@ function Analysis(props) {
     labels: courseName,
     datasets: [
       {
-        label: '# of Viewed',
+        label: 'Lượt xem',
         data: courseView,
         fill: false,
         borderColor: 'rgb(65, 112, 192)',
         tension: 0.1,
       },
       {
-        label: '# of Favourited',
+        label: 'Lượt yêu thích',
         data: courseFavourited,
         fill: false,
         borderColor: '#FF0833',

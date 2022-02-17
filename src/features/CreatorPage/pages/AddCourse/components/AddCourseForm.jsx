@@ -275,18 +275,6 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
                   />
                 </Box>
 
-                <Box
-                  className={clsx(classes.lessonField, classes.contentField)}
-                >
-                  <InputFieldArray
-                    form={form}
-                    name={`lesson.${index}.content`}
-                    label="Nội dung"
-                    arrIndex={index}
-                    subName="content"
-                  />
-                </Box>
-
                 <Box className={classes.lessonField}>
                   <SelectFieldArray
                     form={form}
@@ -296,6 +284,18 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
                     disable={false}
                     arrIndex={index}
                     subName="lesson_types_id"
+                  />
+                </Box>
+
+                <Box
+                  className={clsx(classes.lessonField, classes.contentField)}
+                >
+                  <InputFieldArray
+                    form={form}
+                    name={`lesson.${index}.content`}
+                    label="Nội dung"
+                    arrIndex={index}
+                    subName="content"
                   />
                 </Box>
 
@@ -396,7 +396,7 @@ function AddCourseForm({ courseTypes, types, onFormSubmit }) {
             học. Bạn sẽ nhận được mail mới khi khóa học của bạn được phê duyệt
           </Typography>
 
-          {!form.formState.isValid && (
+          {form.formState.isValid && !form.formState.isValid && (
             <Box mb={2}>
               <Alert severity="error">
                 Có lỗi xảy ra - xin hãy kiểm tra lại!

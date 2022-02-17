@@ -145,11 +145,11 @@ function LandingPage(props) {
       )}
 
       <Box className={classes.sectionContainer}>
-        <span className={classes.features}>Xem nhiều nhất</span>
+        <span className={classes.features}>Yêu thích nhất</span>
         <Typography variant="h2" className={classes.title}>
           Khóa học{' '}
           <span className={clsx(classes.title, classes.strong)}>
-            xem nhiều nhất
+            yêu thích nhất
           </span>
         </Typography>
       </Box>
@@ -166,11 +166,11 @@ function LandingPage(props) {
       </Box>
 
       <Box className={classes.sectionContainer}>
-        <span className={classes.features}>Yêu thích nhất</span>
+        <span className={classes.features}>Xem nhiều nhất</span>
         <Typography variant="h2" className={classes.title}>
           Khóa học{' '}
           <span className={clsx(classes.title, classes.strong)}>
-            yêu thích nhất
+            xem nhiều nhất
           </span>
         </Typography>
       </Box>

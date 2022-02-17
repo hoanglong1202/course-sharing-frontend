@@ -81,7 +81,7 @@ function AddLessonForm({ lessonTypes, lesson, onFormSubmit }) {
               Đây là nơi thêm bài bài học mới của bạn. 
               Hãy đảm bảo rằng các thông tin được nhập vào là hợp lệ và bạn phải tự chịu trách nhiệm với bài học của bản thân
             </Typography>
-            <InputField form={form} name="lesson_name" label="Tên khóa học" />
+            <InputField form={form} name="lesson_name" label="Tên bài học" />
             <InputField form={form} name="description" label="Miêu tả" />
             <Box className={classes.lessonField}>
               <SelectField
