@@ -69,7 +69,7 @@ function ManageProfile(props) {
       }
 
       if (result.success) {
-        enqueueSnackbar('Update user profile successfully!', {
+        enqueueSnackbar('Cập nhập thông tin thành công!', {
           variant: 'success',
         });
 

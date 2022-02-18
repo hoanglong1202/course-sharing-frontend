@@ -63,7 +63,7 @@ function AddCourse(props) {
 
       const result = await courseApi.addCourse(formData);
       if (result.success) {
-        enqueueSnackbar('Change course status successfully!', {
+        enqueueSnackbar('Thêm khóa học thành công!', {
           variant: 'success',
         });
 

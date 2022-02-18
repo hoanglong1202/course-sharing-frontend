@@ -27,7 +27,7 @@ function AddCreator(props) {
       const result =  await adminApi.addCreator(formData);
 
       if (result.success) {
-        enqueueSnackbar('Add user successfully!', {
+        enqueueSnackbar('Thêm người chia sẻ thành công!', {
           variant: 'success',
         });
 

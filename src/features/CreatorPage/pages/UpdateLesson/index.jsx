@@ -47,7 +47,7 @@ function UpdateLesson(props) {
       const result = await courseApi.updateLesson(courseId, lessonId, temp);
 
       if (result.success) {
-        enqueueSnackbar('Change lesson status successfully!', {
+        enqueueSnackbar('Cập nhập thông tin thành công!', {
           variant: 'success',
         });
 

@@ -85,7 +85,7 @@ function ManageCategory(props) {
       const result = await adminApi.updateCourseType(newType);
 
       if (result.success) {
-        enqueueSnackbar('Update type successfully!', {
+        enqueueSnackbar('Cập nhập danh mục thành công!', {
           variant: 'success',
         });
 
@@ -106,7 +106,7 @@ function ManageCategory(props) {
       const result = await adminApi.addCourseType(newType);
 
       if (result.success) {
-        enqueueSnackbar('Add type successfully!', {
+        enqueueSnackbar('Thêm danh mục thành công!', {
           variant: 'success',
         });
 

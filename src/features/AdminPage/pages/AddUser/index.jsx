@@ -26,7 +26,7 @@ function AddUser(props) {
       const result =  await authApi.register(formData);
 
       if (result.success) {
-        enqueueSnackbar('Add user successfully!', {
+        enqueueSnackbar('Thêm người dùng thành công!', {
           variant: 'success',
         });
 

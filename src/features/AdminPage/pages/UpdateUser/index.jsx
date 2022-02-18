@@ -42,7 +42,7 @@ function UpdateUser(props) {
       const result =  await userApi.updateUser(formData);
 
       if (result.success) {
-        enqueueSnackbar('Update user profile successfully!', {
+        enqueueSnackbar('Cập nhập thông tin thành công!', {
           variant: 'success',
         });
 

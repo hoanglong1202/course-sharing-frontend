@@ -43,7 +43,7 @@ function UpdateCreator(props) {
       const result =  await creatorApi.updateCreator(formData);
 
       if (result.success) {
-        enqueueSnackbar('Update user profile successfully!', {
+        enqueueSnackbar('Cập nhập thông tin thành công!', {
           variant: 'success',
         });
 

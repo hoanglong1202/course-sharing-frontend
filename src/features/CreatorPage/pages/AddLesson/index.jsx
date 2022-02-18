@@ -44,7 +44,7 @@ function AddLesson(props) {
       const result = await courseApi.addSingleLesson(temp);
 
       if (result.success) {
-        enqueueSnackbar('Add lesson successfully!', {
+        enqueueSnackbar('Thêm bài học thành công!', {
           variant: 'success',
         });
 

@@ -97,7 +97,7 @@ function ManageUser(props) {
       }
 
       if (result.success) {
-        enqueueSnackbar('Change user status successfully!', {
+        enqueueSnackbar('Thay đổi trạng thái người dùng thành công!', {
           variant: 'success',
         });
 

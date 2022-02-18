@@ -50,7 +50,7 @@ function UpdateCourse(props) {
       const result =  await courseApi.updateCourse(formData);
 
       if (result.success) {
-        enqueueSnackbar('Change course status successfully!', {
+        enqueueSnackbar('Cập nhập thông tin thành công!', {
           variant: 'success',
         });
 
