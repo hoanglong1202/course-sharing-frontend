@@ -123,7 +123,7 @@ function LessonDetail(props) {
         const result = await courseApi.addLessonComment(data);
 
         if (result.success) {
-          enqueueSnackbar('Comment successful!', { variant: 'success' });
+          enqueueSnackbar('Bình luận thành công!', { variant: 'success' });
 
           // refresh comment
           const { dataObj: commentList } = await courseApi.getLessonComment(

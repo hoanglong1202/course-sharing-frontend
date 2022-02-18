@@ -119,7 +119,7 @@ function CourseDetail(props) {
         result = await userApi.addUserFavourite(courseId, currentUser.id);
 
         if (result.success) {
-          enqueueSnackbar('Add Favourite successful!', { variant: 'success' });
+          enqueueSnackbar('Yêu thích thành công!', { variant: 'success' });
         }
       }
 
@@ -127,7 +127,7 @@ function CourseDetail(props) {
         result = await userApi.removeUserFavourite(courseId, currentUser.id);
 
         if (result.success) {
-          enqueueSnackbar('Unfavourite successful!', { variant: 'success' });
+          enqueueSnackbar('Bỏ thích thành công!', { variant: 'success' });
         }
       }
 
@@ -163,7 +163,7 @@ function CourseDetail(props) {
         const result = await courseApi.addCourseRating(ratingData);
 
         if (result.success) {
-          enqueueSnackbar('Review successful!', { variant: 'success' });
+          enqueueSnackbar('Nhận xét thành công!', { variant: 'success' });
 
           // refresh comment
           const { dataObj: list } = await courseApi.getCourseRating(courseId);
